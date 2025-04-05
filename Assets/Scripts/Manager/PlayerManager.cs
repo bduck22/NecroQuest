@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -13,5 +14,8 @@ public class PlayerManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public GameObject SeletedUnit;
+    public Unit[] Units;
+    public Unit SeletedUnit;
+
+    public List<int> SeletedUnits;
 }

@@ -1,34 +1,49 @@
 using UnityEngine;
 
+public class Units : Unit
+{
+
+}
 public class UnitManager : MonoBehaviour
 {
-    public static UnitManager instance;
+    [SerializeField] Transform DragOb;
+    Unit Unit;
+
+    Vector2 mouseposition;
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Unit = PlayerManager.instance.SeletedUnit;
     }
     private void Update()
     {
-        if (PlayerManager.instance.SeletedUnit&&Input.GetMouseButtonDown(1))
+        Vector2 nowmouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Unit && Input.GetMouseButtonDown(1))
         {
-            PlayerManager.instance.SeletedUnit.GetComponent<Unit>().TargetWid = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            PlayerManager.instance.SeletedUnit.GetComponent<Unit>().Move = true;
+            Unit.TargetWid = nowmouse;
+            Unit.Move = true;
+            Unit = null;
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit2D ray = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            mouseposition = nowmouse;
+            RaycastHit2D ray = Physics2D.Raycast(nowmouse, Vector2.zero);
             if (ray)
             {
-                PlayerManager.instance.SeletedUnit = ray.transform.gameObject;
+                Unit = ray.transform.GetComponent<Unit>();
             }
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            if (mouseposition != nowmouse)
+            {
+                DragOb.gameObject.SetActive(true);
+                DragOb.position = (mouseposition + nowmouse) / 2;
+                DragOb.localScale = new Vector2(Mathf.Abs(nowmouse.x- mouseposition.x ), Mathf.Abs(nowmouse.y- mouseposition.y ));
+            }
+        }else if (Input.GetMouseButtonUp(0))
+        {
+            DragOb.gameObject.SetActive(false);
         }
     }
 }

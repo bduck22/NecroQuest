@@ -4,10 +4,14 @@ public class Unit : MonoBehaviour
 {
     public Vector2 TargetWid;
     public bool Move;
+
     public float Speed;
+    public float AttackSpeed;
+    public float Hp;
+    public float Damage;
+    public float morale;
     void Start()
     {
-        
     }
     void Update()
     {
