@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class DragSelect : MonoBehaviour
 {
+    public bool Close;
     void Start()
     {
         
@@ -21,7 +22,7 @@ public class DragSelect : MonoBehaviour
     {
         if (collision.CompareTag("Unit"))
         {
-            PlayerManager.instance.SeletedUnits.Remove(int.Parse(collision.name));
+            if(!Close) PlayerManager.instance.SeletedUnits.Remove(int.Parse(collision.name));
         }
     }
 }
