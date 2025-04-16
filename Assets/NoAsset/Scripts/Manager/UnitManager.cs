@@ -10,9 +10,6 @@ public class UnitManager : MonoBehaviour
     [SerializeField] Unit Unit;
 
     Vector2 mouseposition;
-    private void Awake()
-    {
-    }
     private void Update()
     {
         Vector2 nowmouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);

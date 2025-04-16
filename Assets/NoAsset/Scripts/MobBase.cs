@@ -1,15 +1,26 @@
 using UnityEngine;
 
+public enum UnitTargetType
+{
+    Close,
+    Far,
+    LowHp,
+    Provo
+}
 public class MobBase : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float Hp;
+    public float Speed;
+    public float Damage;
+
     void Start()
     {
         
     }
-
-    // Update is called once per frame
     void Update()
+    {
+    }
+    private void OnCollisionStay2D(Collision2D collision)
     {
         
     }
