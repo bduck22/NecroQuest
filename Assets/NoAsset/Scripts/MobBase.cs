@@ -4,8 +4,7 @@ public enum UnitTargetType
 {
     Close,
     Far,
-    LowHp,
-    Provo
+    LowHp
 }
 public class MobBase : MonoBehaviour
 {
