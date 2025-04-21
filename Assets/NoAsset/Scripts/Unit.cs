@@ -31,7 +31,7 @@ public class Unit : MonoBehaviour
 
     public Transform TargetUnit;
 
-    [SerializeField]private float AttackTime;
+    private float AttackTime;
     void Start()
     {
     }
@@ -39,7 +39,7 @@ public class Unit : MonoBehaviour
     {
         if(AttackTime < 1)
         {
-            AttackTime += AttackSpeed * Time.deltaTime;
+            AttackTime = AttackSpeed * Time.deltaTime;
         }
         else
         {

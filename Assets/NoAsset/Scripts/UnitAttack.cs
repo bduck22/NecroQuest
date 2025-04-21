@@ -45,11 +45,13 @@ public class UnitAttack : MonoBehaviour
                     }
                 }
                 break;
+            case UnitTargetType.Provo: //µµ¹ß
+                break;
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.transform == Unit.TargetUnit)
+        if(collision == Unit.TargetUnit)
         {
             Unit.TargetUnit = null;
         }
