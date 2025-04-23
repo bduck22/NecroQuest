@@ -31,7 +31,8 @@ public class Unit : MonoBehaviour
 
     public Transform TargetUnit;
 
-    [SerializeField]private float AttackTime;
+    private float AttackTime;
+    public ParticleSystem AttackParticle;
     void Start()
     {
     }
@@ -50,6 +51,7 @@ public class Unit : MonoBehaviour
             AttackTime = 0;
             Attack();
         }
+        else AttackParticle.gameObject.SetActive(false);
         if (Move)
         {
             if ((Vector2)transform.position != TargetWid)
@@ -61,7 +63,7 @@ public class Unit : MonoBehaviour
     }
     void Attack()
     {
-        Debug.Log("°ø°ÝÇÔ");
+        AttackParticle.gameObject.SetActive(true);
     }
     IEnumerator Invining()
     {

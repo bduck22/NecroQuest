@@ -289,6 +289,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 17476305}
+  - {fileID: 490168906}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &172411570
@@ -353,7 +354,7 @@ MonoBehaviour:
   Invin: 0
   InvinTime: 1
   TargetUnit: {fileID: 0}
-  AttackTime: 0
+  AttackParticle: {fileID: 417672446}
 --- !u!50 &172411573
 Rigidbody2D:
   serializedVersion: 5
@@ -470,15 +471,27 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 172411569}
     m_Modifications:
     - target: {fileID: 6710139492206580329, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.07
+      value: 0.059999943
       objectReference: {fileID: 0}
     - target: {fileID: 6710139492206580329, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.76
+      value: -0.120000005
       objectReference: {fileID: 0}
     - target: {fileID: 6710139492206580329, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
       propertyPath: m_LocalPosition.z
@@ -490,11 +503,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6710139492206580329, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6710139492206580329, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6710139492206580329, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
       propertyPath: m_LocalRotation.z
@@ -512,9 +525,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6710139492206580332, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
       propertyPath: m_Name
       value: CFXR4 Sword Trail PLAIN (360 Spiral)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6710139492206580334, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
       propertyPath: looping
@@ -530,7 +551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6710139492206580334, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6710139492206580334, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -556,6 +577,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 490168903}
   m_SourcePrefab: {fileID: 100100000, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+--- !u!198 &417672446 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580334, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+  m_PrefabInstance: {fileID: 417672445}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &477075235
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,7 +627,7 @@ MonoBehaviour:
   Invin: 0
   InvinTime: 0
   TargetUnit: {fileID: 0}
-  AttackTime: 0
+  AttackParticle: {fileID: 0}
 --- !u!70 &477075237
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -787,14 +813,19 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.01805377, y: 3.0504305}
-      - {x: -1.6077249, y: 2.7249985}
-      - {x: -2.7490063, y: 1.5941722}
-      - {x: -3.098864, y: -0.73542094}
-      - {x: -1.8444469, y: -2.4937758}
-      - {x: 0.012454748, y: -3.0433733}
+    - - {x: 0.01805377, y: 1.0371239}
+      - {x: -0.46783853, y: 0.9485513}
+      - {x: -0.9079151, y: 0.45499706}
+      - {x: -1.0299351, y: -0.186261}
+      - {x: -0.59287214, y: -0.8590667}
+      - {x: 0.012454748, y: -0.9999869}
       - {x: -0.00522089, y: 0.71484554}
   m_UseDelaunayMesh: 0
+--- !u!4 &490168906 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+  m_PrefabInstance: {fileID: 417672445}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,7 +1155,7 @@ MonoBehaviour:
   Invin: 0
   InvinTime: 0
   TargetUnit: {fileID: 0}
-  AttackTime: 0
+  AttackParticle: {fileID: 0}
 --- !u!70 &1048269894
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1411,7 +1442,7 @@ MonoBehaviour:
   Invin: 0
   InvinTime: 0.5
   TargetUnit: {fileID: 0}
-  AttackTime: 0
+  AttackParticle: {fileID: 0}
 --- !u!50 &1155481871
 Rigidbody2D:
   serializedVersion: 5
@@ -1704,7 +1735,7 @@ MonoBehaviour:
   Invin: 0
   InvinTime: 0
   TargetUnit: {fileID: 0}
-  AttackTime: 0
+  AttackParticle: {fileID: 0}
 --- !u!70 &1584727722
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2004,4 +2035,3 @@ SceneRoots:
   - {fileID: 1457909216}
   - {fileID: 1829900326}
   - {fileID: 1455948036}
-  - {fileID: 417672445}
