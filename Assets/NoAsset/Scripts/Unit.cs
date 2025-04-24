@@ -46,12 +46,13 @@ public class Unit : MonoBehaviour
         {
             AttackTime = 1;
         }
+
         if (TargetUnit && AttackTime == 1)
         {
             AttackTime = 0;
             Attack();
         }
-        else AttackParticle.gameObject.SetActive(false);
+
         if (Move)
         {
             if ((Vector2)transform.position != TargetWid)
@@ -63,7 +64,8 @@ public class Unit : MonoBehaviour
     }
     void Attack()
     {
-        AttackParticle.gameObject.SetActive(true);
+        AttackParticle.transform.rotation = Quaternion.Euler(0,0, Quaternion.FromToRotation(Vector2.left, TargetUnit.transform.position - transform.position).eulerAngles.z);
+        AttackParticle.Play();
     }
     IEnumerator Invining()
     {
