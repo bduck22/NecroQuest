@@ -3,9 +3,15 @@ using UnityEngine;
 
 public enum UnitClass
 {
-    Tank,
-    DPS,
-    Mage
+    GuardN,
+    DragonN,
+    HolyN,
+    Fighter,
+    Berserker,
+    Archer,
+    ArchM,
+    SpiritM,
+    HolyM
 }
 public enum UnitName
 {
@@ -32,9 +38,13 @@ public class Unit : MonoBehaviour
     public Transform TargetUnit;
 
     private float AttackTime;
-    public ParticleSystem AttackParticle;
+    public Animator AttackAnimation;
+
+    public GameObject AttackEffect;
+    [SerializeField] CircleCollider2D Interaction;
     void Start()
     {
+        Interaction.radius = Intersection+2f;
     }
     void Update()
     {
@@ -57,6 +67,14 @@ public class Unit : MonoBehaviour
         {
             if ((Vector2)transform.position != TargetWid)
             {
+                if(AttackTime == 1) {
+                    AttackAnimation.transform.localRotation = Quaternion.identity;
+                    if (TargetWid.x >= transform.position.x)
+                    {
+                        transform.rotation = Quaternion.Euler(0, 0, 0);
+                    }
+                    else transform.rotation = Quaternion.Euler(0, 180, 0);
+                }
                 transform.position = Vector2.MoveTowards(transform.position, TargetWid, Speed * Time.deltaTime);
             }
             else Move = false;
@@ -64,8 +82,45 @@ public class Unit : MonoBehaviour
     }
     void Attack()
     {
-        AttackParticle.transform.rotation = Quaternion.Euler(0,0, Quaternion.FromToRotation(Vector2.left, TargetUnit.transform.position - transform.position).eulerAngles.z);
-        AttackParticle.Play();
+        AttackAnimation.SetFloat("AttackSpeed", AttackSpeed);
+        if (TargetUnit.transform.position.x >= transform.position.x)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            AttackAnimation.transform.localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.right, TargetUnit.transform.position - transform.position).eulerAngles.z);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            AttackAnimation.transform.localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.left, TargetUnit.transform.position - transform.position).eulerAngles.z);
+        }
+
+        GameObject Effect = Instantiate(AttackEffect);
+        Effect.transform.rotation = AttackAnimation.transform.localRotation;
+        switch (UnitClass)
+        {
+            case UnitClass.GuardN:
+                break;
+            case UnitClass.DragonN:
+                break;
+            case UnitClass.HolyN:
+                break;
+            case UnitClass.Fighter:
+                break;
+            case UnitClass.Berserker:
+                break;
+            case UnitClass.Archer:
+                break;
+            case UnitClass.ArchM:
+                AttackEffect.transform.position = TargetUnit.transform.position;
+                break;
+            case UnitClass.SpiritM:
+                break;
+            case UnitClass.HolyM:
+                break;
+        }
+
+
+        AttackAnimation.SetTrigger("Attack");
     }
     IEnumerator Invining()
     {

@@ -28,6 +28,20 @@ public class UnitAttack : MonoBehaviour
                 }
                 break;
             case UnitTargetType.Far:
+                if (collision.CompareTag("Mob"))
+                {
+                    if (!Unit.TargetUnit)
+                    {
+                        Unit.TargetUnit = collision.transform;
+                    }
+                    else
+                    {
+                        if (Vector2.Distance(transform.position, Unit.TargetUnit.position) < Vector2.Distance(transform.position, collision.transform.position))
+                        {
+                            Unit.TargetUnit = collision.transform;
+                        }
+                    }
+                }
                 break;
             case UnitTargetType.LowHp: //가장 체력이 낮은 아군
                 if (collision.CompareTag("Unit"))

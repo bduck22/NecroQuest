@@ -19,8 +19,8 @@ public class MobBase : MonoBehaviour
     void Update()
     {
     }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        
-    }
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    Debug.Log(collision.name);
+    //}
 }
