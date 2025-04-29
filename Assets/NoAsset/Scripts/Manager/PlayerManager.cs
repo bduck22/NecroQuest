@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Cursor.lockState = CursorLockMode.Confined;
     }
     public Unit[] Units;
     public Unit SeletedUnit;
