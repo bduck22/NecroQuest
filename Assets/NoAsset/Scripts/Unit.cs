@@ -1,27 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-public enum UnitClass
-{
-    GuardN,
-    DragonN,
-    HolyN,
-    Fighter,
-    Berserker,
-    Archer,
-    ArchM,
-    SpiritM,
-    HolyM
-}
-public enum UnitName
-{
-
-}
 public class Unit : MonoBehaviour
 {
+    [Header("Movement")]
     public Vector2 TargetWid;
     public bool Move;
 
+    [Header("Stats")]
     public float Speed;
     public float AttackSpeed;
     public float Hp;
@@ -29,12 +15,15 @@ public class Unit : MonoBehaviour
     public float Intersection;
     public float Moral;
 
+    [Header("Type")]
     public UnitClass UnitClass;
     public UnitTargetType UnitTargetType;
-    
+
+    [Header("Invin")]
     public bool Invin;
     public float InvinTime;
 
+    [Header("Etc")]
     public Transform TargetUnit;
 
     private float AttackTime;
@@ -95,6 +84,7 @@ public class Unit : MonoBehaviour
         }
 
         GameObject Effect = Instantiate(AttackEffect);
+        AttackEffect.GetComponent<AttackEffect>().Damage = Damage;
         Effect.transform.rotation = AttackAnimation.transform.localRotation;
         switch (UnitClass)
         {
@@ -118,7 +108,6 @@ public class Unit : MonoBehaviour
             case UnitClass.HolyM:
                 break;
         }
-
 
         AttackAnimation.SetTrigger("Attack");
     }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Unit
   - Mob
+  - Attack
   layers:
   - Default
   - TransparentFX
