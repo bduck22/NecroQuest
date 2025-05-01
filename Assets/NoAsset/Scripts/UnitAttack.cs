@@ -27,7 +27,7 @@ public class UnitAttack : MonoBehaviour
                     }
                 }
                 break;
-            case UnitTargetType.Far:
+            case UnitTargetType.Far: //가장 먼 캐릭터
                 if (collision.CompareTag("Mob"))
                 {
                     if (!Unit.TargetUnit)

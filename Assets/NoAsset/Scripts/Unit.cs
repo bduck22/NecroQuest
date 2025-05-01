@@ -83,9 +83,7 @@ public class Unit : MonoBehaviour
             AttackAnimation.transform.localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.left, TargetUnit.transform.position - transform.position).eulerAngles.z);
         }
 
-        GameObject Effect = Instantiate(AttackEffect);
-        AttackEffect.GetComponent<AttackEffect>().Damage = Damage;
-        Effect.transform.rotation = AttackAnimation.transform.localRotation;
+        GameObject Effect = null;
         switch (UnitClass)
         {
             case UnitClass.GuardN:
@@ -101,13 +99,14 @@ public class Unit : MonoBehaviour
             case UnitClass.Archer:
                 break;
             case UnitClass.ArchM:
-                AttackEffect.transform.position = TargetUnit.transform.position;
+                Effect = Instantiate(AttackEffect, TargetUnit.transform.position, AttackAnimation.transform.localRotation);
                 break;
             case UnitClass.SpiritM:
                 break;
             case UnitClass.HolyM:
                 break;
         }
+        Effect.GetComponent<AttackEffect>().Damage = Damage;
 
         AttackAnimation.SetTrigger("Attack");
     }
@@ -117,7 +116,7 @@ public class Unit : MonoBehaviour
         yield return new WaitForSeconds(InvinTime);
         Invin = false;
     }
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Mob"))
         {

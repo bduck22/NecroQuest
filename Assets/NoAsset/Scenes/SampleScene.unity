@@ -4351,7 +4351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetWid: {x: 0, y: 0}
   Move: 0
-  Speed: 2
+  Speed: 1
   AttackSpeed: 2
   Hp: 100
   Damage: 2
@@ -4438,10 +4438,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Units:
   - {fileID: 172411572}
-  - {fileID: 1155481870}
-  - {fileID: 477075236}
-  - {fileID: 1048269893}
-  - {fileID: 1584727721}
   SeletedUnit: {fileID: 0}
   SeletedUnits: 
 --- !u!1 &250762075
@@ -4758,7 +4754,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -4777,9 +4773,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9236998403d5aff41a41e9cf4cdfcf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHp: 0
   Hp: 0
-  Speed: 0
+  Speed: 0.5
   Damage: 0
+  Buffs: 
+  LodingTime: 0
+  MobTargetType: 0
+  Target: {fileID: 0}
 --- !u!212 &465368621
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6124,9 +6125,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9236998403d5aff41a41e9cf4cdfcf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHp: 0
   Hp: 0
-  Speed: 0
+  Speed: 0.5
   Damage: 0
+  Buffs: 
+  LodingTime: 0
+  MobTargetType: 0
+  Target: {fileID: 0}
 --- !u!70 &1455948038
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -6157,7 +6163,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
