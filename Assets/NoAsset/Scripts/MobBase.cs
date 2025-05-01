@@ -3,25 +3,21 @@ using UnityEngine;
 
 public class MobBase : MonoBehaviour
 {
-    public float MaxHp;
-    public float Hp;
-    public float Speed;
-    public float Damage;
-    public List<int> Buffs;
+    public Mob Mob;
 
     public float LodingTime;
 
-    public UnitTargetType MobTargetType;
+
     public Unit Target;
 
 
     private float time;
     void Start()
     {
-        MaxHp = 5;
-        Hp = MaxHp;
-        Speed = 5;
-        Damage = 5;
+        Mob.MaxHp = 5;
+        Mob.Hp = Mob.MaxHp;
+        Mob.Speed = 5;
+        Mob.Damage = 5;
         TargetLoad();
     }
     void Update()
@@ -32,7 +28,7 @@ public class MobBase : MonoBehaviour
             time = 0;
             TargetLoad();
         }
-        transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Speed * 0.15f * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Mob.Speed * 0.15f * Time.deltaTime);
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -45,9 +41,9 @@ public class MobBase : MonoBehaviour
     }
     void HpCh(float damage)
     {
-        Hp += damage;
-        if (Hp > MaxHp) Hp = MaxHp;
-        if (Hp <= 0)
+        Mob.Hp += damage;
+        if (Mob.Hp > Mob.MaxHp) Mob.Hp = Mob.MaxHp;
+        if (Mob.Hp <= 0)
         {
             gameObject.SetActive(false);
         }
@@ -65,10 +61,10 @@ public class MobBase : MonoBehaviour
                 }
                 else
                 {
-                    switch (MobTargetType)
+                    switch (Mob.MobTargetType)
                     {
                         case UnitTargetType.LowHp:
-                            if (Target.Hp > u.Hp)
+                            if (Target.UB.Hp > u.UB.Hp)
                             {
                                 Target = u;
                             }

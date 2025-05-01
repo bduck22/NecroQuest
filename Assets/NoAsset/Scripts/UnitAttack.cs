@@ -9,7 +9,7 @@ public class UnitAttack : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        switch (Unit.UnitTargetType)
+        switch (Unit.UB.UnitTargetType)
         {
             case UnitTargetType.Close: //가장 가까운 적
                 if (collision.CompareTag("Mob"))
@@ -52,7 +52,7 @@ public class UnitAttack : MonoBehaviour
                     }
                     else
                     {
-                        if(Unit.TargetUnit.GetComponent<Unit>().Hp > collision.GetComponent<Unit>().Hp)
+                        if(Unit.TargetUnit.GetComponent<Unit>().UB.Hp > collision.GetComponent<Unit>().UB.Hp)
                         {
                             Unit.TargetUnit = collision.transform;
                         }

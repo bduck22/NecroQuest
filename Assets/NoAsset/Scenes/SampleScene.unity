@@ -4351,14 +4351,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetWid: {x: 0, y: 0}
   Move: 0
-  Speed: 1
-  AttackSpeed: 2
-  Hp: 100
-  Damage: 2
-  Intersection: 5
-  Moral: 4
-  UnitClass: 6
-  UnitTargetType: 0
+  UB:
+    Speed: 1
+    AttackSpeed: 1
+    Hp: 1
+    MaxHp: 1
+    Damage: 2
+    Intersection: 3
+    Moral: 0
+    Buffs: 
+    UnitClass: 6
+    UnitTargetType: 0
   Invin: 0
   InvinTime: 1
   TargetUnit: {fileID: 0}
@@ -4773,13 +4776,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9236998403d5aff41a41e9cf4cdfcf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 0
-  Hp: 0
-  Speed: 0.5
-  Damage: 0
-  Buffs: 
+  Mob:
+    MaxHp: 0
+    Hp: 0
+    Speed: 1
+    Damage: 0
+    Buffs: 
+    MobTargetType: 0
   LodingTime: 0
-  MobTargetType: 0
   Target: {fileID: 0}
 --- !u!212 &465368621
 SpriteRenderer:
@@ -4912,14 +4916,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetWid: {x: 0, y: 0}
   Move: 0
-  Speed: 2
-  AttackSpeed: 0
-  Hp: 0
-  Damage: 0
-  Intersection: 0
-  Moral: 0
-  UnitClass: 0
-  UnitTargetType: 0
+  UB:
+    Speed: 0
+    AttackSpeed: 0
+    Hp: 0
+    MaxHp: 0
+    Damage: 0
+    Intersection: 0
+    Moral: 0
+    Buffs: 
+    UnitClass: 0
+    UnitTargetType: 0
   Invin: 0
   InvinTime: 0
   TargetUnit: {fileID: 0}
@@ -5604,14 +5611,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetWid: {x: 0, y: 0}
   Move: 0
-  Speed: 2
-  AttackSpeed: 0
-  Hp: 0
-  Damage: 0
-  Intersection: 0
-  Moral: 0
-  UnitClass: 0
-  UnitTargetType: 0
+  UB:
+    Speed: 0
+    AttackSpeed: 0
+    Hp: 0
+    MaxHp: 0
+    Damage: 0
+    Intersection: 0
+    Moral: 0
+    Buffs: 
+    UnitClass: 0
+    UnitTargetType: 0
   Invin: 0
   InvinTime: 0
   TargetUnit: {fileID: 0}
@@ -5938,14 +5948,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetWid: {x: 0, y: 0}
   Move: 0
-  Speed: 2
-  AttackSpeed: 0
-  Hp: 0
-  Damage: 0
-  Intersection: 0
-  Moral: 0
-  UnitClass: 0
-  UnitTargetType: 0
+  UB:
+    Speed: 0
+    AttackSpeed: 0
+    Hp: 0
+    MaxHp: 0
+    Damage: 0
+    Intersection: 0
+    Moral: 0
+    Buffs: 
+    UnitClass: 0
+    UnitTargetType: 0
   Invin: 0
   InvinTime: 0.5
   TargetUnit: {fileID: 0}
@@ -6125,13 +6138,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9236998403d5aff41a41e9cf4cdfcf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 0
-  Hp: 0
-  Speed: 0.5
-  Damage: 0
-  Buffs: 
+  Mob:
+    MaxHp: 0
+    Hp: 0
+    Speed: 1
+    Damage: 0
+    Buffs: 
+    MobTargetType: 0
   LodingTime: 0
-  MobTargetType: 0
   Target: {fileID: 0}
 --- !u!70 &1455948038
 CapsuleCollider2D:
@@ -6481,6 +6495,57 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &1506628190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1506628192}
+  - component: {fileID: 1506628191}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1506628191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506628190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d3e9fdd1714b14998bbd8ad5858348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Wave: 0
+  Waves:
+  - MobInfo:
+    - Type: 0
+      Count: 0
+    - Type: 0
+      Count: 0
+--- !u!4 &1506628192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506628190}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.06761116, y: -0.17788921, z: -9.933226}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1584727720
 GameObject:
   m_ObjectHideFlags: 0
@@ -6515,14 +6580,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetWid: {x: 0, y: 0}
   Move: 0
-  Speed: 2
-  AttackSpeed: 0
-  Hp: 0
-  Damage: 0
-  Intersection: 0
-  Moral: 0
-  UnitClass: 0
-  UnitTargetType: 0
+  UB:
+    Speed: 0
+    AttackSpeed: 0
+    Hp: 0
+    MaxHp: 0
+    Damage: 0
+    Intersection: 0
+    Moral: 0
+    Buffs: 
+    UnitClass: 0
+    UnitTargetType: 0
   Invin: 0
   InvinTime: 0
   TargetUnit: {fileID: 0}
@@ -6889,3 +6957,4 @@ SceneRoots:
   - {fileID: 465368622}
   - {fileID: 1107012539}
   - {fileID: 1382425914}
+  - {fileID: 1506628192}

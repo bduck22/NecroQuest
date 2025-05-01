@@ -7,17 +7,7 @@ public class Unit : MonoBehaviour
     public Vector2 TargetWid;
     public bool Move;
 
-    [Header("Stats")]
-    public float Speed;
-    public float AttackSpeed;
-    public float Hp;
-    public float Damage;
-    public float Intersection;
-    public float Moral;
-
-    [Header("Type")]
-    public UnitClass UnitClass;
-    public UnitTargetType UnitTargetType;
+    public Unit_Base UB;
 
     [Header("Invin")]
     public bool Invin;
@@ -33,13 +23,13 @@ public class Unit : MonoBehaviour
     [SerializeField] CircleCollider2D Interaction;
     void Start()
     {
-        Interaction.radius = Intersection+2f;
+        Interaction.radius = UB.Intersection+2f;
     }
     void Update()
     {
         if(AttackTime < 1)
         {
-            AttackTime += AttackSpeed * Time.deltaTime;
+            AttackTime += UB.AttackSpeed * Time.deltaTime;
         }
         else
         {
@@ -64,14 +54,14 @@ public class Unit : MonoBehaviour
                     }
                     else transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
-                transform.position = Vector2.MoveTowards(transform.position, TargetWid, Speed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, TargetWid, UB.Speed * Time.deltaTime);
             }
             else Move = false;
         }
     }
     void Attack()
     {
-        AttackAnimation.SetFloat("AttackSpeed", AttackSpeed);
+        AttackAnimation.SetFloat("AttackSpeed", UB.AttackSpeed);
         if (TargetUnit.transform.position.x >= transform.position.x)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -84,7 +74,7 @@ public class Unit : MonoBehaviour
         }
 
         GameObject Effect = null;
-        switch (UnitClass)
+        switch (UB.UnitClass)
         {
             case UnitClass.GuardN:
                 break;
@@ -106,7 +96,7 @@ public class Unit : MonoBehaviour
             case UnitClass.HolyM:
                 break;
         }
-        Effect.GetComponent<AttackEffect>().Damage = Damage;
+        Effect.GetComponent<AttackEffect>().Damage = UB.Damage;
 
         AttackAnimation.SetTrigger("Attack");
     }
@@ -122,7 +112,7 @@ public class Unit : MonoBehaviour
         {
             if (!Invin)
             {
-                Hp--;
+                UB.Hp--;
                 StartCoroutine(Invining());
             }
         }

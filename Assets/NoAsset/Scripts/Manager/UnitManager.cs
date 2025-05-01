@@ -1,9 +1,5 @@
 using UnityEngine;
 
-public class Units : Unit
-{
-
-}
 public class UnitManager : MonoBehaviour
 {
     [SerializeField] Material NotSelect;
