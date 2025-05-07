@@ -14674,7 +14674,7 @@ MonoBehaviour:
     Speed: 1
     AttackSpeed: 1
     Hp: 5
-    MaxHp: 1
+    MaxHp: 5
     Damage: 2
     Intersection: 10
     Moral: 0
@@ -15440,10 +15440,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac3730ec65bee24b933754be79f3639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraSpeed: 50
-  MaxZoom: 10
+  CameraSpeed: 30
+  MaxZoom: 8
   MinZoom: 3
-  ZoomSpeed: 3
+  ZoomSpeed: 2.5
+  MaxVector: {x: 24, y: 15}
+  MinVector: {x: -29, y: -14}
 --- !u!1 &590723100
 GameObject:
   m_ObjectHideFlags: 0

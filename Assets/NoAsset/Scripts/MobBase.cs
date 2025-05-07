@@ -29,7 +29,7 @@ public class MobBase : MonoBehaviour
             time = 0;
             TargetLoad();
         }
-        if (moving)
+        if (moving&&Target)
         {
             transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Mob.Speed * 0.15f * Time.deltaTime);
         }
@@ -75,9 +75,10 @@ public class MobBase : MonoBehaviour
 
     public void TargetLoad()
     {
+        Target = null;
         foreach (Unit u in PlayerManager.instance.Units)
         {
-            if (u.enabled)
+            if (u.gameObject.activeSelf)
             {
                 if (!Target)
                 {

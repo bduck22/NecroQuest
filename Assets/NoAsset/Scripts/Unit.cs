@@ -25,8 +25,22 @@ public class Unit : MonoBehaviour
     {
         Interaction.radius = UB.Intersection+2f;
     }
+    public void UnitInit()
+    {
+        UB.Hp = UB.MaxHp;
+        AttackTime = 0;
+        Interaction.radius = UB.Intersection * 2f;
+        TargetUnit = null;
+        Invin =false;
+        Move = false;
+    }
     void Update()
     {
+        if(UB.Hp <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+
         if(AttackTime < 1)
         {
             AttackTime += UB.AttackSpeed * Time.deltaTime;
