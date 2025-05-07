@@ -19,6 +19,19 @@ public enum UnitClass
     SpiritM,
     HolyM
 }
+public enum GameStatus
+{
+    Main,
+    Lobby,
+    Organ,
+    StageStart,
+    WaveStart,
+    Waving,
+    WaveEnd,
+    Rest,
+    Result
+}
+
 [System.Serializable]
 public struct Mob
 {
@@ -67,7 +80,8 @@ public struct Wave_Info
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    void Start()
+
+    private void Awake()
     {
         if (instance == null)
         {
@@ -81,4 +95,45 @@ public class GameManager : MonoBehaviour
 
     public int Wave;
     public Wave[] Waves;
+
+    public GameStatus GameStatus;
+
+    SpawnManager SpawnManager;
+
+    private void Start()
+    {
+        GameStatus = GameStatus.WaveStart;
+        SpawnManager = GameObject.FindAnyObjectByType<SpawnManager>();
+    }
+
+    private void Update()
+    {
+        switch (GameStatus)
+        {
+            case GameStatus.Main:
+                break;
+            case GameStatus.Lobby:
+                break;
+            case GameStatus.Organ:
+                break;
+            case GameStatus.StageStart:
+                break;
+            case GameStatus.WaveStart:
+                WaveStart();
+                break;
+            case GameStatus.Waving:
+                break;
+            case GameStatus.WaveEnd:
+                break;
+            case GameStatus.Rest:
+                break;
+            case GameStatus.Result:
+                break;
+        }
+    }
+    void WaveStart()
+    {
+        SpawnManager.WaveStart();
+        GameStatus = GameStatus.Waving;
+    }
 }

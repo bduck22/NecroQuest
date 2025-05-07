@@ -7,13 +7,14 @@ public class MobBase : MonoBehaviour
 
     public float LodingTime;
 
-
     public Unit Target;
 
-
     private float time;
+
+    [SerializeField] private bool moving;
     void Start()
     {
+        moving = true;
         Mob.MaxHp = 5;
         Mob.Hp = Mob.MaxHp;
         Mob.Speed = 5;
@@ -28,7 +29,10 @@ public class MobBase : MonoBehaviour
             time = 0;
             TargetLoad();
         }
-        transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Mob.Speed * 0.15f * Time.deltaTime);
+        if (moving)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Mob.Speed * 0.15f * Time.deltaTime);
+        }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -37,6 +41,26 @@ public class MobBase : MonoBehaviour
             collision.enabled = false;
             AttackEffect AE = collision.GetComponent<AttackEffect>();
             HpCh(-(AE.Damage * AE.Weight));
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Unit"))
+        {
+            if (collision.transform.GetComponent<Unit>() == Target)
+            {
+                moving = false;
+            }
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Unit"))
+        {
+            if (collision.transform.GetComponent<Unit>() == Target)
+            {
+                moving = true;
+            }
         }
     }
     void HpCh(float damage)

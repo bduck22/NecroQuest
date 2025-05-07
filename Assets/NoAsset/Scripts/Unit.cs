@@ -100,21 +100,5 @@ public class Unit : MonoBehaviour
 
         AttackAnimation.SetTrigger("Attack");
     }
-    IEnumerator Invining()
-    {
-        Invin = true;
-        yield return new WaitForSeconds(InvinTime);
-        Invin = false;
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.transform.CompareTag("Mob"))
-        {
-            if (!Invin)
-            {
-                UB.Hp--;
-                StartCoroutine(Invining());
-            }
-        }
-    }
+
 }

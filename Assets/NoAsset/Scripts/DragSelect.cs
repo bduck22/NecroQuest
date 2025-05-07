@@ -15,20 +15,22 @@ public class DragSelect : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Unit"))
+        if (collision.CompareTag("HitBox"))
         {
-            PlayerManager.instance.SeletedUnits.Add(int.Parse(collision.name));
-            collision.GetComponent<SpriteRenderer>().material = Select;
+            int number = int.Parse(collision.transform.parent.name);
+            PlayerManager.instance.SeletedUnits.Add(number);
+            collision.transform.parent.GetComponent<SpriteRenderer>().material = Select;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Unit"))
+        if (collision.CompareTag("HitBox"))
         {
             if (!Close)
             {
-                PlayerManager.instance.SeletedUnits.Remove(int.Parse(collision.name));
-                collision.GetComponent<SpriteRenderer>().material = NotSelect;
+                int number = int.Parse(collision.transform.parent.name);
+                PlayerManager.instance.SeletedUnits.Remove(number);
+                collision.transform.parent.GetComponent<SpriteRenderer>().material = NotSelect;
             }
         }
     }
