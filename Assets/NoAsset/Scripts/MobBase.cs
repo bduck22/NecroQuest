@@ -12,14 +12,21 @@ public class MobBase : MonoBehaviour
     private float time;
 
     [SerializeField] private bool moving;
-    void Start()
+
+    public void MobInit()
     {
         moving = true;
         Mob.MaxHp = 5;
         Mob.Hp = Mob.MaxHp;
         Mob.Speed = 5;
         Mob.Damage = 5;
+        Target = null;
         TargetLoad();
+    }
+
+    void Start()
+    {
+        MobInit();
     }
     void Update()
     {
@@ -69,6 +76,7 @@ public class MobBase : MonoBehaviour
         if (Mob.Hp > Mob.MaxHp) Mob.Hp = Mob.MaxHp;
         if (Mob.Hp <= 0)
         {
+            SpawnManager.MobCount--;
             gameObject.SetActive(false);
         }
     }

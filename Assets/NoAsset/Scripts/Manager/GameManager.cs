@@ -19,6 +19,18 @@ public enum UnitClass
     SpiritM,
     HolyM
 }
+public enum MobType
+{
+    Zombie,
+    Skull,
+    Ghost,
+    Ghoul,
+    Spider,
+    Shade,
+    Lich,
+    Dullahan,
+    Necro,
+}
 public enum GameStatus
 {
     Main,
@@ -43,6 +55,7 @@ public struct Mob
     public List<int> Buffs;
 
     [Header("Type")]
+    public MobType Type;
     public UnitTargetType MobTargetType;
 }
 
@@ -122,12 +135,16 @@ public class GameManager : MonoBehaviour
                 WaveStart();
                 break;
             case GameStatus.Waving:
+                Waving();
                 break;
             case GameStatus.WaveEnd:
+                WaveEnd();
                 break;
             case GameStatus.Rest:
+                Rest();
                 break;
             case GameStatus.Result:
+                Result();
                 break;
         }
     }
@@ -135,5 +152,29 @@ public class GameManager : MonoBehaviour
     {
         SpawnManager.WaveStart();
         GameStatus = GameStatus.Waving;
+    }
+
+    void Waving()
+    {
+
+    }
+
+    void WaveEnd()
+    {
+        if (++Wave >= Waves.Length)
+        {
+            GameStatus = GameStatus.Result;
+        }
+        else GameStatus = GameStatus.Rest;
+    }
+
+    void Rest()
+    {
+        GameStatus = GameStatus.WaveStart;
+    }
+
+    void Result()
+    {
+        Debug.Log("스테이지 끝");
     }
 }

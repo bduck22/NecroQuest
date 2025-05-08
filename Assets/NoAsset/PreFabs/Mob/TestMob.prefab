@@ -103,11 +103,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mob:
-    MaxHp: 0
-    Hp: 0
-    Speed: 1
-    Damage: 0
+    MaxHp: 5
+    Hp: 5
+    Speed: 5
+    Damage: 5
     Buffs: 
+    Type: 0
     MobTargetType: 0
   LodingTime: 0.1
   Target: {fileID: 0}

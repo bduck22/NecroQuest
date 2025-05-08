@@ -14672,10 +14672,10 @@ MonoBehaviour:
   Move: 0
   UB:
     Speed: 1
-    AttackSpeed: 1
+    AttackSpeed: 10
     Hp: 5
     MaxHp: 5
-    Damage: 2
+    Damage: 5
     Intersection: 10
     Moral: 0
     Buffs: 
@@ -16507,6 +16507,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   mobs: []
+  Mobs: []
   SpawnDelay: 5
 --- !u!1 &1382425912
 GameObject:
@@ -16869,7 +16870,14 @@ MonoBehaviour:
   Waves:
   - MobInfo:
     - Type: 0
-      Count: 100
+      Count: 2
+    - Type: 0
+      Count: 2
+    - Type: 0
+      Count: 2
+  - MobInfo:
+    - Type: 0
+      Count: 2
     - Type: 0
       Count: 2
     - Type: 0
