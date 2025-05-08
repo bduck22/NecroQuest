@@ -20,7 +20,6 @@ public class SpawnManager : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log(MobCount+"¤±¤¤¤·¤©");
         if(GameManager.instance.GameStatus == GameStatus.Waving)
         {
             if(MobCount <= 0)
