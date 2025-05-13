@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,6 +45,19 @@ public enum GameStatus
     Result
 }
 
+public enum Buff_Type
+{
+    Charge
+}
+
+[System.Serializable]
+public struct Buff
+{
+    public Buff_Type Type;
+    public int Value;
+    public float Time;
+}
+
 [System.Serializable]
 public struct Mob
 {
@@ -52,7 +66,7 @@ public struct Mob
     public float Hp;
     public float Speed;
     public float Damage;
-    public List<int> Buffs;
+    public List<Buff> Buff;
 
     [Header("Type")]
     public MobType Type;
@@ -70,7 +84,7 @@ public struct Unit_Base
     public float Damage;
     public float Intersection;
     public float Moral;
-    public List<int> Buffs;
+    public List<Buff> Buff;
 
     [Header("Type")]
     public UnitClass UnitClass;

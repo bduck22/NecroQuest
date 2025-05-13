@@ -19,4 +19,6 @@ public class PlayerManager : MonoBehaviour
     public Unit SeletedUnit;
 
     public List<int> SeletedUnits;
+
+    public GameObject SelectSkill;
 }

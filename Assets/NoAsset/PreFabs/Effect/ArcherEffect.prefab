@@ -9832,7 +9832,6 @@ GameObject:
   - component: {fileID: 4052104661546447998}
   - component: {fileID: 610261617821626976}
   - component: {fileID: 2427874668662605481}
-  - component: {fileID: 1651609871526864850}
   - component: {fileID: 1169733459903624728}
   m_Layer: 0
   m_Name: Light 2D
@@ -9850,7 +9849,7 @@ Transform:
   m_GameObject: {fileID: 8269206127194159416}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.469, y: -0.069, z: 0}
+  m_LocalPosition: {x: -0.14, y: -0.069, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9892,8 +9891,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.10730004, y: 0.10135001, z: 0}
-    m_Extent: {x: 1.9045, y: 0.77555, z: 0}
+    m_Center: {x: 1.0288999, y: 0.07944998, z: 0}
+    m_Extent: {x: 3.5503, y: 0.77995, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -9904,10 +9903,10 @@ MonoBehaviour:
   m_ShapeLightFalloffSize: 0.5
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -1.2974232, y: -0.17329861, z: 0}
-  - {x: 1.5116048, y: -0.16417319, z: 0}
-  - {x: 1.510035, y: 0.35063294, z: 0}
-  - {x: -1.29337, y: 0.37656093, z: 0}
+  - {x: -2.0074253, y: -0.1995951, z: 0}
+  - {x: 4.07604, y: -0.1798706, z: 0}
+  - {x: 4.080294, y: 0.3236679, z: 0}
+  - {x: -2.020903, y: 0.35902992, z: 0}
 --- !u!95 &610261617821626976
 Animator:
   serializedVersion: 7
@@ -9964,7 +9963,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.11533952, y: 0.044011697}
+  m_Offset: {x: 1.0287557, y: 0.07534483}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -9974,21 +9973,8 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.8276815, y: 0.9119766}
+  m_Size: {x: 6.3673935, y: 0.84931034}
   m_EdgeRadius: 0
---- !u!114 &1651609871526864850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8269206127194159416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32174c2f2dfc2c643bb44029169956a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target: {fileID: 0}
 --- !u!114 &1169733459903624728
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
-using System.Collections;
+using DamageNumbersPro;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -21,6 +21,9 @@ public class Unit : MonoBehaviour
 
     public GameObject AttackEffect;
     [SerializeField] CircleCollider2D Interaction;
+
+    [SerializeField] private DamageNumberMesh HitPrefab;
+    [SerializeField] private DamageNumberMesh HealPrefab;
     void Start()
     {
         Interaction.radius = UB.Intersection+2f;
@@ -102,8 +105,8 @@ public class Unit : MonoBehaviour
                 break;
             case UnitClass.Archer:
                 Effect = Instantiate(AttackEffect, (AttackAnimation.transform.position + TargetUnit.position) / 2, AttackAnimation.transform.rotation);
+                Effect.transform.localScale = new Vector3(Vector2.Distance(TargetUnit.position, AttackAnimation.transform.position) / 5f, 1.25f, 0.5f);
                 Effect.transform.GetChild(0).localScale = new Vector3(Vector2.Distance(TargetUnit.position, AttackAnimation.transform.position) / 5f ,1.25f,0.5f);
-                Effect.transform.GetChild(1).GetComponent<ArrowMove>().Target = TargetUnit;
                 Effect.transform.GetChild(1).GetComponent<AttackEffect>().Damage = UB.Damage;
                 break;
             case UnitClass.ArchM:
@@ -119,4 +122,42 @@ public class Unit : MonoBehaviour
         AttackAnimation.SetTrigger("Attack");
     }
 
+    public void Skill()
+    {
+        switch (UB.UnitClass)
+        {
+            case UnitClass.GuardN:
+                break;
+            case UnitClass.DragonN:
+                break;
+            case UnitClass.HolyN:
+                break;
+            case UnitClass.Fighter:
+                break;
+            case UnitClass.Berserker:
+                break;
+            case UnitClass.Archer:
+                break;
+            case UnitClass.ArchM:
+                break;
+            case UnitClass.SpiritM:
+                break;
+            case UnitClass.HolyM:
+                break;
+        }
+    }
+
+    public void HpChange(float Damage)
+    {
+        if(Damage > 0)
+        {
+            UB.Hp -= Damage;
+            HitPrefab.Spawn(transform.position, Damage);
+        }
+        else
+        {
+            UB.Hp -= Damage;
+            HealPrefab.Spawn(transform.position, Damage);
+        }
+    }
 }

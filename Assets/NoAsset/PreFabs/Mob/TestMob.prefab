@@ -106,13 +106,15 @@ MonoBehaviour:
     MaxHp: 5
     Hp: 5
     Speed: 5
-    Damage: 5
-    Buffs: 
+    Damage: 1
+    Buff: []
     Type: 0
     MobTargetType: 0
   LodingTime: 0.1
   Target: {fileID: 0}
   moving: 0
+  HitPrefab: {fileID: 6873749435551968893, guid: 4960e0c6a646cf14f89998e235f9f4af, type: 3}
+  HealPrefab: {fileID: 0}
 --- !u!70 &2960879463195211290
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
