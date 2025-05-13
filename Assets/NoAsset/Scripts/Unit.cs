@@ -101,17 +101,20 @@ public class Unit : MonoBehaviour
             case UnitClass.Berserker:
                 break;
             case UnitClass.Archer:
-                
+                Effect = Instantiate(AttackEffect, (AttackAnimation.transform.position + TargetUnit.position) / 2, AttackAnimation.transform.rotation);
+                Effect.transform.GetChild(0).localScale = new Vector3(Vector2.Distance(TargetUnit.position, AttackAnimation.transform.position) / 5f ,1.25f,0.5f);
+                Effect.transform.GetChild(1).GetComponent<ArrowMove>().Target = TargetUnit;
+                Effect.transform.GetChild(1).GetComponent<AttackEffect>().Damage = UB.Damage;
                 break;
             case UnitClass.ArchM:
                 Effect = Instantiate(AttackEffect, TargetUnit.transform.position, AttackAnimation.transform.localRotation);
+                Effect.GetComponent<AttackEffect>().Damage = UB.Damage;
                 break;
             case UnitClass.SpiritM:
                 break;
             case UnitClass.HolyM:
                 break;
         }
-        Effect.GetComponent<AttackEffect>().Damage = UB.Damage;
 
         AttackAnimation.SetTrigger("Attack");
     }
