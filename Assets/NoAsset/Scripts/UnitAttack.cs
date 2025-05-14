@@ -44,15 +44,15 @@ public class UnitAttack : MonoBehaviour
                 }
                 break;
             case UnitTargetType.LowHp: //가장 체력이 낮은 아군
-                if (collision.CompareTag("Unit"))
+                if (collision.CompareTag("HitBox"))
                 {
                     if (!Unit.TargetUnit)
                     {
-                        Unit.TargetUnit = collision.transform;
+                        Unit.TargetUnit = collision.transform.parent;
                     }
                     else
                     {
-                        if(Unit.TargetUnit.GetComponent<Unit>().UB.Hp > collision.GetComponent<Unit>().UB.Hp)
+                        if(Unit.TargetUnit.GetComponent<Unit>().UB.Hp > collision.transform.parent.GetComponent<Unit>().UB.Hp)
                         {
                             Unit.TargetUnit = collision.transform;
                         }

@@ -1,3 +1,4 @@
+using DamageNumbersPro;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,13 +14,16 @@ public class MobBase : MonoBehaviour
 
     [SerializeField] private bool moving;
 
+    [SerializeField] private DamageNumberMesh HitPrefab;
+    [SerializeField] private DamageNumberMesh HealPrefab;
+
     public void MobInit()
     {
         moving = true;
         Mob.MaxHp = 5;
         Mob.Hp = Mob.MaxHp;
         Mob.Speed = 5;
-        Mob.Damage = 5;
+        Mob.Damage = 1;
         Target = null;
         TargetLoad();
     }
@@ -72,6 +76,15 @@ public class MobBase : MonoBehaviour
     }
     void HpCh(float damage)
     {
+        Debug.Log(damage);
+        if(damage < 0)
+        {
+            HitPrefab.Spawn(transform.position, -damage);
+        }
+        else
+        {
+            HealPrefab.Spawn(transform.position, damage);
+        }
         Mob.Hp += damage;
         if (Mob.Hp > Mob.MaxHp) Mob.Hp = Mob.MaxHp;
         if (Mob.Hp <= 0)
