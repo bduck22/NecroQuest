@@ -82,6 +82,7 @@ public struct Unit_Base
     public float Hp;
     public float MaxHp;
     public float Damage;
+    public float PlusDamage;
     public float Intersection;
     public float Moral;
     public List<Buff> Buff;

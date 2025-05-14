@@ -11,6 +11,13 @@ public class UnitManager : MonoBehaviour
     private void Update()
     {
         Vector2 nowmouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Input.GetMouseButton(1))
+        {
+            if (PlayerManager.instance.SelectSkill)
+            {
+                PlayerManager.instance.SelectSkill = null;
+            }
+        }
         if (Input.GetMouseButtonUp(1))
         {
             if (Unit)
@@ -40,26 +47,29 @@ public class UnitManager : MonoBehaviour
                 u.GetComponent<SpriteRenderer>().material = NotSelect;
             }
             PlayerManager.instance.SeletedUnits.Clear();
-            mouseposition = nowmouse;
-            RaycastHit2D ray = Physics2D.Raycast(nowmouse, Vector2.zero, 10, LayerMask.GetMask("Unit"));
-            if (ray&&ray.transform.CompareTag("Unit"))
+            if (!PlayerManager.instance.SelectSkill)
             {
-                Unit = ray.transform.GetComponent<Unit>();
-                PlayerManager.instance.SeletedUnit = Unit;
-                Unit.GetComponent<SpriteRenderer>().material = Select;
-            }
-            else
-            {
-                if (Unit)
+                mouseposition = nowmouse;
+                RaycastHit2D ray = Physics2D.Raycast(nowmouse, Vector2.zero, 10, LayerMask.GetMask("Unit"));
+                if (ray && ray.transform.CompareTag("Unit"))
                 {
-                    Unit.GetComponent<SpriteRenderer>().material = NotSelect;
-                    Unit = null;
+                    Unit = ray.transform.GetComponent<Unit>();
+                    PlayerManager.instance.SeletedUnit = Unit;
+                    Unit.GetComponent<SpriteRenderer>().material = Select;
+                }
+                else
+                {
+                    if (Unit)
+                    {
+                        Unit.GetComponent<SpriteRenderer>().material = NotSelect;
+                        Unit = null;
+                    }
                 }
             }
         }
         else if (Input.GetMouseButton(0))
         {
-            if (mouseposition != nowmouse)
+            if (!PlayerManager.instance.SelectSkill && mouseposition != nowmouse)
             {
                 DragOb.GetComponent<DragSelect>().Close = false;
                 DragOb.gameObject.SetActive(true);
@@ -71,6 +81,11 @@ public class UnitManager : MonoBehaviour
         {
             DragOb.GetComponent<DragSelect>().Close = true;
             DragOb.gameObject.SetActive(false);
+            if (PlayerManager.instance.SelectSkill)
+            {
+                Debug.Log("마우스 지정 스킬");
+                PlayerManager.instance.SelectSkill = null;
+            }
         }
 
     }

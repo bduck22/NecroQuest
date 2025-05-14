@@ -76,6 +76,7 @@ public class MobBase : MonoBehaviour
     }
     void HpCh(float damage)
     {
+        Debug.Log(damage);
         if(damage < 0)
         {
             HitPrefab.Spawn(transform.position, -damage);

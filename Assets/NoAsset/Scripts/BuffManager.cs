@@ -29,7 +29,7 @@ public class BuffManager : MonoBehaviour
     }
     void BuffLoad()
     {
-        if (IsUnit) {
+        if (!IsUnit) {
             foreach (Buff buff in Mob.Mob.Buff)
             {
                 switch (buff.Type)

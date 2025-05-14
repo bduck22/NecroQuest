@@ -16,7 +16,7 @@ public class Unit : MonoBehaviour
     [Header("Etc")]
     public Transform TargetUnit;
 
-    private float AttackTime;
+    [SerializeField] private float AttackTime;
     public Animator AttackAnimation;
 
     public GameObject AttackEffect;
@@ -24,18 +24,41 @@ public class Unit : MonoBehaviour
 
     [SerializeField] private DamageNumberMesh HitPrefab;
     [SerializeField] private DamageNumberMesh HealPrefab;
+
+    [Header("Skill")]
+    public float SkillCoolTime;
+    [SerializeField] private float SkillTime;
+    public bool skill;
+    public float SkillWeight;
+
+    private UnitManager UM;
     void Start()
     {
-        Interaction.radius = UB.Intersection+2f;
+        UM = PlayerManager.instance.UnitManager;
+        UnitInit();
     }
     public void UnitInit()
     {
         UB.Hp = UB.MaxHp;
         AttackTime = 0;
+        SkillTime = SkillCoolTime;
         Interaction.radius = UB.Intersection * 2f;
+        Interaction.radius = UB.Intersection + 2f;
         TargetUnit = null;
         Invin =false;
         Move = false;
+
+        switch (UB.UnitClass)
+        {
+            case UnitClass.GuardN:
+                break;
+            case UnitClass.DragonN:
+                break;
+            case UnitClass.Fighter:
+                break;
+            case UnitClass.ArchM:
+                break;
+        }
     }
     void Update()
     {
@@ -51,6 +74,16 @@ public class Unit : MonoBehaviour
         else
         {
             AttackTime = 1;
+        }
+        
+        if(SkillTime < SkillCoolTime)
+        {
+            SkillTime += 1 * Time.deltaTime;
+        }
+        else if(!skill)
+        {
+            skill = true;
+            SkillTime = SkillCoolTime;
         }
 
         if (TargetUnit && AttackTime == 1)
@@ -107,16 +140,25 @@ public class Unit : MonoBehaviour
                 Effect = Instantiate(AttackEffect, (AttackAnimation.transform.position + TargetUnit.position) / 2, AttackAnimation.transform.rotation);
                 Effect.transform.localScale = new Vector3(Vector2.Distance(TargetUnit.position, AttackAnimation.transform.position) / 5f, 1.25f, 0.5f);
                 Effect.transform.GetChild(0).localScale = new Vector3(Vector2.Distance(TargetUnit.position, AttackAnimation.transform.position) / 5f ,1.25f,0.5f);
-                Effect.transform.GetChild(1).GetComponent<AttackEffect>().Damage = UB.Damage;
+                Effect = Effect.transform.GetChild(1).gameObject;
                 break;
             case UnitClass.ArchM:
                 Effect = Instantiate(AttackEffect, TargetUnit.transform.position, AttackAnimation.transform.localRotation);
-                Effect.GetComponent<AttackEffect>().Damage = UB.Damage;
                 break;
             case UnitClass.SpiritM:
                 break;
             case UnitClass.HolyM:
+                Effect = Instantiate(AttackEffect, TargetUnit.transform.position, AttackAnimation.transform.localRotation);
                 break;
+        }
+        if (UB.UnitClass != UnitClass.HolyM)
+        {
+            Effect.GetComponent<AttackEffect>().Unit = this;
+            Effect.GetComponent<AttackEffect>().Damage = UB.Damage + UB.PlusDamage;
+        }
+        else
+        {
+            TargetUnit.GetComponent<Unit>().HpChange(-UB.Damage);
         }
 
         AttackAnimation.SetTrigger("Attack");
@@ -157,7 +199,7 @@ public class Unit : MonoBehaviour
         else
         {
             UB.Hp -= Damage;
-            HealPrefab.Spawn(transform.position, Damage);
+            HealPrefab.Spawn(transform.position, -Damage);
         }
     }
 }
