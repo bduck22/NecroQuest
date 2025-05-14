@@ -1,9 +1,16 @@
 fileFormatVersion: 2
 guid: abae41d3dfe18f543bb8779f48e25aa0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 227487
+  packageName: Isometric Dark Fantasy
+  packageVersion: 1.0
+  assetPath: Assets/Gentleland/IsometricDarkFantasy/Art/Buildings/haunted_lumbermill/haunted_lumbermill_2.png
+  uploadId: 517464
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,10 +27,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -51,7 +60,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -62,8 +71,10 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -73,9 +84,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -85,38 +97,59 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites: []
-    outline: []
+    outline:
+    - - {x: 68.5, y: -46.5}
+      - {x: 193.5, y: 18.5}
+      - {x: 205.5, y: -3.5}
+      - {x: 262.5, y: -48.5}
+      - {x: 189.5, y: -98.5}
+      - {x: 203.5, y: -114.5}
+      - {x: 289.5, y: -72.5}
+      - {x: 287.5, y: -47.5}
+      - {x: 279.5, y: -7.5}
+      - {x: 201.5, y: 38.5}
+      - {x: 194.5, y: 144.5}
+      - {x: 140.5, y: 239.5}
+      - {x: 13.5, y: 170.5}
+      - {x: -37.5, y: 124.5}
+      - {x: -217.5, y: 13.5}
+      - {x: -217.5, y: -72.5}
+      - {x: -124.5, y: -118.5}
+      - {x: 30.5, y: -18.5}
+    - - {x: 124.5, y: -111.5}
+      - {x: 126.5, y: -139.5}
+      - {x: -19.5, y: -153.5}
+      - {x: -16.5, y: -132.5}
+    customData: 
     physicsShape:
     - - {x: -131.5, y: -115}
       - {x: -216.5, y: -64}
-      - {x: 94.5, y: 104}
-      - {x: 276.5, y: -17}
-      - {x: 287.5, y: -69}
-      - {x: 123.5, y: -142}
-      - {x: -15.5, y: -156}
+      - {x: -212.5, y: 14.5}
+      - {x: -38.5, y: 121.5}
+      - {x: 141.5, y: 230.5}
+      - {x: 190.5, y: 136.5}
+      - {x: 198.5, y: 33.5}
+      - {x: 66.5, y: -46.5}
+      - {x: 56.5, y: -38.5}
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 227487
-  packageName: Isometric Dark Fantasy
-  packageVersion: 1.0
-  assetPath: Assets/Gentleland/IsometricDarkFantasy/Art/Buildings/haunted_lumbermill/haunted_lumbermill_2.png
-  uploadId: 517464

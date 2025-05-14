@@ -191,14 +191,14 @@ public class Unit : MonoBehaviour
 
     public void HpChange(float Damage)
     {
-        if(Damage > 0)
+        UB.Hp -= Damage;
+        if (UB.Hp > UB.MaxHp) UB.Hp = UB.MaxHp;
+        if (Damage > 0)
         {
-            UB.Hp -= Damage;
             HitPrefab.Spawn(transform.position, Damage);
         }
         else
         {
-            UB.Hp -= Damage;
             HealPrefab.Spawn(transform.position, -Damage);
         }
     }

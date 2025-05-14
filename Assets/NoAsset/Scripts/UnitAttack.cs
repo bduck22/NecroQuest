@@ -28,7 +28,7 @@ public class UnitAttack : MonoBehaviour
                 }
                 break;
             case UnitTargetType.Far: //가장 먼 캐릭터
-                if (collision.CompareTag("Mob"))
+                if (collision.CompareTag("Mob")&&collision.gameObject.activeSelf)
                 {
                     if (!Unit.TargetUnit)
                     {
@@ -63,9 +63,16 @@ public class UnitAttack : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.transform == Unit.TargetUnit)
+        if (Unit.TargetUnit)
         {
-            Unit.TargetUnit = null;
+            if (Unit.TargetUnit.CompareTag("Unit"))
+            {
+                Unit.TargetUnit = null;
+            }
+            else if (collision.transform == Unit.TargetUnit)
+            {
+                Unit.TargetUnit = null;
+            }
         }
     }
 }

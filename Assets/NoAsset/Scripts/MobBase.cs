@@ -1,6 +1,7 @@
 using DamageNumbersPro;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MobBase : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class MobBase : MonoBehaviour
     [SerializeField] private DamageNumberMesh HitPrefab;
     [SerializeField] private DamageNumberMesh HealPrefab;
 
+    //private NavMeshAgent agent;
     public void MobInit()
     {
         moving = true;
@@ -30,6 +32,9 @@ public class MobBase : MonoBehaviour
 
     void Start()
     {
+        //agent = GetComponent<NavMeshAgent>();
+        //agent.updateRotation = false;
+        //agent.updateUpAxis = false;
         MobInit();
     }
     void Update()
@@ -42,6 +47,7 @@ public class MobBase : MonoBehaviour
         }
         if (moving&&Target)
         {
+            //agent.SetDestination(Target.transform.position);
             transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Mob.Speed * 0.15f * Time.deltaTime);
         }
     }
@@ -76,7 +82,6 @@ public class MobBase : MonoBehaviour
     }
     void HpCh(float damage)
     {
-        Debug.Log(damage);
         if(damage < 0)
         {
             HitPrefab.Spawn(transform.position, -damage);

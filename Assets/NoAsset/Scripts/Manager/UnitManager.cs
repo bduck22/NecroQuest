@@ -84,6 +84,7 @@ public class UnitManager : MonoBehaviour
             if (PlayerManager.instance.SelectSkill)
             {
                 Debug.Log("마우스 지정 스킬");
+                PlayerManager.instance.SelectSkill.Skill();
                 PlayerManager.instance.SelectSkill = null;
             }
         }

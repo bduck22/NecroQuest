@@ -6,7 +6,6 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject[] mobPrefabs;
 
-    public MobBase[] mobs;
     private Transform spawnPoints;
 
     [SerializeField] private List<MobBase> Mobs = new List<MobBase>();
