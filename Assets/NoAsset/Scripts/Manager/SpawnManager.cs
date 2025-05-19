@@ -48,7 +48,7 @@ public class SpawnManager : MonoBehaviour
                 MobCount++;
                 foreach (MobBase o in Mobs)
                 {
-                    if(o.Mob.Type == mobPrefabs[info.Type].GetComponent<MobBase>().Mob.Type)
+                    if(o.Type == mobPrefabs[info.Type].GetComponent<MobBase>().Type)
                     {
                         if (!o.gameObject.activeSelf)
                         {

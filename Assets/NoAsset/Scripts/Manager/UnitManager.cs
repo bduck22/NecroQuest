@@ -6,6 +6,7 @@ public class UnitManager : MonoBehaviour
     [SerializeField] Material Select;
     [SerializeField] Transform DragOb;
     [SerializeField] Unit Unit;
+    public Transform SkillRange;
 
     Vector2 mouseposition;
     private void Update()
@@ -16,6 +17,7 @@ public class UnitManager : MonoBehaviour
             if (PlayerManager.instance.SelectSkill)
             {
                 PlayerManager.instance.SelectSkill = null;
+                SkillRange.gameObject.SetActive(false);
             }
         }
         if (Input.GetMouseButtonUp(1))
@@ -83,11 +85,33 @@ public class UnitManager : MonoBehaviour
             DragOb.gameObject.SetActive(false);
             if (PlayerManager.instance.SelectSkill)
             {
-                Debug.Log("마우스 지정 스킬");
-                PlayerManager.instance.SelectSkill.Skill();
-                PlayerManager.instance.SelectSkill = null;
+                if (PlayerManager.instance.SelectSkill.gameObject.activeSelf)
+                {
+                    Debug.Log("마우스 지정 스킬");
+                    PlayerManager.instance.SelectSkill.Skill();
+                    PlayerManager.instance.SelectSkill = null;
+                    SkillRange.gameObject.SetActive(false);
+                }
+                else
+                {
+                    Debug.Log("해당 유닛 사망함");
+                    PlayerManager.instance.SelectSkill = null;
+                    SkillRange.gameObject.SetActive(false);
+                }
             }
         }
-
+        if (PlayerManager.instance.SelectSkill)
+        {
+            if (!SkillRange.gameObject.activeSelf)
+            {
+                SkillRange.gameObject.SetActive(true);
+            }
+            SkillRange.position = nowmouse;
+            if(PlayerManager.instance.SelectSkill.UnitClass == UnitClass.ArchM)
+            {
+                float stack = PlayerManager.instance.SelectSkill.Buff[0].Value * 0.02f;
+                SkillRange.localScale = new Vector3(2+ stack, 2 + stack, 1);
+            }
+        }
     }
 }

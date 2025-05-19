@@ -51,45 +51,11 @@ public enum Buff_Type
 }
 
 [System.Serializable]
-public struct Buff
+public class Buff
 {
     public Buff_Type Type;
     public int Value;
     public float Time;
-}
-
-[System.Serializable]
-public struct Mob
-{
-    [Header("Stats")]
-    public float MaxHp;
-    public float Hp;
-    public float Speed;
-    public float Damage;
-    public List<Buff> Buff;
-
-    [Header("Type")]
-    public MobType Type;
-    public UnitTargetType MobTargetType;
-}
-
-[System.Serializable]
-public struct Unit_Base
-{
-    [Header("Stats")]
-    public float Speed;
-    public float AttackSpeed;
-    public float Hp;
-    public float MaxHp;
-    public float Damage;
-    public float PlusDamage;
-    public float Intersection;
-    public float Moral;
-    public List<Buff> Buff;
-
-    [Header("Type")]
-    public UnitClass UnitClass;
-    public UnitTargetType UnitTargetType;
 }
 
 [System.Serializable]

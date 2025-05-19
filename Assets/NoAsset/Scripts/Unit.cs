@@ -1,5 +1,7 @@
 using DamageNumbersPro;
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Unit : MonoBehaviour
 {
@@ -7,7 +9,19 @@ public class Unit : MonoBehaviour
     public Vector2 TargetWid;
     public bool Move;
 
-    public Unit_Base UB;
+    [Header("Stats")]
+    public float Speed;
+    public float AttackSpeed;
+    public float Hp;
+    public float MaxHp;
+    public float Damage;
+    public float Intersection;
+    public float Moral;
+    public List<Buff> Buff;
+
+    [Header("Type")]
+    public UnitClass UnitClass;
+    public UnitTargetType UnitTargetType;
 
     [Header("Invin")]
     public bool Invin;
@@ -19,11 +33,16 @@ public class Unit : MonoBehaviour
     [SerializeField] private float AttackTime;
     public Animator AttackAnimation;
 
-    public GameObject AttackEffect;
+    public Transform AttackEffect;
+    public Transform SkillEffect;
     [SerializeField] CircleCollider2D Interaction;
 
     [SerializeField] private DamageNumberMesh HitPrefab;
     [SerializeField] private DamageNumberMesh HealPrefab;
+
+    public bool locked;
+
+    public float AttackWeight;
 
     [Header("Skill")]
     public float SkillCoolTime;
@@ -39,16 +58,16 @@ public class Unit : MonoBehaviour
     }
     public void UnitInit()
     {
-        UB.Hp = UB.MaxHp;
+        Hp = MaxHp;
         AttackTime = 0;
         SkillTime = SkillCoolTime;
-        Interaction.radius = UB.Intersection * 2f;
-        Interaction.radius = UB.Intersection + 2f;
+        Interaction.radius = Intersection * 2f;
+        Interaction.radius = Intersection + 2f;
         TargetUnit = null;
         Invin =false;
         Move = false;
 
-        switch (UB.UnitClass)
+        switch (UnitClass)
         {
             case UnitClass.GuardN:
                 break;
@@ -57,19 +76,25 @@ public class Unit : MonoBehaviour
             case UnitClass.Fighter:
                 break;
             case UnitClass.ArchM:
+                Buff.Add(new Buff());
+                Buff[0].Value = 0;
+                Buff[0].Type = Buff_Type.Charge;
                 break;
         }
     }
     void Update()
     {
-        if(UB.Hp <= 0)
+        if(Hp <= 0)
         {
             gameObject.SetActive(false);
         }
 
         if(AttackTime < 1)
         {
-            AttackTime += UB.AttackSpeed * Time.deltaTime;
+            if (!locked)
+            {
+                AttackTime += AttackSpeed * Time.deltaTime;
+            }
         }
         else
         {
@@ -78,7 +103,10 @@ public class Unit : MonoBehaviour
         
         if(SkillTime < SkillCoolTime)
         {
-            SkillTime += 1 * Time.deltaTime;
+            if (!locked)
+            {
+                SkillTime += 1 * Time.deltaTime;
+            }
         }
         else if(!skill)
         {
@@ -86,7 +114,7 @@ public class Unit : MonoBehaviour
             SkillTime = SkillCoolTime;
         }
 
-        if (TargetUnit && AttackTime == 1)
+        if (TargetUnit && AttackTime == 1&&!locked)
         {
             AttackTime = 0;
             Attack();
@@ -104,14 +132,14 @@ public class Unit : MonoBehaviour
                     }
                     else transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
-                transform.position = Vector2.MoveTowards(transform.position, TargetWid, UB.Speed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, TargetWid, Speed * Time.deltaTime);
             }
             else Move = false;
         }
     }
     void Attack()
     {
-        AttackAnimation.SetFloat("AttackSpeed", UB.AttackSpeed);
+        AttackAnimation.SetFloat("AttackSpeed", AttackSpeed);
         if (TargetUnit.transform.position.x >= transform.position.x)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -124,7 +152,7 @@ public class Unit : MonoBehaviour
         }
 
         GameObject Effect = null;
-        switch (UB.UnitClass)
+        switch (UnitClass)
         {
             case UnitClass.GuardN:
                 break;
@@ -137,28 +165,29 @@ public class Unit : MonoBehaviour
             case UnitClass.Berserker:
                 break;
             case UnitClass.Archer:
-                Effect = Instantiate(AttackEffect, (AttackAnimation.transform.position + TargetUnit.position) / 2, AttackAnimation.transform.rotation);
+                Effect = Instantiate(AttackEffect.gameObject, (AttackAnimation.transform.position + TargetUnit.position) / 2, AttackAnimation.transform.rotation);
                 Effect.transform.localScale = new Vector3(Vector2.Distance(TargetUnit.position, AttackAnimation.transform.position) / 5f, 1.25f, 0.5f);
                 Effect.transform.GetChild(0).localScale = new Vector3(Vector2.Distance(TargetUnit.position, AttackAnimation.transform.position) / 5f ,1.25f,0.5f);
-                Effect = Effect.transform.GetChild(1).gameObject;
                 break;
             case UnitClass.ArchM:
-                Effect = Instantiate(AttackEffect, TargetUnit.transform.position, AttackAnimation.transform.localRotation);
+                Buff[0].Value++;
+                Effect = Instantiate(AttackEffect.gameObject, TargetUnit.transform.position, AttackAnimation.transform.localRotation);
                 break;
             case UnitClass.SpiritM:
                 break;
             case UnitClass.HolyM:
-                Effect = Instantiate(AttackEffect, TargetUnit.transform.position, AttackAnimation.transform.localRotation);
+                Effect = Instantiate(AttackEffect.gameObject, TargetUnit.transform.position, AttackAnimation.transform.localRotation);
                 break;
         }
-        if (UB.UnitClass != UnitClass.HolyM)
+        if (UnitClass != UnitClass.HolyM)
         {
-            Effect.GetComponent<AttackEffect>().Unit = this;
-            Effect.GetComponent<AttackEffect>().Damage = UB.Damage + UB.PlusDamage;
+            Effect.GetComponentInChildren<AttackEffect>().Unit = this;
+            Effect.GetComponentInChildren<AttackEffect>().Damage = Damage;
+            Effect.GetComponentInChildren<AttackEffect>().Weight = AttackWeight;
         }
         else
         {
-            TargetUnit.GetComponent<Unit>().HpChange(-UB.Damage);
+            TargetUnit.GetComponent<Unit>().HpChange(-Damage);
         }
 
         AttackAnimation.SetTrigger("Attack");
@@ -166,33 +195,55 @@ public class Unit : MonoBehaviour
 
     public void Skill()
     {
-        switch (UB.UnitClass)
+        if (skill)
         {
-            case UnitClass.GuardN:
-                break;
-            case UnitClass.DragonN:
-                break;
-            case UnitClass.HolyN:
-                break;
-            case UnitClass.Fighter:
-                break;
-            case UnitClass.Berserker:
-                break;
-            case UnitClass.Archer:
-                break;
-            case UnitClass.ArchM:
-                break;
-            case UnitClass.SpiritM:
-                break;
-            case UnitClass.HolyM:
-                break;
+            skill = false;
+            SkillTime = 0;
+            GameObject Effect = null;
+            switch (UnitClass)
+            {
+                case UnitClass.GuardN:
+                    break;
+                case UnitClass.DragonN:
+                    break;
+                case UnitClass.HolyN:
+                    break;
+                case UnitClass.Fighter:
+                    break;
+                case UnitClass.Berserker:
+                    break;
+                case UnitClass.Archer:
+                    locked = true;
+                    AttackAnimation.SetTrigger("Skill");
+                    Effect = Instantiate(SkillEffect.gameObject, AttackAnimation.transform.position, AttackAnimation.transform.rotation);
+                    break;
+                case UnitClass.ArchM:
+                    locked= true;
+                    AttackAnimation.SetTrigger("Skill");
+                    Effect = Instantiate(SkillEffect.gameObject, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+                    Effect.transform.position = new Vector3(Effect.transform.position.x, Effect.transform.position.y, 0);
+                    Effect.transform.localScale = new Vector3((Buff[0].Value * 0.02f) + 1f, (Buff[0].Value * 0.02f) + 1f, 1);
+                    //Effect.transform.GetComponentInChildren<AttackEffect>().Damage = Damage + (Buff[0].Value * 0.05f);
+                    break;
+                case UnitClass.SpiritM:
+                    break;
+                case UnitClass.HolyM:
+                    break;
+            }
+            Effect.transform.GetComponentInChildren<AttackEffect>().Unit = this;
+            Effect.transform.GetComponentInChildren<AttackEffect>().Damage += Damage;
+            Effect.transform.GetComponentInChildren<AttackEffect>().Weight = SkillWeight;
+        }
+        else
+        {
+            Debug.Log("스킬 쿨타임중");
         }
     }
 
     public void HpChange(float Damage)
     {
-        UB.Hp -= Damage;
-        if (UB.Hp > UB.MaxHp) UB.Hp = UB.MaxHp;
+        Hp -= Damage;
+        if (Hp > MaxHp) Hp = MaxHp;
         if (Damage > 0)
         {
             HitPrefab.Spawn(transform.position, Damage);
