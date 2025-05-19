@@ -21,7 +21,7 @@ public class UnitHit : MonoBehaviour
         {
             if (!Unit.Invin)
             {
-                float Damage = collision.transform.GetComponent<MobBase>().Mob.Damage;
+                float Damage = collision.transform.GetComponent<MobBase>().Damage;
                 Unit.HpChange(Damage);
                 StartCoroutine(Invining());
             }

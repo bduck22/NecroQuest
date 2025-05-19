@@ -47,13 +47,13 @@ public class CameraMove : MonoBehaviour
         }
 
         float scroll = Input.GetAxisRaw("Mouse ScrollWheel");
-        if (scroll > 0 && Camera.main.orthographicSize > MinZoom)
+        if ((scroll < 0 || Input.GetKey(KeyCode.E)) && Camera.main.orthographicSize < MaxZoom)
         {
-            Camera.main.orthographicSize -= scroll * ZoomSpeed;
+            Camera.main.orthographicSize += (-scroll)+ZoomSpeed * Time.deltaTime;
         }
-        if (scroll < 0 && Camera.main.orthographicSize < MaxZoom)
+        if ((scroll > 0 || Input.GetKey(KeyCode.Q)) && Camera.main.orthographicSize > MinZoom)
         {
-            Camera.main.orthographicSize -= scroll * ZoomSpeed;
+            Camera.main.orthographicSize -= scroll+ZoomSpeed * Time.deltaTime;
         }
     }
 }

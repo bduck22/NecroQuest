@@ -4859,9 +4859,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 800119093
+  m_SortingLayer: 3
+  m_SortingOrder: 2
   m_RenderMode: 1
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -9891,8 +9891,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 1.0288999, y: 0.07944998, z: 0}
-    m_Extent: {x: 3.5503, y: 0.77995, z: 0}
+    m_Center: {x: -1.19615, y: 0.07955, z: 0}
+    m_Extent: {x: 1.41315, y: 0.63995004, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -9903,10 +9903,10 @@ MonoBehaviour:
   m_ShapeLightFalloffSize: 0.5
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -2.0074253, y: -0.1995951, z: 0}
-  - {x: 4.07604, y: -0.1798706, z: 0}
-  - {x: 4.080294, y: 0.3236679, z: 0}
-  - {x: -2.020903, y: 0.35902992, z: 0}
+  - {x: -2.099513, y: -0.059461236, z: 0}
+  - {x: -0.28628206, y: -0.05254829, z: 0}
+  - {x: -0.28203058, y: 0.21876657, z: 0}
+  - {x: -2.1089873, y: 0.21889603, z: 0}
 --- !u!95 &610261617821626976
 Animator:
   serializedVersion: 7
@@ -9963,7 +9963,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 1.0287557, y: 0.07534483}
+  m_Offset: {x: -1.1908422, y: 0.07534471}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -9973,7 +9973,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 6.3673935, y: 0.84931034}
+  m_Size: {x: 1.9281979, y: 0.35924858}
   m_EdgeRadius: 0
 --- !u!114 &1169733459903624728
 MonoBehaviour:
@@ -9987,5 +9987,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db01c14062790a94ca3f56a1965c1bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Unit: {fileID: 0}
   Damage: 0
   Weight: 1

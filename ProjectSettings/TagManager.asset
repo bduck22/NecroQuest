@@ -48,11 +48,14 @@ TagManager:
   - name: Unit
     uniqueID: 116102349
     locked: 0
-  - name: Ui
-    uniqueID: 2636868235
-    locked: 0
   - name: Tree
     uniqueID: 1106617829
+    locked: 0
+  - name: Effect
+    uniqueID: 800119093
+    locked: 0
+  - name: Ui
+    uniqueID: 2636868235
     locked: 0
   m_RenderingLayers:
   - Default

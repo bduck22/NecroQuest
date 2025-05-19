@@ -5,8 +5,18 @@ using UnityEngine.AI;
 
 public class MobBase : MonoBehaviour
 {
-    public Mob Mob;
+    [Header("Stats")]
+    public float MaxHp;
+    public float Hp;
+    public float Speed;
+    public float Damage;
+    public List<Buff> Buff;
 
+    [Header("Type")]
+    public MobType Type;
+    public UnitTargetType MobTargetType;
+
+    [Header("etc")]
     public float LodingTime;
 
     public Unit Target;
@@ -22,10 +32,10 @@ public class MobBase : MonoBehaviour
     public void MobInit()
     {
         moving = true;
-        Mob.MaxHp = 5;
-        Mob.Hp = Mob.MaxHp;
-        Mob.Speed = 5;
-        Mob.Damage = 1;
+        MaxHp = 5;
+        Hp = MaxHp;
+        Speed = 5;
+        Damage = 1;
         Target = null;
         TargetLoad();
     }
@@ -48,18 +58,28 @@ public class MobBase : MonoBehaviour
         if (moving&&Target)
         {
             //agent.SetDestination(Target.transform.position);
-            transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Mob.Speed * 0.15f * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Speed * 0.15f * Time.deltaTime);
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        //if (collision.CompareTag("Attack"))
+        //{
+        //    collision.enabled = false;
+        //    AttackEffect AE = collision.GetComponent<AttackEffect>();
+        //    HpCh(-(AE.Damage * AE.Weight));
+        //}
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.CompareTag("Attack"))
         {
-            collision.enabled = false;
+            //collision.enabled = false;
             AttackEffect AE = collision.GetComponent<AttackEffect>();
             HpCh(-(AE.Damage * AE.Weight));
         }
     }
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Unit"))
@@ -90,9 +110,9 @@ public class MobBase : MonoBehaviour
         {
             HealPrefab.Spawn(transform.position, damage);
         }
-        Mob.Hp += damage;
-        if (Mob.Hp > Mob.MaxHp) Mob.Hp = Mob.MaxHp;
-        if (Mob.Hp <= 0)
+        Hp += damage;
+        if (Hp > MaxHp) Hp = MaxHp;
+        if (Hp <= 0)
         {
             SpawnManager.MobCount--;
             gameObject.SetActive(false);
@@ -112,10 +132,10 @@ public class MobBase : MonoBehaviour
                 }
                 else
                 {
-                    switch (Mob.MobTargetType)
+                    switch (MobTargetType)
                     {
                         case UnitTargetType.LowHp:
-                            if (Target.UB.Hp > u.UB.Hp)
+                            if (Target.Hp > u.Hp)
                             {
                                 Target = u;
                             }

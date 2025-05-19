@@ -103,14 +103,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9236998403d5aff41a41e9cf4cdfcf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mob:
-    MaxHp: 5
-    Hp: 5
-    Speed: 5
-    Damage: 1
-    Buff: []
-    Type: 0
-    MobTargetType: 0
+  MaxHp: 5
+  Hp: 0
+  Speed: 1
+  Damage: 1
+  Buff: []
+  Type: 0
+  MobTargetType: 0
   LodingTime: 0.1
   Target: {fileID: 0}
   moving: 0
