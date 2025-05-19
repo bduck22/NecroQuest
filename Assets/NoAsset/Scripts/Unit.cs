@@ -1,4 +1,5 @@
 using DamageNumbersPro;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
@@ -34,7 +35,6 @@ public class Unit : MonoBehaviour
     public Animator AttackAnimation;
 
     public Transform AttackEffect;
-    public Transform SkillEffect;
     [SerializeField] CircleCollider2D Interaction;
 
     [SerializeField] private DamageNumberMesh HitPrefab;
@@ -45,6 +45,7 @@ public class Unit : MonoBehaviour
     public float AttackWeight;
 
     [Header("Skill")]
+    public Transform SkillEffect;
     public float SkillCoolTime;
     [SerializeField] private float SkillTime;
     public bool skill;
@@ -58,7 +59,7 @@ public class Unit : MonoBehaviour
     }
     public void UnitInit()
     {
-        Hp = MaxHp;
+        Hp = MaxHp*5;
         AttackTime = 0;
         SkillTime = SkillCoolTime;
         Interaction.radius = Intersection * 2f;
@@ -76,6 +77,14 @@ public class Unit : MonoBehaviour
             case UnitClass.Fighter:
                 break;
             case UnitClass.ArchM:
+                foreach (Buff b in Buff)
+                {
+                    if (b.Type == Buff_Type.Charge)
+                    {
+                        return;
+                    }
+                }
+                Debug.Log("Plus");
                 Buff.Add(new Buff());
                 Buff[0].Value = 0;
                 Buff[0].Type = Buff_Type.Charge;
@@ -155,6 +164,7 @@ public class Unit : MonoBehaviour
         switch (UnitClass)
         {
             case UnitClass.GuardN:
+                Effect = Instantiate(AttackEffect.gameObject, AttackAnimation.transform);
                 break;
             case UnitClass.DragonN:
                 break;
@@ -242,15 +252,19 @@ public class Unit : MonoBehaviour
 
     public void HpChange(float Damage)
     {
-        Hp -= Damage;
-        if (Hp > MaxHp) Hp = MaxHp;
+        if (Hp > MaxHp*5) Hp = MaxHp*5;
         if (Damage > 0)
         {
+            if (UnitClass == UnitClass.GuardN)
+            {
+                Damage /= 2f;
+            }
             HitPrefab.Spawn(transform.position, Damage);
         }
         else
         {
             HealPrefab.Spawn(transform.position, -Damage);
         }
+        Hp -= Damage;
     }
 }

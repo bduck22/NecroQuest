@@ -152,6 +152,10 @@ public class GameManager : MonoBehaviour
     void Rest()
     {
         GameStatus = GameStatus.WaveStart;
+        for (int i = 0; i < PlayerManager.instance.Units.Length; i++)
+        {
+            PlayerManager.instance.Units[i].UnitInit();
+        }
     }
 
     void Result()

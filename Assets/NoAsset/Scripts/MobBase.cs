@@ -33,7 +33,7 @@ public class MobBase : MonoBehaviour
     {
         moving = true;
         MaxHp = 5;
-        Hp = MaxHp;
+        Hp = MaxHp*5;
         Speed = 5;
         Damage = 1;
         Target = null;
@@ -76,6 +76,10 @@ public class MobBase : MonoBehaviour
         {
             //collision.enabled = false;
             AttackEffect AE = collision.GetComponent<AttackEffect>();
+            if (AE.Unit.UnitClass == UnitClass.DragonN)
+            {
+
+            }
             HpCh(-(AE.Damage * AE.Weight));
         }
     }
@@ -111,7 +115,7 @@ public class MobBase : MonoBehaviour
             HealPrefab.Spawn(transform.position, damage);
         }
         Hp += damage;
-        if (Hp > MaxHp) Hp = MaxHp;
+        if (Hp > MaxHp * 5) Hp = MaxHp * 5;
         if (Hp <= 0)
         {
             SpawnManager.MobCount--;
