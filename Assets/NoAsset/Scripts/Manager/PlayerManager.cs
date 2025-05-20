@@ -5,9 +5,9 @@ using UnityEngine.Networking;
 
 public class PlayerManager : MonoBehaviour
 {
-    const string googlesheeturl = "https://docs.google.com/spreadsheets/d/12jlQL9fBaJSoOqOuuXTiVtZicH-X6jMGV56IdItUOHU/export?format=tsv&range=A2:G";
+    //const string googlesheeturl = "https://docs.google.com/spreadsheets/d/12jlQL9fBaJSoOqOuuXTiVtZicH-X6jMGV56IdItUOHU/export?format=tsv&range=A2:G";
 
-    string sheetData;
+    //string sheetData;
 
     public static PlayerManager instance;
     private void Awake()
@@ -15,7 +15,8 @@ public class PlayerManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-        }else
+        }
+        else
         {
             Destroy(gameObject);
         }
@@ -61,10 +62,6 @@ public class PlayerManager : MonoBehaviour
                 {
                     switch (Units[i].UnitClass)
                     {
-                        case UnitClass.GuardN:
-                            //UnitManager.SkillRange.localScale =
-                            SelectSkill = Units[i];
-                            break;
                         case UnitClass.ArchM:
                             SelectSkill = Units[i];
                             break;

@@ -1,4 +1,5 @@
 using DamageNumbersPro;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -28,6 +29,9 @@ public class MobBase : MonoBehaviour
     [SerializeField] private DamageNumberMesh HitPrefab;
     [SerializeField] private DamageNumberMesh HealPrefab;
 
+    private SpriteRenderer HitImage;
+
+    bool hit=true;
     //private NavMeshAgent agent;
     public void MobInit()
     {
@@ -37,11 +41,13 @@ public class MobBase : MonoBehaviour
         Speed = 5;
         Damage = 1;
         Target = null;
+        Buff.Clear();
         TargetLoad();
     }
 
     void Start()
     {
+        HitImage = GetComponent<SpriteRenderer>();
         //agent = GetComponent<NavMeshAgent>();
         //agent.updateRotation = false;
         //agent.updateUpAxis = false;
@@ -58,17 +64,13 @@ public class MobBase : MonoBehaviour
         if (moving&&Target)
         {
             //agent.SetDestination(Target.transform.position);
+            if (Target.transform.position.x < transform.position.x)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else transform.rotation = Quaternion.Euler(0, 180, 0);
             transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Speed * 0.15f * Time.deltaTime);
         }
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        //if (collision.CompareTag("Attack"))
-        //{
-        //    collision.enabled = false;
-        //    AttackEffect AE = collision.GetComponent<AttackEffect>();
-        //    HpCh(-(AE.Damage * AE.Weight));
-        //}
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -80,10 +82,26 @@ public class MobBase : MonoBehaviour
             {
 
             }
+            if (AE.Unit.UnitClass == UnitClass.GuardN)
+            {
+                if (AE.Skill)
+                {
+                    Buff.Add(new Buff(Buff_Type.Provo, AE.Unit.transform, 5));
+                }
+            }
             HpCh(-(AE.Damage * AE.Weight));
         }
     }
-
+    IEnumerator HitAni()
+    {
+        if (!hit) yield return null;
+        else hit = false;
+        HitImage.color = Color.red;
+        yield return new WaitForSeconds(2 / 3f);
+        HitImage.color = Color.white;
+        yield return new WaitForSeconds(1 / 3f);
+        hit = true;
+    }
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Unit"))
@@ -108,6 +126,7 @@ public class MobBase : MonoBehaviour
     {
         if(damage < 0)
         {
+            StartCoroutine(HitAni());
             HitPrefab.Spawn(transform.position, -damage);
         }
         else
@@ -125,6 +144,13 @@ public class MobBase : MonoBehaviour
 
     public void TargetLoad()
     {
+        foreach (Buff b in Buff)
+        {
+            if (b.Type == Buff_Type.Provo)
+            {
+                return;
+            }
+        }
         Target = null;
         foreach (Unit u in PlayerManager.instance.Units)
         {

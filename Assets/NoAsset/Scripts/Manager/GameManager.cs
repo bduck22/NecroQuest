@@ -47,7 +47,8 @@ public enum GameStatus
 
 public enum Buff_Type
 {
-    Charge
+    Charge,
+    Provo
 }
 
 [System.Serializable]
@@ -56,6 +57,19 @@ public class Buff
     public Buff_Type Type;
     public int Value;
     public float Time;
+    public Transform Target;
+    public Buff(Buff_Type Type, int value, float time)
+    {
+        this.Type = Type;
+        this.Value = value;
+        this.Time = time;
+    }
+    public Buff(Buff_Type Type, Transform Target, float time)
+    {
+        this.Type = Type;
+        this.Target = Target;
+        this.Time = time;
+    }
 }
 
 [System.Serializable]
@@ -83,7 +97,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            DontDestroyOnLoad(gameObject);
         }
     }
 

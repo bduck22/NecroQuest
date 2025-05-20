@@ -1,6 +1,7 @@
 using DamageNumbersPro;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -67,11 +68,8 @@ public class Unit : MonoBehaviour
         TargetUnit = null;
         Invin =false;
         Move = false;
-
         switch (UnitClass)
         {
-            case UnitClass.GuardN:
-                break;
             case UnitClass.DragonN:
                 break;
             case UnitClass.Fighter:
@@ -84,10 +82,7 @@ public class Unit : MonoBehaviour
                         return;
                     }
                 }
-                Debug.Log("Plus");
-                Buff.Add(new Buff());
-                Buff[0].Value = 0;
-                Buff[0].Type = Buff_Type.Charge;
+                Buff.Add(new Buff(Buff_Type.Charge, 0, 0));
                 break;
         }
     }
@@ -213,6 +208,9 @@ public class Unit : MonoBehaviour
             switch (UnitClass)
             {
                 case UnitClass.GuardN:
+                    locked = true;
+                    AttackAnimation.SetTrigger("Skill");
+                    Effect = Instantiate(SkillEffect.gameObject, transform.position, transform.rotation);
                     break;
                 case UnitClass.DragonN:
                     break;
@@ -229,6 +227,16 @@ public class Unit : MonoBehaviour
                     break;
                 case UnitClass.ArchM:
                     locked= true;
+                    if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x >= transform.position.x)
+                    {
+                        transform.rotation = Quaternion.Euler(0, 0, 0);
+                        AttackAnimation.transform.localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.right, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).eulerAngles.z);
+                    }
+                    else
+                    {
+                        transform.rotation = Quaternion.Euler(0, 180, 0);
+                        AttackAnimation.transform.localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.left, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).eulerAngles.z);
+                    }
                     AttackAnimation.SetTrigger("Skill");
                     Effect = Instantiate(SkillEffect.gameObject, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
                     Effect.transform.position = new Vector3(Effect.transform.position.x, Effect.transform.position.y, 0);
@@ -243,6 +251,7 @@ public class Unit : MonoBehaviour
             Effect.transform.GetComponentInChildren<AttackEffect>().Unit = this;
             Effect.transform.GetComponentInChildren<AttackEffect>().Damage += Damage;
             Effect.transform.GetComponentInChildren<AttackEffect>().Weight = SkillWeight;
+            Effect.transform.GetComponentInChildren<AttackEffect>().Skill = true;
         }
         else
         {
