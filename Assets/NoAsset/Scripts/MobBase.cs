@@ -35,6 +35,8 @@ public class MobBase : MonoBehaviour
     //private NavMeshAgent agent;
     public void MobInit()
     {
+        hit = true;
+        HitImage.color = Color.white;
         moving = true;
         MaxHp = 5;
         Hp = MaxHp*5;
