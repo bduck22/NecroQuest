@@ -1,9 +1,7 @@
 using DamageNumbersPro;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Unit : MonoBehaviour
 {
@@ -60,13 +58,13 @@ public class Unit : MonoBehaviour
     }
     public void UnitInit()
     {
-        Hp = MaxHp*5;
+        Hp = MaxHp * 5;
         AttackTime = 0;
         SkillTime = SkillCoolTime;
         Interaction.radius = Intersection * 2f;
         Interaction.radius = Intersection + 2f;
         TargetUnit = null;
-        Invin =false;
+        Invin = false;
         Move = false;
         switch (UnitClass)
         {
@@ -88,12 +86,20 @@ public class Unit : MonoBehaviour
     }
     void Update()
     {
-        if(Hp <= 0)
+        if (TargetUnit)
+        {
+            if (!TargetUnit.gameObject.activeSelf)
+            {
+                TargetUnit = null;
+            }
+        }
+
+        if (Hp <= 0)
         {
             gameObject.SetActive(false);
         }
 
-        if(AttackTime < 1)
+        if (AttackTime < 1)
         {
             if (!locked)
             {
@@ -104,21 +110,21 @@ public class Unit : MonoBehaviour
         {
             AttackTime = 1;
         }
-        
-        if(SkillTime < SkillCoolTime)
+
+        if (SkillTime < SkillCoolTime)
         {
             if (!locked)
             {
                 SkillTime += 1 * Time.deltaTime;
             }
         }
-        else if(!skill)
+        else if (!skill)
         {
             skill = true;
             SkillTime = SkillCoolTime;
         }
 
-        if (TargetUnit && AttackTime == 1&&!locked)
+        if (TargetUnit && AttackTime == 1 && !locked)
         {
             AttackTime = 0;
             Attack();
@@ -128,7 +134,8 @@ public class Unit : MonoBehaviour
         {
             if ((Vector2)transform.position != TargetWid)
             {
-                if(AttackTime == 1) {
+                if (AttackTime == 1)
+                {
                     AttackAnimation.transform.localRotation = Quaternion.identity;
                     if (TargetWid.x >= transform.position.x)
                     {
@@ -172,13 +179,21 @@ public class Unit : MonoBehaviour
             case UnitClass.Archer:
                 Effect = Instantiate(AttackEffect.gameObject, (AttackAnimation.transform.position + TargetUnit.position) / 2, AttackAnimation.transform.rotation);
                 Effect.transform.localScale = new Vector3(Vector2.Distance(TargetUnit.position, AttackAnimation.transform.position) / 5f, 1.25f, 0.5f);
-                Effect.transform.GetChild(0).localScale = new Vector3(Vector2.Distance(TargetUnit.position, AttackAnimation.transform.position) / 5f ,1.25f,0.5f);
+                Effect.transform.GetChild(0).localScale = new Vector3(Vector2.Distance(TargetUnit.position, AttackAnimation.transform.position) / 5f, 1.25f, 0.5f);
                 break;
             case UnitClass.ArchM:
                 Buff[0].Value++;
                 Effect = Instantiate(AttackEffect.gameObject, TargetUnit.transform.position, AttackAnimation.transform.localRotation);
                 break;
             case UnitClass.SpiritM:
+                for (int i = 0; i < 3; i++)
+                {
+                    Effect = Instantiate(AttackEffect.gameObject, AttackAnimation.transform.position, AttackAnimation.transform.localRotation);
+                    Effect.GetComponentInChildren<SpiritMove>().Target = TargetUnit.transform;
+                    Effect.GetComponentInChildren<AttackEffect>().Unit = this;
+                    Effect.GetComponentInChildren<AttackEffect>().Damage = Damage;
+                    Effect.GetComponentInChildren<AttackEffect>().Weight = AttackWeight;
+                }
                 break;
             case UnitClass.HolyM:
                 Effect = Instantiate(AttackEffect.gameObject, TargetUnit.transform.position, AttackAnimation.transform.localRotation);
@@ -197,7 +212,6 @@ public class Unit : MonoBehaviour
 
         AttackAnimation.SetTrigger("Attack");
     }
-
     public void Skill()
     {
         if (skill)
@@ -226,7 +240,7 @@ public class Unit : MonoBehaviour
                     Effect = Instantiate(SkillEffect.gameObject, AttackAnimation.transform.position, AttackAnimation.transform.rotation);
                     break;
                 case UnitClass.ArchM:
-                    locked= true;
+                    locked = true;
                     if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x >= transform.position.x)
                     {
                         transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -261,7 +275,7 @@ public class Unit : MonoBehaviour
 
     public void HpChange(float Damage)
     {
-        if (Hp > MaxHp*5) Hp = MaxHp*5;
+        if (Hp > MaxHp * 5) Hp = MaxHp * 5;
         if (Damage > 0)
         {
             if (UnitClass == UnitClass.GuardN)

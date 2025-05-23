@@ -32,16 +32,24 @@ public class BuffManager : MonoBehaviour
     {
         foreach (Buff buff in (!IsUnit ? Mob.Buff : Unit.Buff))
         {
-            switch (buff.Type)
+            if (buff.Run)
             {
-                case Buff_Type.Provo:
-                    StartCoroutine(Buff(buff));
-                    break;
+                if (buff.Time > 0)
+                {
+                    buff.Run = false;
+                }
+                switch (buff.Type)
+                {
+                    case Buff_Type.Provo:
+                        StartCoroutine(Buff(buff));
+                        break;
+                }
             }
         }
     }
     IEnumerator Buff(Buff BT)
     {
+        GameObject BuffEffect = null;
         switch (BT.Type)
         {
             case Buff_Type.Provo:
@@ -52,6 +60,7 @@ public class BuffManager : MonoBehaviour
                 {
                     Mob.Target = BT.Target.GetComponent<Unit>();
                 }
+                BuffEffect = Instantiate(GameManager.instance.BuffEffects[0].gameObject, (!IsUnit? Mob.transform.GetChild(0) : Unit.transform.GetChild(5)));
                 break;
         }
         if(BT.Time <= 0)
@@ -64,6 +73,7 @@ public class BuffManager : MonoBehaviour
             switch (BT.Type)
             {
                 case Buff_Type.Provo:
+                    BuffEffect.GetComponent<Animator>().enabled = true;
                     if (IsUnit)
                     {
                         Unit.TargetUnit = null;

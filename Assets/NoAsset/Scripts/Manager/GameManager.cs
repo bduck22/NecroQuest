@@ -58,6 +58,7 @@ public class Buff
     public int Value;
     public float Time;
     public Transform Target;
+    public bool Run=true;
     public Buff(Buff_Type Type, int value, float time)
     {
         this.Type = Type;
@@ -107,6 +108,9 @@ public class GameManager : MonoBehaviour
     public GameStatus GameStatus;
 
     SpawnManager SpawnManager;
+
+    [Header("BuffEffects")]
+    public Transform[] BuffEffects;
 
     private void Start()
     {

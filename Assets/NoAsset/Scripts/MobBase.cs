@@ -126,21 +126,24 @@ public class MobBase : MonoBehaviour
     }
     void HpCh(float damage)
     {
-        if(damage < 0)
+        if (gameObject.activeSelf)
         {
-            StartCoroutine(HitAni());
-            HitPrefab.Spawn(transform.position, -damage);
-        }
-        else
-        {
-            HealPrefab.Spawn(transform.position, damage);
-        }
-        Hp += damage;
-        if (Hp > MaxHp * 5) Hp = MaxHp * 5;
-        if (Hp <= 0)
-        {
-            SpawnManager.MobCount--;
-            gameObject.SetActive(false);
+            Hp += damage;
+            if (Hp > MaxHp * 5) Hp = MaxHp * 5;
+            if (Hp <= 0)
+            {
+                SpawnManager.MobCount--;
+                gameObject.SetActive(false);
+            }
+            if (damage < 0)
+            {
+                if (gameObject.activeSelf) StartCoroutine(HitAni());
+                HitPrefab.Spawn(transform.position, -damage);
+            }
+            else
+            {
+                HealPrefab.Spawn(transform.position, damage);
+            }
         }
     }
 
