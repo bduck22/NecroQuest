@@ -216,12 +216,14 @@ public class Unit : MonoBehaviour
     {
         if (skill)
         {
+            bool IsDamaged = false;
             skill = false;
             SkillTime = 0;
             GameObject Effect = null;
             switch (UnitClass)
             {
                 case UnitClass.GuardN:
+                    IsDamaged = true;
                     locked = true;
                     AttackAnimation.SetTrigger("Skill");
                     Effect = Instantiate(SkillEffect.gameObject, transform.position, transform.rotation);
@@ -235,11 +237,13 @@ public class Unit : MonoBehaviour
                 case UnitClass.Berserker:
                     break;
                 case UnitClass.Archer:
+                    IsDamaged = true;
                     locked = true;
                     AttackAnimation.SetTrigger("Skill");
                     Effect = Instantiate(SkillEffect.gameObject, AttackAnimation.transform.position, AttackAnimation.transform.rotation);
                     break;
                 case UnitClass.ArchM:
+                    IsDamaged = true;
                     locked = true;
                     if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x >= transform.position.x)
                     {
@@ -258,14 +262,38 @@ public class Unit : MonoBehaviour
                     //Effect.transform.GetComponentInChildren<AttackEffect>().Damage = Damage + (Buff[0].Value * 0.05f);
                     break;
                 case UnitClass.SpiritM:
+                    Unit Skill_Target=null;
+                    foreach(Unit t in PlayerManager.instance.Units)
+                    {
+                        if (t.gameObject.activeSelf)
+                        {
+                            if (!Skill_Target)
+                            {
+                                Skill_Target = t;
+                            }
+                            else
+                            {
+                                if (Skill_Target.Hp > t.Hp)
+                                {
+                                    Skill_Target = t;
+                                }
+                            }
+                        }
+                    }
+                    AttackAnimation.SetTrigger("Skill");
+                    Skill_Target.HpChange(-10);
+                    Skill_Target.Buff.Add(new Buff(Buff_Type.Spirit, 1, 5));
                     break;
                 case UnitClass.HolyM:
                     break;
             }
-            Effect.transform.GetComponentInChildren<AttackEffect>().Unit = this;
-            Effect.transform.GetComponentInChildren<AttackEffect>().Damage += Damage;
-            Effect.transform.GetComponentInChildren<AttackEffect>().Weight = SkillWeight;
-            Effect.transform.GetComponentInChildren<AttackEffect>().Skill = true;
+            if (IsDamaged)
+            {
+                Effect.transform.GetComponentInChildren<AttackEffect>().Unit = this;
+                Effect.transform.GetComponentInChildren<AttackEffect>().Damage += Damage;
+                Effect.transform.GetComponentInChildren<AttackEffect>().Weight = SkillWeight;
+                Effect.transform.GetComponentInChildren<AttackEffect>().Skill = true;
+            }
         }
         else
         {

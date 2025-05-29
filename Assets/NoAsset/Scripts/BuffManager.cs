@@ -38,12 +38,7 @@ public class BuffManager : MonoBehaviour
                 {
                     buff.Run = false;
                 }
-                switch (buff.Type)
-                {
-                    case Buff_Type.Provo:
-                        StartCoroutine(Buff(buff));
-                        break;
-                }
+                StartCoroutine(Buff(buff));
             }
         }
     }
@@ -61,6 +56,11 @@ public class BuffManager : MonoBehaviour
                     Mob.Target = BT.Target.GetComponent<Unit>();
                 }
                 BuffEffect = Instantiate(GameManager.instance.BuffEffects[0].gameObject, (!IsUnit? Mob.transform.GetChild(0) : Unit.transform.GetChild(5)));
+                break;
+            case Buff_Type.Spirit:
+                Unit.Speed += BT.Value;
+                BuffEffect = Instantiate(GameManager.instance.BuffEffects[1].gameObject, (!IsUnit ? Mob.transform : Unit.transform.GetChild(3)));
+                BuffEffect.transform.localPosition = Vector3.zero;
                 break;
         }
         if(BT.Time <= 0)
@@ -82,6 +82,10 @@ public class BuffManager : MonoBehaviour
                     {
                         Mob.Target = null;
                     }
+                    break;
+                case Buff_Type.Spirit:
+                    BuffEffect.GetComponent<Animator>().enabled = true;
+                    Unit.Speed -= BT.Value;
                     break;
             }
             (!IsUnit ? Mob.Buff : Unit.Buff).Remove(BT);

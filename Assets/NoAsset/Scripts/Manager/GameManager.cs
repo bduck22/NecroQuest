@@ -48,7 +48,8 @@ public enum GameStatus
 public enum Buff_Type
 {
     Charge,
-    Provo
+    Provo,
+    Spirit
 }
 
 [System.Serializable]
@@ -59,10 +60,18 @@ public class Buff
     public float Time;
     public Transform Target;
     public bool Run=true;
+
+    public int Value2;
     public Buff(Buff_Type Type, int value, float time)
     {
         this.Type = Type;
         this.Value = value;
+        this.Time = time;
+    }
+    public Buff(Buff_Type Type, int value1, int value2, float time)
+    {
+        this.Type = Type;
+        this.Value = value1;
         this.Time = time;
     }
     public Buff(Buff_Type Type, Transform Target, float time)
