@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3c8e940350d5aa04db9313505e39988b
+guid: dbbfad1cb2113514bbb4d5e2beb6fdac
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -615951058747154226
-    second: 1skeleton_arm 1_0
+      213: 6004734462119633704
+    second: "\uBF08_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 1skeleton_arm 1_0
+      name: "\uBF08_0"
       rect:
         serializedVersion: 2
-        x: 97
-        y: 92
-        width: 200
-        height: 249
+        x: 143
+        y: 320
+        width: 153
+        height: 121
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ec0a95886c3b377f0800000000000000
-      internalID: -615951058747154226
+      spriteID: 823ef29cd2a155350800000000000000
+      internalID: 6004734462119633704
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      1skeleton_arm 1_0: -615951058747154226
+      "\uBF08_0": 6004734462119633704
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

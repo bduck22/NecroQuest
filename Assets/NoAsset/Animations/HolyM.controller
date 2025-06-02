@@ -63,7 +63,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.9
+  m_ExitTime: 1
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -90,7 +90,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d1a9f0073846e0844a8518afba15e467, type: 2}
+  m_Motion: {fileID: 7400000, guid: 9711cb5d2c4484d4c91ba9d534683513, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -118,12 +118,12 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7e14e4f4d54bad14b890aaeead51e00b, type: 2}
+  m_Motion: {fileID: 7400000, guid: 6b31b0c5f7a4c1344acc87aab069d1ba, type: 2}
   m_Tag: 
   m_SpeedParameter: AttackSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
-  m_TimeParameter: AttackSpeed
+  m_TimeParameter: 
 --- !u!1101 &-1344924219422569675
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -183,7 +183,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpiritM
+  m_Name: HolyM
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Attack
@@ -264,7 +264,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0f9387ebb6387b04aa094f870c422fbb, type: 2}
+  m_Motion: {fileID: 7400000, guid: 87f846c19c016854db4845c028afb531, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

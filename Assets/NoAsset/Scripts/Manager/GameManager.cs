@@ -52,6 +52,12 @@ public enum Buff_Type
     Spirit
 }
 
+public enum Attack_Type
+{
+    longRange,
+    ShotRange
+}
+
 [System.Serializable]
 public class Buff
 {

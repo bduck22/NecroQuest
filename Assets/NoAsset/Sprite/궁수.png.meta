@@ -108,7 +108,7 @@ TextureImporter:
         width: 222
         height: 663
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -136,6 +136,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       "\uAD81\uC218_0": 2814732546265260745
+      "\uAD81\uC218_1": -526776952
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

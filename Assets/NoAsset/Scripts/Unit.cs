@@ -43,16 +43,19 @@ public class Unit : MonoBehaviour
 
     public float AttackWeight;
 
+    private Rigidbody2D rigidbody;
+
     [Header("Skill")]
     public Transform SkillEffect;
     public float SkillCoolTime;
-    [SerializeField] private float SkillTime;
+    public float SkillTime;
     public bool skill;
     public float SkillWeight;
 
     private UnitManager UM;
     void Start()
     {
+        rigidbody = GetComponent<Rigidbody2D>();
         UM = PlayerManager.instance.UnitManager;
         UnitInit();
     }
@@ -61,7 +64,6 @@ public class Unit : MonoBehaviour
         Hp = MaxHp * 5;
         AttackTime = 0;
         SkillTime = SkillCoolTime;
-        Interaction.radius = Intersection * 2f;
         Interaction.radius = Intersection + 2f;
         TargetUnit = null;
         Invin = false;
@@ -86,6 +88,7 @@ public class Unit : MonoBehaviour
     }
     void Update()
     {
+
         if (TargetUnit)
         {
             if (!TargetUnit.gameObject.activeSelf)
@@ -143,9 +146,17 @@ public class Unit : MonoBehaviour
                     }
                     else transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
-                transform.position = Vector2.MoveTowards(transform.position, TargetWid, Speed * Time.deltaTime);
+                rigidbody.linearVelocity = ((Vector3)TargetWid - transform.position).normalized * Speed;
+                //transform.position = Vector2.MoveTowards(transform.position, TargetWid, Speed * Time.deltaTime);
             }
-            else Move = false;
+            if (Vector2.Distance(transform.position, TargetWid) <0.2f)
+            {
+                Move = false;
+            }
+        }
+        else
+        {
+            rigidbody.linearVelocity = Vector2.zero;
         }
     }
     void Attack()
@@ -259,9 +270,12 @@ public class Unit : MonoBehaviour
                     Effect = Instantiate(SkillEffect.gameObject, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
                     Effect.transform.position = new Vector3(Effect.transform.position.x, Effect.transform.position.y, 0);
                     Effect.transform.localScale = new Vector3((Buff[0].Value * 0.02f) + 1f, (Buff[0].Value * 0.02f) + 1f, 1);
-                    //Effect.transform.GetComponentInChildren<AttackEffect>().Damage = Damage + (Buff[0].Value * 0.05f);
+                    Effect = Effect.transform.GetChild(0).gameObject;
+                    Effect.transform.GetComponentInChildren<AttackEffect>().Damage = (Buff[0].Value * 0.05f);
                     break;
                 case UnitClass.SpiritM:
+                    locked = true;
+                    AttackAnimation.SetTrigger("Skill");
                     Unit Skill_Target=null;
                     foreach(Unit t in PlayerManager.instance.Units)
                     {
@@ -297,7 +311,7 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            Debug.Log("½ºÅ³ ÄðÅ¸ÀÓÁß");
+            Debug.Log("ìŠ¤í‚¬ ì¿¨íƒ€ìž„ì¤‘");
         }
     }
 

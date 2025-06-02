@@ -13,9 +13,13 @@ public class MobBase : MonoBehaviour
     public float Damage;
     public List<Buff> Buff;
 
+    public float AttackSpeed;
+    public float Intersection;
+
     [Header("Type")]
     public MobType Type;
     public UnitTargetType MobTargetType;
+    public Attack_Type AttackType;
 
     [Header("etc")]
     public float LodingTime;
@@ -24,7 +28,9 @@ public class MobBase : MonoBehaviour
 
     private float time;
 
-    [SerializeField] private bool moving;
+    public Transform AttackOb;
+
+    //[SerializeField] private bool moving;
 
     [SerializeField] private DamageNumberMesh HitPrefab;
     [SerializeField] private DamageNumberMesh HealPrefab;
@@ -33,22 +39,33 @@ public class MobBase : MonoBehaviour
 
     bool hit=true;
     //private NavMeshAgent agent;
+
+    Transform Arm;
+
+    float AttackTime=0;
+
+    Rigidbody2D rigidbody;
+
+    Vector3 targetP;
     public void MobInit()
     {
         hit = true;
         HitImage.color = Color.white;
-        moving = true;
+        //moving = true;
         MaxHp = 5;
         Hp = MaxHp*5;
-        Speed = 5;
+        Speed = 1;
         Damage = 1;
         Target = null;
+        AttackTime = 0;
         Buff.Clear();
         TargetLoad();
     }
 
     void Start()
     {
+        rigidbody = GetComponent<Rigidbody2D>();
+        Arm = transform.GetChild(1);
         HitImage = GetComponent<SpriteRenderer>();
         //agent = GetComponent<NavMeshAgent>();
         //agent.updateRotation = false;
@@ -63,15 +80,45 @@ public class MobBase : MonoBehaviour
             time = 0;
             TargetLoad();
         }
-        if (moving&&Target)
+        if (Target)//moving&&
         {
             //agent.SetDestination(Target.transform.position);
             if (Target.transform.position.x < transform.position.x)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
+                Arm.transform.localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
             }
-            else transform.rotation = Quaternion.Euler(0, 180, 0);
-            transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Speed * 0.15f * Time.deltaTime);
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+                Arm.transform.localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
+            }
+            if (AttackType == Attack_Type.ShotRange)
+            {
+                rigidbody.linearVelocity = (targetP - transform.position).normalized * Speed;
+                //transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Speed * Time.deltaTime);
+            }else if(AttackType == Attack_Type.longRange)
+            {
+                if(Vector2.Distance(transform.position, Target.transform.position) > Intersection+2){
+                    rigidbody.linearVelocity = (targetP - transform.position).normalized * Speed;
+                }
+            }
+            if (AttackType == Attack_Type.longRange && AttackTime == 1)
+            {
+                AttackTime = 0;
+                GameObject Bone = Instantiate(AttackOb.gameObject);
+                Bone.transform.position = transform.position;
+                Bone.GetComponent<TargetMove>().Target = Target.transform;
+                Bone.GetComponent<TargetMove>().Speed = 3f;
+            }
+        }
+        if (AttackTime < 1)
+        {
+            AttackTime += AttackSpeed * Time.deltaTime;
+        }
+        else
+        {
+            AttackTime = 1;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -104,26 +151,40 @@ public class MobBase : MonoBehaviour
         yield return new WaitForSeconds(1 / 3f);
         hit = true;
     }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.transform.CompareTag("Unit"))
-        {
-            if (collision.transform.GetComponent<Unit>() == Target)
-            {
-                moving = false;
-            }
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.transform.CompareTag("Unit"))
-        {
-            if (collision.transform.GetComponent<Unit>() == Target)
-            {
-                moving = true;
-            }
-        }
-    }
+    //private void OnCollisionStay2D(Collision2D collision)
+    //{
+    //    if (collision.transform.CompareTag("Unit"))
+    //    {
+    //        if (collision.transform.GetComponent<Unit>() == Target)
+    //        {
+    //            moving = false;
+    //        }
+    //    }
+    //    if (collision.transform.CompareTag("Mob") && moving)
+    //    {
+    //        if (!collision.transform.GetComponent<MobBase>().moving)
+    //        {
+    //            moving = false;
+    //        }
+    //    }
+    //}
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (collision.transform.CompareTag("Unit"))
+    //    {
+    //        if (collision.transform.GetComponent<Unit>() == Target)
+    //        {
+    //            moving = true;
+    //        }
+    //    }
+    //    if (collision.transform.CompareTag("Mob"))
+    //    {
+    //        if (!collision.transform.GetComponent<MobBase>().moving)
+    //        {
+    //            moving = true;
+    //        }
+    //    }
+    //}
     void HpCh(float damage)
     {
         if (gameObject.activeSelf)
@@ -192,6 +253,10 @@ public class MobBase : MonoBehaviour
                     }
                 }
             }
+        }
+        if (Target)
+        {
+            targetP = Target.transform.position;
         }
     }
 }
