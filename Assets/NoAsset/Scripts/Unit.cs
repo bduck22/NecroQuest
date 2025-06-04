@@ -36,9 +36,6 @@ public class Unit : MonoBehaviour
     public Transform AttackEffect;
     [SerializeField] CircleCollider2D Interaction;
 
-    [SerializeField] private DamageNumberMesh HitPrefab;
-    [SerializeField] private DamageNumberMesh HealPrefab;
-
     public bool locked;
 
     public float AttackWeight;
@@ -85,6 +82,23 @@ public class Unit : MonoBehaviour
                 Buff.Add(new Buff(Buff_Type.Charge, 0, 0));
                 break;
         }
+    }
+    public void maxHpUp(float value)
+    {
+        Hp += value*5;
+        MaxHp += value;
+    }
+    public void InteractionUp(float value)
+    {
+        Intersection += value;
+        Interaction.radius = Intersection + 2f;
+    }
+    public void AllStatUp(float value)
+    {
+        maxHpUp(value);
+        Damage += value;
+        Speed += value;
+        AttackSpeed += value;
     }
     void Update()
     {
@@ -161,6 +175,15 @@ public class Unit : MonoBehaviour
     }
     void Attack()
     {
+        float attackweight = AttackWeight;
+        if (Moral <= 50)
+        {
+            attackweight *= 0.7f;
+        }
+        else if (Moral > 200)
+        {
+            attackweight *= 1.3f;
+        }
         AttackAnimation.SetFloat("AttackSpeed", AttackSpeed);
         if (TargetUnit.transform.position.x >= transform.position.x)
         {
@@ -203,22 +226,18 @@ public class Unit : MonoBehaviour
                     Effect.GetComponentInChildren<SpiritMove>().Target = TargetUnit.transform;
                     Effect.GetComponentInChildren<AttackEffect>().Unit = this;
                     Effect.GetComponentInChildren<AttackEffect>().Damage = Damage;
-                    Effect.GetComponentInChildren<AttackEffect>().Weight = AttackWeight;
+                    Effect.GetComponentInChildren<AttackEffect>().Weight = attackweight;
                 }
                 break;
             case UnitClass.HolyM:
-                Effect = Instantiate(AttackEffect.gameObject, TargetUnit.transform.position, AttackAnimation.transform.localRotation);
+                TargetUnit.GetComponent<Unit>().HpChange(-Damage);
                 break;
         }
         if (UnitClass != UnitClass.HolyM)
         {
             Effect.GetComponentInChildren<AttackEffect>().Unit = this;
             Effect.GetComponentInChildren<AttackEffect>().Damage = Damage;
-            Effect.GetComponentInChildren<AttackEffect>().Weight = AttackWeight;
-        }
-        else
-        {
-            TargetUnit.GetComponent<Unit>().HpChange(-Damage);
+            Effect.GetComponentInChildren<AttackEffect>().Weight = attackweight;
         }
 
         AttackAnimation.SetTrigger("Attack");
@@ -227,6 +246,15 @@ public class Unit : MonoBehaviour
     {
         if (skill)
         {
+            float skillweight = SkillWeight;
+            if (Moral <= 50)
+            {
+                skillweight *= 0.7f;
+            }
+            else if(Moral > 200)
+            {
+                skillweight *= 1.3f;
+            }
             bool IsDamaged = false;
             skill = false;
             SkillTime = 0;
@@ -295,17 +323,28 @@ public class Unit : MonoBehaviour
                         }
                     }
                     AttackAnimation.SetTrigger("Skill");
-                    Skill_Target.HpChange(-10);
+                    Skill_Target.HpChange(skillweight * -Damage);
                     Skill_Target.Buff.Add(new Buff(Buff_Type.Spirit, 1, 5));
                     break;
                 case UnitClass.HolyM:
+                    AttackAnimation.SetTrigger("Skill");
+                    Effect = Instantiate(SkillEffect.gameObject, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+                    Effect.transform.position = new Vector3(Effect.transform.position.x, Effect.transform.position.y, 0);
+                    Collider2D[] cols = Physics2D.OverlapCircleAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), 2.8f);
+                    foreach (Collider2D col in cols)
+                    {
+                        if (col.transform.CompareTag("HitBox"))
+                        {
+                            col.transform.parent.GetComponent<Unit>().HpChange(-Damage*skillweight);
+                        }
+                    }
                     break;
             }
             if (IsDamaged)
             {
                 Effect.transform.GetComponentInChildren<AttackEffect>().Unit = this;
                 Effect.transform.GetComponentInChildren<AttackEffect>().Damage += Damage;
-                Effect.transform.GetComponentInChildren<AttackEffect>().Weight = SkillWeight;
+                Effect.transform.GetComponentInChildren<AttackEffect>().Weight = skillweight;
                 Effect.transform.GetComponentInChildren<AttackEffect>().Skill = true;
             }
         }
@@ -317,19 +356,35 @@ public class Unit : MonoBehaviour
 
     public void HpChange(float Damage)
     {
-        if (Hp > MaxHp * 5) Hp = MaxHp * 5;
         if (Damage > 0)
         {
             if (UnitClass == UnitClass.GuardN)
             {
                 Damage /= 2f;
             }
-            HitPrefab.Spawn(transform.position, Damage);
+            if (Moral <= 50)
+            {
+                Damage *= 1.3f;
+            }
+            else if (Moral > 200)
+            {
+                Damage *= 0.7f;
+            }
+            PlayerManager.instance.Deal(transform, Damage);
         }
         else
         {
-            HealPrefab.Spawn(transform.position, -Damage);
+            if (Moral <= 50)
+            {
+                Damage *= 0.7f;
+            }
+            else if (Moral > 200)
+            {
+                Damage *= 1.3f;
+            }
+            PlayerManager.instance.Heal(transform, -Damage);
         }
         Hp -= Damage;
+        if (Hp > MaxHp * 5) Hp = MaxHp * 5;
     }
 }
