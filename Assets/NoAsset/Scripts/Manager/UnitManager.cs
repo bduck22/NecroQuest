@@ -9,14 +9,19 @@ public class UnitManager : MonoBehaviour
     public Transform SkillRange;
 
     Vector2 mouseposition;
+    PlayerManager PlayerManager;
+    private void Start()
+    {
+        PlayerManager = GetComponent<PlayerManager>();
+    }
     private void Update()
     {
         Vector2 nowmouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButton(1))
         {
-            if (PlayerManager.instance.SelectSkill)
+            if (PlayerManager.SelectSkill)
             {
-                PlayerManager.instance.SelectSkill = null;
+                PlayerManager.SelectSkill = null;
                 SkillRange.gameObject.SetActive(false);
             }
         }
@@ -29,34 +34,34 @@ public class UnitManager : MonoBehaviour
                 Unit.Move = true;
                 Unit = null;
             }
-            if (PlayerManager.instance.SeletedUnits.Count > 0)
+            if (PlayerManager.SeletedUnits.Count > 0)
             {
-                for (; PlayerManager.instance.SeletedUnits.Count > 0;)
+                for (; PlayerManager.SeletedUnits.Count > 0;)
                 {
-                    Unit unit = PlayerManager.instance.Units[PlayerManager.instance.SeletedUnits[0]];
+                    Unit unit = PlayerManager.Units[PlayerManager.SeletedUnits[0]];
                     unit.GetComponent<SpriteRenderer>().material = NotSelect;
                     unit.TargetWid = nowmouse;
                     unit.Move = true;
-                    PlayerManager.instance.SeletedUnits.RemoveAt(0);
+                    PlayerManager.SeletedUnits.RemoveAt(0);
                 }
             }
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            foreach(Unit u in PlayerManager.instance.Units)
+            foreach(Unit u in PlayerManager.Units)
             {
                 u.GetComponent<SpriteRenderer>().material = NotSelect;
             }
-            PlayerManager.instance.SeletedUnits.Clear();
-            if (!PlayerManager.instance.SelectSkill)
+            PlayerManager.SeletedUnits.Clear();
+            if (!PlayerManager.SelectSkill)
             {
                 mouseposition = nowmouse;
                 RaycastHit2D ray = Physics2D.Raycast(nowmouse, Vector2.zero, 10, LayerMask.GetMask("Unit"));
                 if (ray && ray.transform.CompareTag("Unit"))
                 {
                     Unit = ray.transform.GetComponent<Unit>();
-                    PlayerManager.instance.SeletedUnit = Unit;
+                    PlayerManager.SeletedUnit = Unit;
                     Unit.GetComponent<SpriteRenderer>().material = Select;
                 }
                 else
@@ -71,7 +76,7 @@ public class UnitManager : MonoBehaviour
         }
         else if (Input.GetMouseButton(0))
         {
-            if (!PlayerManager.instance.SelectSkill && mouseposition != nowmouse)
+            if (!PlayerManager.SelectSkill && mouseposition != nowmouse)
             {
                 DragOb.GetComponent<DragSelect>().Close = false;
                 DragOb.gameObject.SetActive(true);
@@ -83,34 +88,39 @@ public class UnitManager : MonoBehaviour
         {
             DragOb.GetComponent<DragSelect>().Close = true;
             DragOb.gameObject.SetActive(false);
-            if (PlayerManager.instance.SelectSkill)
+            if (PlayerManager.SelectSkill)
             {
-                if (PlayerManager.instance.SelectSkill.gameObject.activeSelf)
+                if (PlayerManager.SelectSkill.gameObject.activeSelf)
                 {
                     Debug.Log("마우스 지정 스킬");
-                    PlayerManager.instance.SelectSkill.Skill();
-                    PlayerManager.instance.SelectSkill = null;
+                    PlayerManager.SelectSkill.Skill();
+                    PlayerManager.SelectSkill = null;
                     SkillRange.gameObject.SetActive(false);
                 }
                 else
                 {
                     Debug.Log("해당 유닛 사망함");
-                    PlayerManager.instance.SelectSkill = null;
+                    PlayerManager.SelectSkill = null;
                     SkillRange.gameObject.SetActive(false);
                 }
             }
         }
-        if (PlayerManager.instance.SelectSkill)
+        if (PlayerManager.SelectSkill)
         {
             if (!SkillRange.gameObject.activeSelf)
             {
                 SkillRange.gameObject.SetActive(true);
             }
             SkillRange.position = nowmouse;
-            if(PlayerManager.instance.SelectSkill.UnitClass == UnitClass.ArchM)
+            switch (PlayerManager.SelectSkill.UnitClass)
             {
-                float stack = PlayerManager.instance.SelectSkill.Buff[0].Value * 0.02f;
-                SkillRange.localScale = new Vector3(2+ stack, 2 + stack, 1);
+                case UnitClass.ArchM:
+                    float stack = PlayerManager.SelectSkill.Buff[0].Value * 0.02f + 1;
+                    SkillRange.localScale = new Vector3(stack*2, 2 * stack, 1);
+                    break;
+                case UnitClass.HolyM:
+                    SkillRange.localScale = new Vector3(5.7f, 5.7f, 1);
+                    break;
             }
         }
     }

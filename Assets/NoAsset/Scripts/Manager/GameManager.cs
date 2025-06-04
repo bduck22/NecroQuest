@@ -49,7 +49,9 @@ public enum Buff_Type
 {
     Charge,
     Provo,
-    Spirit
+    Spirit,
+    Moral2,
+    Moral4
 }
 
 public enum Attack_Type
@@ -111,11 +113,9 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-        else
-        {
-            DontDestroyOnLoad(gameObject);
-        }
     }
+
+    public int Diffi;
 
     public int Wave;
     public Wave[] Waves;

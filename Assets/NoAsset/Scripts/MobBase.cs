@@ -32,9 +32,6 @@ public class MobBase : MonoBehaviour
 
     //[SerializeField] private bool moving;
 
-    [SerializeField] private DamageNumberMesh HitPrefab;
-    [SerializeField] private DamageNumberMesh HealPrefab;
-
     private SpriteRenderer HitImage;
 
     bool hit=true;
@@ -199,11 +196,12 @@ public class MobBase : MonoBehaviour
             if (damage < 0)
             {
                 if (gameObject.activeSelf) StartCoroutine(HitAni());
-                HitPrefab.Spawn(transform.position, -damage);
+
+                PlayerManager.instance.Deal(transform, -damage);
             }
             else
             {
-                HealPrefab.Spawn(transform.position, damage);
+                PlayerManager.instance.Heal(transform, damage);
             }
         }
     }

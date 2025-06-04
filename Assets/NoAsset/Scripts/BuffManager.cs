@@ -27,6 +27,40 @@ public class BuffManager : MonoBehaviour
             time = 0;
             BuffLoad();
         }
+        if (IsUnit)
+        {
+            if (Unit.Moral >50 && Unit.Moral <= 100)
+            {
+                if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral2))==-1)
+                {
+                    Unit.Buff.Add(new Buff(Buff_Type.Moral2, 0, 0));
+                }
+            }
+            else
+            {
+                if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral2)) != -1)
+                {
+                    Unit.InteractionUp(1);
+                    Unit.Buff.RemoveAt(Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral2)));
+                }
+            }
+
+            if (Unit.Moral > 150 && Unit.Moral <= 200)
+            {
+                if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral4)) == -1)
+                {
+                    Unit.Buff.Add(new Buff(Buff_Type.Moral4, 0, 0));
+                }
+            }
+            else
+            {
+                if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral4)) != -1)
+                {
+                    Unit.AllStatUp(-0.5f);
+                    Unit.Buff.RemoveAt(Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral4)));
+                }
+            }
+        }
     }
     void BuffLoad()
     {
@@ -34,10 +68,10 @@ public class BuffManager : MonoBehaviour
         {
             if (buff.Run)
             {
-                if (buff.Time > 0)
-                {
+                //if (buff.Time > 0)
+                //{
                     buff.Run = false;
-                }
+                //}
                 StartCoroutine(Buff(buff));
             }
         }
@@ -61,6 +95,12 @@ public class BuffManager : MonoBehaviour
                 Unit.Speed += BT.Value;
                 BuffEffect = Instantiate(GameManager.instance.BuffEffects[1].gameObject, (!IsUnit ? Mob.transform : Unit.transform.GetChild(3)));
                 BuffEffect.transform.localPosition = Vector3.zero;
+                break;
+            case Buff_Type.Moral2:
+                Unit.InteractionUp(-1);
+                break;
+            case Buff_Type.Moral4:
+                Unit.AllStatUp(0.5f);
                 break;
         }
         if(BT.Time <= 0)
