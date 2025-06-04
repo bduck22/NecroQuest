@@ -54,7 +54,7 @@ public class UnitAttack : MonoBehaviour
                     {
                         if(Unit.TargetUnit.GetComponent<Unit>().Hp > collision.transform.parent.GetComponent<Unit>().Hp)
                         {
-                            Unit.TargetUnit = collision.transform;
+                            Unit.TargetUnit = collision.transform.parent;
                         }
                     }
                 }
