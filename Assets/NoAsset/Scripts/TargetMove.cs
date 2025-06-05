@@ -9,6 +9,7 @@ public class TargetMove : MonoBehaviour
     void Start()
     {
         Direction = Target.position-transform.position;
+        Direction = Direction.normalized;
     }
     void Update()
     {

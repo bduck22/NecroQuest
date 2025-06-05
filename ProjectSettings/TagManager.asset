@@ -8,6 +8,7 @@ TagManager:
   - Mob
   - Attack
   - HitBox
+  - Projectile
   layers:
   - Default
   - TransparentFX

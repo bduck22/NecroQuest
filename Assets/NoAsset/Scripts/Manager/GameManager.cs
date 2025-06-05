@@ -144,6 +144,7 @@ public class GameManager : MonoBehaviour
             case GameStatus.Organ:
                 break;
             case GameStatus.StageStart:
+                StageStart();
                 break;
             case GameStatus.WaveStart:
                 WaveStart();
@@ -162,6 +163,11 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+    void StageStart()
+    {
+        GameStatus = GameStatus.WaveStart;
+    }
+
     void WaveStart()
     {
         SpawnManager.WaveStart();

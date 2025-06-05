@@ -1,6 +1,7 @@
 using DamageNumbersPro;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +17,7 @@ public class MobBase : MonoBehaviour
     public float AttackSpeed;
     public float Intersection;
 
+    public float AttackWeight;
     [Header("Type")]
     public MobType Type;
     public UnitTargetType MobTargetType;
@@ -44,8 +46,11 @@ public class MobBase : MonoBehaviour
     Rigidbody2D rigidbody;
 
     Vector3 targetP;
+
+    [SerializeField]bool attack;
     public void MobInit()
     {
+        attack = false;
         hit = true;
         HitImage.color = Color.white;
         //moving = true;
@@ -98,15 +103,30 @@ public class MobBase : MonoBehaviour
             {
                 if(Vector2.Distance(transform.position, Target.transform.position) > Intersection+2){
                     rigidbody.linearVelocity = (targetP - transform.position).normalized * Speed;
+                    attack = false;
+                }
+                else
+                {
+                    rigidbody.linearVelocity = Vector2.zero;
+                    attack = true;
                 }
             }
-            if (AttackType == Attack_Type.longRange && AttackTime == 1)
+            if (AttackType == Attack_Type.longRange && AttackTime == 1&&attack)
             {
+                GameObject Attack = null;
+                switch (Type)
+                {
+                    case MobType.Skull:
+                        Attack = Instantiate(AttackOb.gameObject);
+                        Attack.transform.position = transform.GetChild(1).GetChild(1).position;
+                        Attack.GetComponent<TargetMove>().Target = Target.transform;
+                        Attack.GetComponent<TargetMove>().Speed = 8f;
+                        break;
+                }
+                Attack.GetComponentInChildren<AttackEffect>().Mob = this;
+                Attack.GetComponentInChildren<AttackEffect>().Damage = Damage;
+                Attack.GetComponentInChildren<AttackEffect>().Weight = AttackWeight;
                 AttackTime = 0;
-                GameObject Bone = Instantiate(AttackOb.gameObject);
-                Bone.transform.position = transform.position;
-                Bone.GetComponent<TargetMove>().Target = Target.transform;
-                Bone.GetComponent<TargetMove>().Speed = 3f;
             }
         }
         if (AttackTime < 1)

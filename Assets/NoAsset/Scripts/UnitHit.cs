@@ -32,4 +32,14 @@ public class UnitHit : MonoBehaviour
             }
         }
     }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Projectile"))
+        {
+            float Damage = other.GetComponentInChildren<AttackEffect>().Damage;
+            Unit.HpChange(Damage * other.GetComponentInChildren<AttackEffect>().Weight);
+            Destroy(other.gameObject);
+            StartCoroutine(Invining());
+        }
+    }
 }
