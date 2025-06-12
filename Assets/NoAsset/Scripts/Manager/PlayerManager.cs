@@ -2,11 +2,9 @@ using DamageNumbersPro;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerManager : MonoBehaviour
 {
-    //const string googlesheeturl = "https://docs.google.com/spreadsheets/d/12jlQL9fBaJSoOqOuuXTiVtZicH-X6jMGV56IdItUOHU/export?format=tsv&range=A2:G";
-
-    //string sheetData;
 
     public static PlayerManager instance;
     private void Awake()
@@ -37,27 +35,8 @@ public class PlayerManager : MonoBehaviour
 
     public float MoralDownPer;
 
-    //IEnumerator Start()  나중에 쓸만함
-    //{
-    //    if (Application.internetReachability == NetworkReachability.NotReachable)
-    //    {
-    //        Debug.Log("인터넷 연결에 연결되지 않았습니다.");
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("인터넷 연결에 연결되어 있습니다.");
-    //        using(UnityWebRequest www = UnityWebRequest.Get(googlesheeturl))
-    //        {
-    //            yield return www.SendWebRequest();
+    //public 
 
-    //            if(www.isDone)
-    //            {
-    //                sheetData = www.downloadHandler.text;
-    //            }
-    //        }
-    //    }
-    //    Debug.Log(sheetData.Split('\n')[0].Split('\t')[0]);
-    //}
     private void Update()
     {
         for (int i = 0; i < Units.Length; i++)
@@ -80,6 +59,7 @@ public class PlayerManager : MonoBehaviour
                     }
                 }
                 Units[i].Moral -= MoralDownPer * ((GameManager.instance.Diffi) / 2f) * Time.deltaTime;
+                if (Units[i].Moral <= 0) Units[i].Moral = 0;
             }
         }
     }

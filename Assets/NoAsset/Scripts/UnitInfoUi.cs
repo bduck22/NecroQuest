@@ -58,8 +58,8 @@ public class UnitInfoUi : MonoBehaviour
                     Cha.GetChild(0).GetChild(1).GetComponent<Image>().fillAmount = 1 - unit.SkillTime / unit.SkillCoolTime;
                     Cha.GetChild(1).GetComponent<Image>().color = Color.white;
                     Cha.GetChild(1).GetComponent<Image>().sprite = Resources.Load<Sprite>(unit.UnitClass.ToString() + "Head");
-                    Cha.GetChild(2).GetComponent<Slider>().value = unit.Hp / (unit.MaxHp * 5f);
-                    Cha.GetChild(2).GetComponentInChildren<TMP_Text>().text = unit.Hp.ToString("#,###.#") + " / " + (unit.MaxHp * 5f).ToString("#,###.#");
+                    Cha.GetChild(2).GetComponent<Slider>().value = unit.Hp / (unit.MaxHp * 3f);
+                    Cha.GetChild(2).GetComponentInChildren<TMP_Text>().text = unit.Hp.ToString("#,###.#") + " / " + (unit.MaxHp * 3f).ToString("#,###.#");
                     Cha.GetChild(3).GetComponent<Slider>().value = unit.Moral / 250f;
                     Cha.GetChild(3).GetComponentInChildren<TMP_Text>().text = unit.Moral.ToString("#,###.#") + " / 250";
                 }

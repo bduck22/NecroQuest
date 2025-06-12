@@ -3643,6 +3643,18 @@ MonoBehaviour:
   Intersection: 10
   Moral: 0
   Buff: []
+  PlusStats:
+    Speed: 0
+    AttackSpeed: 0
+    Hp: 0
+    Damage: 0
+    GetDamage: 0
+    SetValue: 0
+    GetHeal: 0
+    Intersection: 0
+    AttackDamage: 0
+    SkillDamage: 0
+    SkillCool: 0
   UnitClass: 6
   UnitTargetType: 0
   Invin: 0
@@ -3652,8 +3664,6 @@ MonoBehaviour:
   AttackAnimation: {fileID: 1444197284}
   AttackEffect: {fileID: 4678447364193906356, guid: 8d8ee58603c103545a4a401d21a06325, type: 3}
   Interaction: {fileID: 55938002}
-  HitPrefab: {fileID: 6873749435551968893, guid: 4960e0c6a646cf14f89998e235f9f4af, type: 3}
-  HealPrefab: {fileID: 1638019699275986718, guid: 4e375d27edc87ef45952ad9ec86edf7a, type: 3}
   locked: 0
   AttackWeight: 1
   SkillEffect: {fileID: 1714899305343434362, guid: 3366ad2605acd154191adb96c283a874, type: 3}
@@ -8752,7 +8762,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 760247765}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -8833,6 +8843,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be186e7df3f3d0429661f7acd5db778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!483693784 &760247769
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -14891,6 +14905,18 @@ MonoBehaviour:
   Intersection: 0
   Moral: 0
   Buff: []
+  PlusStats:
+    Speed: 0
+    AttackSpeed: 0
+    Hp: 0
+    Damage: 0
+    GetDamage: 0
+    SetValue: 0
+    GetHeal: 0
+    Intersection: 0
+    AttackDamage: 0
+    SkillDamage: 0
+    SkillCool: 0
   UnitClass: 0
   UnitTargetType: 0
   Invin: 0
@@ -14900,8 +14926,6 @@ MonoBehaviour:
   AttackAnimation: {fileID: 1580304073}
   AttackEffect: {fileID: 4678447364193906356, guid: 8d8ee58603c103545a4a401d21a06325, type: 3}
   Interaction: {fileID: 1460281121}
-  HitPrefab: {fileID: 0}
-  HealPrefab: {fileID: 0}
   locked: 0
   AttackWeight: 0
   SkillEffect: {fileID: 0}
@@ -19894,6 +19918,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be186e7df3f3d0429661f7acd5db778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!483693784 &1383248732
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -70409,7 +70437,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 15
-      m_TileSpriteIndex: 13
+      m_TileSpriteIndex: 15
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -120824,12 +120852,12 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 75
     m_Data: {fileID: -7376548293709960208, guid: 5d303138d0710694e84adb94b7d0743c, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 950713585917458864, guid: 06682c22959e95644ba3d413f734300a, type: 3}
-  - m_RefCount: 42
-    m_Data: {fileID: 1531613431095576254, guid: cd3e104c5206ddf45b77cd2f51ea01fb, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 42
+    m_Data: {fileID: 1531613431095576254, guid: cd3e104c5206ddf45b77cd2f51ea01fb, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 950713585917458864, guid: 06682c22959e95644ba3d413f734300a, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 3930577662726815347, guid: 5d303138d0710694e84adb94b7d0743c, type: 3}
   - m_RefCount: 1
@@ -122969,6 +122997,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be186e7df3f3d0429661f7acd5db778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!61 &1593892766
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -125428,6 +125460,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be186e7df3f3d0429661f7acd5db778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!483693784 &1795158949
 TilemapRenderer:
   m_ObjectHideFlags: 0

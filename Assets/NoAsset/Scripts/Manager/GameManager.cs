@@ -1,6 +1,6 @@
-using JetBrains.Annotations;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public enum UnitTargetType
 {
@@ -50,8 +50,10 @@ public enum Buff_Type
     Charge,
     Provo,
     Spirit,
+    Moral1,
     Moral2,
-    Moral4
+    Moral4,
+    Moral5
 }
 
 public enum Attack_Type
@@ -67,7 +69,7 @@ public class Buff
     public int Value;
     public float Time;
     public Transform Target;
-    public bool Run=true;
+    public bool Run = true;
 
     public int Value2;
     public Buff(Buff_Type Type, int value, float time)
@@ -107,6 +109,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    //const string googlesheeturl = "https://docs.google.com/spreadsheets/d/12jlQL9fBaJSoOqOuuXTiVtZicH-X6jMGV56IdItUOHU/export?format=tsv&range=A2:G";
+
+    //string sheetData;
     private void Awake()
     {
         if (instance == null)
@@ -114,6 +119,26 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
     }
+    //IEnumerator Start()
+    //{
+    //    if (Application.internetReachability == NetworkReachability.NotReachable)
+    //    {
+    //        Debug.Log("인터넷 연결에 연결되지 않았습니다.");
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("인터넷 연결에 연결되어 있습니다.");
+    //        using (UnityWebRequest www = UnityWebRequest.Get(googlesheeturl))
+    //        {
+    //            yield return www.SendWebRequest();
+
+    //            if (www.isDone)
+    //            {
+    //                sheetData = www.downloadHandler.text;
+    //            }
+    //        }
+    //    }
+    //}
 
     public int Diffi;
 
@@ -168,7 +193,7 @@ public class GameManager : MonoBehaviour
         GameStatus = GameStatus.WaveStart;
     }
 
-    void WaveStart()
+    public void WaveStart()
     {
         SpawnManager.WaveStart();
         GameStatus = GameStatus.Waving;
@@ -188,13 +213,15 @@ public class GameManager : MonoBehaviour
         else GameStatus = GameStatus.Rest;
     }
 
+    public Transform GuardianSelecter;
     void Rest()
     {
-        GameStatus = GameStatus.WaveStart;
-        for (int i = 0; i < PlayerManager.instance.Units.Length; i++)
-        {
-            PlayerManager.instance.Units[i].UnitInit();
-        }
+        //GameStatus = GameStatus.WaveStart;
+        //for (int i = 0; i < PlayerManager.instance.Units.Length; i++)
+        //{
+        //    PlayerManager.instance.Units[i].UnitInit();
+        //}
+        GuardianSelecter.gameObject.SetActive(true);
     }
 
     void Result()

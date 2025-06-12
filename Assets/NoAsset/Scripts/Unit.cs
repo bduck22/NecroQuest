@@ -3,6 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct UnitStats
+{
+    public float Speed; //이동속도
+    public float AttackSpeed; //공격속도
+    public float Hp; //체력
+    public float Damage; //공격력
+    public float GetDamage; //받는 피해량
+    public float SetValue; //가하는 피해와 회복량
+    public float GetHeal; //받는 회복량
+    public float Intersection; //사거리
+    public float AttackDamage; //기본공격피해량
+    public float SkillDamage; //스킬피해량
+    public float SkillCool; //쿨타임
+}
+
 public class Unit : MonoBehaviour
 {
     [Header("Movement")]
@@ -18,6 +34,7 @@ public class Unit : MonoBehaviour
     public float Intersection;
     public float Moral;
     public List<Buff> Buff;
+    public UnitStats PlusStats;
 
     [Header("Type")]
     public UnitClass UnitClass;
@@ -54,51 +71,53 @@ public class Unit : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody2D>();
         UM = PlayerManager.instance.UnitManager;
-        UnitInit();
+        Spawn();
     }
     public void UnitInit()
     {
-        Hp = MaxHp * 5;
+        Hp = (MaxHp+ PlusStats.Hp) * 3;
         AttackTime = 0;
         SkillTime = SkillCoolTime;
-        Interaction.radius = Intersection + 2f;
+        Interaction.radius = Intersection + 2f+PlusStats.Intersection;
         TargetUnit = null;
         Invin = false;
         Move = false;
+    }
+    public void Spawn()
+    {
+        UnitInit();
+        Buff.Clear();
+        PlusStats = new UnitStats();
         switch (UnitClass)
         {
+            case UnitClass.GuardN:
+                PlusStats.GetDamage += 0.5f;
+                break;
             case UnitClass.DragonN:
                 break;
             case UnitClass.Fighter:
                 break;
             case UnitClass.ArchM:
-                foreach (Buff b in Buff)
-                {
-                    if (b.Type == Buff_Type.Charge)
-                    {
-                        return;
-                    }
-                }
                 Buff.Add(new Buff(Buff_Type.Charge, 0, 0));
                 break;
         }
     }
-    public void maxHpUp(float value)
+    public void HpUp(float value)
     {
-        Hp += value*5;
-        MaxHp += value;
+        PlusStats.Hp += value;
+        Hp += value*3;
     }
     public void InteractionUp(float value)
     {
-        Intersection += value;
-        Interaction.radius = Intersection + 2f;
+        PlusStats.Intersection += value;
+        Interaction.radius = Intersection + 2f + PlusStats.Intersection;
     }
     public void AllStatUp(float value)
     {
-        maxHpUp(value);
-        Damage += value;
-        Speed += value;
-        AttackSpeed += value;
+        HpUp(value);
+        PlusStats.Damage += value;
+        PlusStats.Speed += value;
+        PlusStats.AttackSpeed += value;
     }
     void Update()
     {
@@ -120,7 +139,7 @@ public class Unit : MonoBehaviour
         {
             if (!locked)
             {
-                AttackTime += AttackSpeed * Time.deltaTime;
+                AttackTime += (AttackSpeed+PlusStats.AttackSpeed) * Time.deltaTime / 2;
             }
         }
         else
@@ -128,17 +147,17 @@ public class Unit : MonoBehaviour
             AttackTime = 1;
         }
 
-        if (SkillTime < SkillCoolTime)
+        if (SkillTime < (SkillCoolTime- PlusStats.SkillCool))
         {
             if (!locked)
             {
-                SkillTime += 1 * Time.deltaTime;
+                SkillTime += Time.deltaTime;
             }
         }
         else if (!skill)
         {
             skill = true;
-            SkillTime = SkillCoolTime;
+            SkillTime = (SkillCoolTime-PlusStats.SkillCool);
         }
 
         if (TargetUnit && AttackTime == 1 && !locked)
@@ -160,7 +179,7 @@ public class Unit : MonoBehaviour
                     }
                     else transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
-                rigidbody.linearVelocity = ((Vector3)TargetWid - transform.position).normalized * Speed;
+                rigidbody.linearVelocity = ((Vector3)TargetWid - transform.position).normalized * (Speed+ PlusStats.Speed);
                 //transform.position = Vector2.MoveTowards(transform.position, TargetWid, Speed * Time.deltaTime);
             }
             if (Vector2.Distance(transform.position, TargetWid) <0.2f)
@@ -175,16 +194,16 @@ public class Unit : MonoBehaviour
     }
     void Attack()
     {
-        float attackweight = AttackWeight;
-        if (Moral <= 50)
-        {
-            attackweight *= 0.7f;
-        }
-        else if (Moral > 200)
-        {
-            attackweight *= 1.3f;
-        }
-        AttackAnimation.SetFloat("AttackSpeed", AttackSpeed);
+        float attackweight = AttackWeight+PlusStats.SetValue + PlusStats.AttackDamage;
+        //if (Moral <= 50)
+        //{
+        //    attackweight *= 0.7f;
+        //}
+        //else if (Moral > 200)
+        //{
+        //    attackweight *= 1.3f;
+        //}
+        AttackAnimation.SetFloat("AttackSpeed", (AttackSpeed+ PlusStats.AttackSpeed)/2);
         if (TargetUnit.transform.position.x >= transform.position.x)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -246,7 +265,7 @@ public class Unit : MonoBehaviour
     {
         if (skill)
         {
-            float skillweight = SkillWeight;
+            float skillweight = SkillWeight + PlusStats.SetValue + PlusStats.SkillDamage;
             if (Moral <= 50)
             {
                 skillweight *= 0.7f;
@@ -311,22 +330,30 @@ public class Unit : MonoBehaviour
                         {
                             if (!Skill_Target)
                             {
-                                Skill_Target = t;
+                                if(Vector2.Distance(transform.position, t.transform.position) < ((Intersection+PlusStats.Intersection) * 0.6f) + 1.2f)
+                                {
+                                    Skill_Target = t;
+                                }
                             }
                             else
                             {
-                                if (Skill_Target.Hp > t.Hp)
+                                if (Skill_Target.Hp > t.Hp && Vector2.Distance(transform.position, t.transform.position) < ((Intersection + PlusStats.Intersection) * 0.6f)+1.2f)
                                 {
                                     Skill_Target = t;
                                 }
                             }
                         }
                     }
+                    if (!Skill_Target)
+                    {
+                        Skill_Target = this;
+                    }
                     AttackAnimation.SetTrigger("Skill");
                     Skill_Target.HpChange(skillweight * -Damage);
                     Skill_Target.Buff.Add(new Buff(Buff_Type.Spirit, 1, 5));
                     break;
                 case UnitClass.HolyM:
+                    locked = true;
                     AttackAnimation.SetTrigger("Skill");
                     Effect = Instantiate(SkillEffect.gameObject, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
                     Effect.transform.position = new Vector3(Effect.transform.position.x, Effect.transform.position.y, 0);
@@ -343,7 +370,7 @@ public class Unit : MonoBehaviour
             if (IsDamaged)
             {
                 Effect.transform.GetComponentInChildren<AttackEffect>().Unit = this;
-                Effect.transform.GetComponentInChildren<AttackEffect>().Damage += Damage;
+                Effect.transform.GetComponentInChildren<AttackEffect>().Damage += Damage+PlusStats.Damage;
                 Effect.transform.GetComponentInChildren<AttackEffect>().Weight = skillweight;
                 Effect.transform.GetComponentInChildren<AttackEffect>().Skill = true;
             }
@@ -356,24 +383,19 @@ public class Unit : MonoBehaviour
 
     public void HpChange(float Damage)
     {
+        float weight=1;
         if (Damage > 0)
         {
-            if (UnitClass == UnitClass.GuardN)
-            {
-                Damage /= 2f;
-            }
-            if (Moral <= 50)
-            {
-                Damage *= 1.3f;
-            }
-            else if (Moral > 200)
+            weight -= PlusStats.GetDamage;
+            if (Moral > 200)
             {
                 Damage *= 0.7f;
             }
-            PlayerManager.instance.Deal(transform, Damage);
+            PlayerManager.instance.Deal(transform, Damage*weight);
         }
         else
         {
+            weight += PlusStats.GetHeal;
             if (Moral <= 50)
             {
                 Damage *= 0.7f;
@@ -385,6 +407,6 @@ public class Unit : MonoBehaviour
             PlayerManager.instance.Heal(transform, -Damage);
         }
         Hp -= Damage;
-        if (Hp > MaxHp * 5) Hp = MaxHp * 5;
+        if (Hp > MaxHp * 3) Hp = MaxHp * 3;
     }
 }
