@@ -48,6 +48,10 @@ public class MobBase : MonoBehaviour
     Vector3 targetP;
 
     [SerializeField]bool attack;
+
+    public SpawnManager spawnManager;
+
+    Animator ani;
     public void MobInit()
     {
         attack = false;
@@ -66,13 +70,13 @@ public class MobBase : MonoBehaviour
 
     void Start()
     {
+        ani = GetComponentInChildren<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
         Arm = transform.GetChild(1);
         HitImage = GetComponent<SpriteRenderer>();
         //agent = GetComponent<NavMeshAgent>();
         //agent.updateRotation = false;
         //agent.updateUpAxis = false;
-        MobInit();
     }
     void Update()
     {
@@ -117,8 +121,9 @@ public class MobBase : MonoBehaviour
                 switch (Type)
                 {
                     case MobType.Skull:
+                        ani.SetTrigger("Attack");
                         Attack = Instantiate(AttackOb.gameObject);
-                        Attack.transform.position = transform.GetChild(1).GetChild(1).position;
+                        Attack.transform.position = transform.GetChild(1).GetChild(0).GetChild(1).position;
                         Attack.GetComponent<TargetMove>().Target = Target.transform;
                         Attack.GetComponent<TargetMove>().Speed = 8f;
                         break;
@@ -168,40 +173,6 @@ public class MobBase : MonoBehaviour
         yield return new WaitForSeconds(1 / 3f);
         hit = true;
     }
-    //private void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    if (collision.transform.CompareTag("Unit"))
-    //    {
-    //        if (collision.transform.GetComponent<Unit>() == Target)
-    //        {
-    //            moving = false;
-    //        }
-    //    }
-    //    if (collision.transform.CompareTag("Mob") && moving)
-    //    {
-    //        if (!collision.transform.GetComponent<MobBase>().moving)
-    //        {
-    //            moving = false;
-    //        }
-    //    }
-    //}
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (collision.transform.CompareTag("Unit"))
-    //    {
-    //        if (collision.transform.GetComponent<Unit>() == Target)
-    //        {
-    //            moving = true;
-    //        }
-    //    }
-    //    if (collision.transform.CompareTag("Mob"))
-    //    {
-    //        if (!collision.transform.GetComponent<MobBase>().moving)
-    //        {
-    //            moving = true;
-    //        }
-    //    }
-    //}
     void HpCh(float damage)
     {
         if (gameObject.activeSelf)
@@ -210,7 +181,7 @@ public class MobBase : MonoBehaviour
             if (Hp > MaxHp * 3) Hp = MaxHp * 3;
             if (Hp <= 0)
             {
-                SpawnManager.MobCount--;
+                spawnManager.MobCount--;
                 gameObject.SetActive(false);
             }
             if (damage < 0)

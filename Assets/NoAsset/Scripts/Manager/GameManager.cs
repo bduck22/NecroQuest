@@ -221,11 +221,17 @@ public class GameManager : MonoBehaviour
         //{
         //    PlayerManager.instance.Units[i].UnitInit();
         //}
+        Time.timeScale = 0;
         GuardianSelecter.gameObject.SetActive(true);
     }
 
     void Result()
     {
         Debug.Log("스테이지 끝");
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
     }
 }

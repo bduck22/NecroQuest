@@ -59,5 +59,8 @@ TagManager:
   - name: Ui
     uniqueID: 2636868235
     locked: 0
+  - name: MiniMap
+    uniqueID: 4220295531
+    locked: 0
   m_RenderingLayers:
   - Default

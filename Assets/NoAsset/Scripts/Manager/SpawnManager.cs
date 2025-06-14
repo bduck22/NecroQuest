@@ -10,9 +10,10 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] private List<MobBase> Mobs = new List<MobBase>();
 
-    public static int MobCount;
+    public int MobCount;
 
     public float SpawnDelay;
+    bool waving = false;
     void Start()
     {
         spawnPoints = transform.GetChild(0);
@@ -21,7 +22,7 @@ public class SpawnManager : MonoBehaviour
     {
         if(GameManager.instance.GameStatus == GameStatus.Waving)
         {
-            if(MobCount <= 0)
+            if(MobCount <= 0&&!waving)
             {
                 Debug.Log("웨이브 끝");
                 GameManager.instance.GameStatus = GameStatus.WaveEnd;
@@ -41,6 +42,7 @@ public class SpawnManager : MonoBehaviour
     }
     IEnumerator Spawn()
     {
+        waving = true;
         foreach (Wave_Info info in GameManager.instance.Waves[GameManager.instance.Wave].MobInfo)
         {
             for (int i = 0; i < info.Count; i++) {
@@ -62,6 +64,7 @@ public class SpawnManager : MonoBehaviour
                 if (!mob)
                 {
                     mob = Instantiate(mobPrefabs[info.Type]);
+                    mob.GetComponent<MobBase>().spawnManager = this;
                     Mobs.Add(mob.GetComponent<MobBase>());
                 }
                 mob.transform.position = spawnPoints.GetChild(Random.Range(0, spawnPoints.childCount)).position;
@@ -69,5 +72,6 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSeconds(SpawnDelay);
         }
+        waving = false;
     }
 }

@@ -44,9 +44,11 @@ public class Acc : ItemBase
 public class Guardian : ItemBase
 {
     public GuardianType GuardianType;
+    public UnitStats Stats;
     public Guardian(GuardianType guardianType, string Name, string Description)
     {
-
+        this.Name = Name;
+        this.Description = Description;
     }
 }
 
