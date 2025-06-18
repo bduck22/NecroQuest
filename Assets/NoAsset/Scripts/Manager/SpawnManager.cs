@@ -65,6 +65,7 @@ public class SpawnManager : MonoBehaviour
                 {
                     mob = Instantiate(mobPrefabs[info.Type]);
                     mob.GetComponent<MobBase>().spawnManager = this;
+                    mob.GetComponent<MobBase>().MobInit();
                     Mobs.Add(mob.GetComponent<MobBase>());
                 }
                 mob.transform.position = spawnPoints.GetChild(Random.Range(0, spawnPoints.childCount)).position;

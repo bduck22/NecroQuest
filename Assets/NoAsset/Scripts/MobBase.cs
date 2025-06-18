@@ -60,7 +60,7 @@ public class MobBase : MonoBehaviour
         //moving = true;
         MaxHp = 5;
         Hp = MaxHp*3;
-        Speed = 1;
+        Speed = 1.5f;
         Damage = 1;
         Target = null;
         AttackTime = 0;
@@ -68,7 +68,7 @@ public class MobBase : MonoBehaviour
         TargetLoad();
     }
 
-    void Start()
+    void Awake()
     {
         ani = GetComponentInChildren<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
@@ -182,6 +182,7 @@ public class MobBase : MonoBehaviour
             if (Hp <= 0)
             {
                 spawnManager.MobCount--;
+                PlayerManager.instance.CreateGold(100, transform.position);
                 gameObject.SetActive(false);
             }
             if (damage < 0)

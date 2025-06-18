@@ -12,8 +12,6 @@ public enum UnitClass
 {
     GuardN,
     DragonN,
-    HolyN,
-    Fighter,
     Berserker,
     Archer,
     ArchM,
@@ -26,9 +24,7 @@ public enum MobType
     Skull,
     Ghost,
     Ghoul,
-    Spider,
     Shade,
-    Lich,
     Dullahan,
     Necro,
 }
@@ -53,7 +49,9 @@ public enum Buff_Type
     Moral1,
     Moral2,
     Moral4,
-    Moral5
+    Moral5,
+    Berserk,
+    BerserkP
 }
 
 public enum Attack_Type
@@ -66,23 +64,27 @@ public enum Attack_Type
 public class Buff
 {
     public Buff_Type Type;
-    public int Value;
+    public float Value;
     public float Time;
     public Transform Target;
     public bool Run = true;
+    public bool Loop = false;
 
-    public int Value2;
-    public Buff(Buff_Type Type, int value, float time)
+    public float Value2;
+    public Buff(Buff_Type Type, float value, float time, bool loop)
     {
         this.Type = Type;
         this.Value = value;
         this.Time = time;
+        Loop = loop;
     }
-    public Buff(Buff_Type Type, int value1, int value2, float time)
+    public Buff(Buff_Type Type, float value1, float value2, float time, bool loop)
     {
         this.Type = Type;
         this.Value = value1;
+        this.Value2 = value2;
         this.Time = time;
+        Loop = loop;
     }
     public Buff(Buff_Type Type, Transform Target, float time)
     {
@@ -103,6 +105,8 @@ public struct Wave_Info
 {
     public int Type;
     public int Count;
+    public bool middle;
+    public bool final;
 }
 
 public class GameManager : MonoBehaviour
@@ -140,6 +144,8 @@ public class GameManager : MonoBehaviour
     //    }
     //}
 
+    public int gold;
+
     public int Diffi;
 
     public int Wave;
@@ -148,6 +154,8 @@ public class GameManager : MonoBehaviour
     public GameStatus GameStatus;
 
     SpawnManager SpawnManager;
+
+    public Transform WaveStartButton;
 
     [Header("BuffEffects")]
     public Transform[] BuffEffects;
@@ -214,15 +222,28 @@ public class GameManager : MonoBehaviour
     }
 
     public Transform GuardianSelecter;
+    bool one=true;
     void Rest()
     {
+        if (one)
+        {
+            one = false;
+            float R = Random.Range(0.0f, 1.0f);
+            if(R < 0.3f)
+            {
+                Time.timeScale = 0;
+                GuardianSelecter.gameObject.SetActive(true);
+            }
+            else
+            {
+                WaveStartButton.gameObject.SetActive(true);
+            }
+        }
         //GameStatus = GameStatus.WaveStart;
         //for (int i = 0; i < PlayerManager.instance.Units.Length; i++)
         //{
         //    PlayerManager.instance.Units[i].UnitInit();
         //}
-        Time.timeScale = 0;
-        GuardianSelecter.gameObject.SetActive(true);
     }
 
     void Result()
@@ -232,6 +253,7 @@ public class GameManager : MonoBehaviour
 
     public void Resume()
     {
+        WaveStartButton.gameObject.SetActive(true);
         Time.timeScale = 1;
     }
 }

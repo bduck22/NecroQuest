@@ -1,14 +1,13 @@
 fileFormatVersion: 2
-guid: 000b469a75117e346863fca8b8180fef
-AssetOrigin:
-  serializedVersion: 1
-  productId: 180105
-  packageName: Stylized RPG Cursors
-  packageVersion: 1.2
-  assetPath: Assets/Cursors New/Color_256_256/Cursor_05_color.png
-  uploadId: 399025
+guid: 3f7d7ab1d64e0be41b5acab8d6f2c101
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 2181800451865945283
+    second: "\uAD11\uC804\uC0AC_0"
+  - first:
+      213: 4057400274649678332
+    second: "\uAD11\uC804\uC0AC_1"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -28,7 +27,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -50,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -61,7 +60,7 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 7
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -70,16 +69,16 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -102,12 +101,56 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "\uAD11\uC804\uC0AC_0"
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 147
+        width: 219
+        height: 654
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c4a14883ff474e10800000000000000
+      internalID: 2181800451865945283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uAD11\uC804\uC0AC_1"
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 690
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf101128d08ce4830800000000000000
+      internalID: 4057400274649678332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1ac8f84495050ac438657fc50ad2c5d5
+    spriteID: f2fb57410451c6e4491f836a617110a7
     internalID: 0
     vertices: []
     indices: 
@@ -116,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "\uAD11\uC804\uC0AC_0": 2181800451865945283
+      "\uAD11\uC804\uC0AC_1": 4057400274649678332
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

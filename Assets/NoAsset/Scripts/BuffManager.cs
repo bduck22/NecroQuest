@@ -34,7 +34,7 @@ public class BuffManager : MonoBehaviour
             {
                 if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral1)) == -1)
                 {
-                    Unit.Buff.Add(new Buff(Buff_Type.Moral1, 0, 0));
+                    Unit.Buff.Add(new Buff(Buff_Type.Moral1, 0, 0, false));
                 }
             }
             else
@@ -52,7 +52,7 @@ public class BuffManager : MonoBehaviour
             {
                 if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral2))==-1)
                 {
-                    Unit.Buff.Add(new Buff(Buff_Type.Moral2, 0, 0));
+                    Unit.Buff.Add(new Buff(Buff_Type.Moral2, 0, 0, false));
                 }
             }
             else
@@ -68,7 +68,7 @@ public class BuffManager : MonoBehaviour
             {
                 if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral5)) == -1)
                 {
-                    Unit.Buff.Add(new Buff(Buff_Type.Moral5, 0, 0));
+                    Unit.Buff.Add(new Buff(Buff_Type.Moral5, 0, 0, false));
                 }
             }
             else
@@ -87,12 +87,9 @@ public class BuffManager : MonoBehaviour
     {
         foreach (Buff buff in (!IsUnit ? Mob.Buff : Unit.Buff))
         {
-            if (buff.Run)
+            if (buff.Run||buff.Loop)
             {
-                //if (buff.Time > 0)
-                //{
-                    buff.Run = false;
-                //}
+                buff.Run = false;
                 StartCoroutine(Buff(buff));
             }
         }
@@ -121,7 +118,6 @@ public class BuffManager : MonoBehaviour
                 Unit.PlusStats.GetDamage -= 0.1f;
                 Unit.PlusStats.SetValue -= 0.1f;
                 Unit.PlusStats.GetHeal -= 0.1f;
-                //Unit.PlusStats.dama
                 break;
             case Buff_Type.Moral2:
                 Unit.InteractionUp(-1);
@@ -133,6 +129,20 @@ public class BuffManager : MonoBehaviour
                 Unit.PlusStats.GetDamage += 0.1f;
                 Unit.PlusStats.SetValue += 0.1f;
                 Unit.PlusStats.GetHeal += 0.1f;
+                break;
+            case Buff_Type.Berserk:
+                BuffEffect = Instantiate(GameManager.instance.BuffEffects[2].gameObject, (!IsUnit ? Mob.transform : Unit.transform));
+                Unit.PlusStats.Speed += BT.Value;
+                Unit.PlusStats.AttackDamage += BT.Value2/100f;
+                Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
+                Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().size += new Vector2(0,2.3f);
+                Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().offset += new Vector2(0, 1.15f);
+                Unit.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).localScale += new Vector3(2.5f, 2.5f, 2.5f);
+                break;
+            case Buff_Type.BerserkP:
+                float lostHP = ((Unit.PlusStats.Hp + Unit.MaxHp) * 3 - Unit.Hp);
+                Unit.Damage = BT.Value + (lostHP / 10f / 0.5f) * 0.5f;
+                Unit.AttackSpeed = BT.Value2 + (lostHP / 20f / 0.5f) * 0.5f;
                 break;
         }
         if(BT.Time <= 0)
@@ -158,6 +168,15 @@ public class BuffManager : MonoBehaviour
                 case Buff_Type.Spirit:
                     BuffEffect.GetComponent<Animator>().enabled = true;
                     Unit.Speed -= BT.Value;
+                    break;
+                case Buff_Type.Berserk:
+                    BuffEffect.GetComponent<ParticleSystem>().loop = false;
+                    Unit.PlusStats.Speed -= BT.Value;
+                    Unit.PlusStats.AttackDamage -= BT.Value2 / 100f;
+                    Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(false);
+                    Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().size -= new Vector2(0, 2.3f);
+                    Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().offset -= new Vector2(0, 1.15f);
+                    Unit.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).localScale -= new Vector3(2.5f, 2.5f, 2.5f);
                     break;
             }
             (!IsUnit ? Mob.Buff : Unit.Buff).Remove(BT);

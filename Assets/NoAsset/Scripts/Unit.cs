@@ -93,12 +93,11 @@ public class Unit : MonoBehaviour
             case UnitClass.GuardN:
                 PlusStats.GetDamage += 0.5f;
                 break;
-            case UnitClass.DragonN:
-                break;
-            case UnitClass.Fighter:
+            case UnitClass.Berserker:
+                Buff.Add(new Buff(Buff_Type.BerserkP, Damage, AttackSpeed, 0, true));
                 break;
             case UnitClass.ArchM:
-                Buff.Add(new Buff(Buff_Type.Charge, 0, 0));
+                Buff.Add(new Buff(Buff_Type.Charge, 0, 0, false));
                 break;
         }
     }
@@ -139,7 +138,7 @@ public class Unit : MonoBehaviour
         {
             if (!locked)
             {
-                AttackTime += (AttackSpeed+PlusStats.AttackSpeed) * Time.deltaTime / 2;
+                AttackTime += (AttackSpeed+PlusStats.AttackSpeed) * Time.deltaTime;
             }
         }
         else
@@ -195,15 +194,7 @@ public class Unit : MonoBehaviour
     void Attack()
     {
         float attackweight = AttackWeight+PlusStats.SetValue + PlusStats.AttackDamage;
-        //if (Moral <= 50)
-        //{
-        //    attackweight *= 0.7f;
-        //}
-        //else if (Moral > 200)
-        //{
-        //    attackweight *= 1.3f;
-        //}
-        AttackAnimation.SetFloat("AttackSpeed", (AttackSpeed+ PlusStats.AttackSpeed)/2);
+        AttackAnimation.SetFloat("AttackSpeed", (AttackSpeed+ PlusStats.AttackSpeed));
         if (TargetUnit.transform.position.x >= transform.position.x)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -223,11 +214,8 @@ public class Unit : MonoBehaviour
                 break;
             case UnitClass.DragonN:
                 break;
-            case UnitClass.HolyN:
-                break;
-            case UnitClass.Fighter:
-                break;
             case UnitClass.Berserker:
+                Effect = AttackAnimation.gameObject;
                 break;
             case UnitClass.Archer:
                 Effect = Instantiate(AttackEffect.gameObject, (AttackAnimation.transform.position + TargetUnit.position) / 2, AttackAnimation.transform.rotation);
@@ -288,11 +276,10 @@ public class Unit : MonoBehaviour
                     break;
                 case UnitClass.DragonN:
                     break;
-                case UnitClass.HolyN:
-                    break;
-                case UnitClass.Fighter:
-                    break;
                 case UnitClass.Berserker:
+                    locked = true;
+                    AttackAnimation.SetTrigger("Skill");
+                    Buff.Add(new Buff(Buff_Type.Berserk, 1,10, 5f, false));
                     break;
                 case UnitClass.Archer:
                     IsDamaged = true;
@@ -350,7 +337,7 @@ public class Unit : MonoBehaviour
                     }
                     AttackAnimation.SetTrigger("Skill");
                     Skill_Target.HpChange(skillweight * -Damage);
-                    Skill_Target.Buff.Add(new Buff(Buff_Type.Spirit, 1, 5));
+                    Skill_Target.Buff.Add(new Buff(Buff_Type.Spirit, 1, 5, false));
                     break;
                 case UnitClass.HolyM:
                     locked = true;

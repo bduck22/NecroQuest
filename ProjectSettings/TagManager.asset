@@ -10,6 +10,7 @@ TagManager:
   - HitBox
   - Projectile
   - Destroy
+  - Gold
   layers:
   - Default
   - TransparentFX

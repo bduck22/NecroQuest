@@ -33,14 +33,7 @@ public enum GuardianType
     Ten
 }
 
-public class Acc : ItemBase
-{
-    public AccType AccType;
-    public Acc(string Name, string Description)
-    {
-        
-    }
-}
+[System.Serializable]
 public class Guardian : ItemBase
 {
     public GuardianType GuardianType;
@@ -49,6 +42,7 @@ public class Guardian : ItemBase
     {
         this.Name = Name;
         this.Description = Description;
+        this.GuardianType = guardianType;
     }
 }
 
@@ -72,4 +66,3 @@ public static class Data
     //    {0, new Acc() },
     //};
 }
-

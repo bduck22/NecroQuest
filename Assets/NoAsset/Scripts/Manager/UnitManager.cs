@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitManager : MonoBehaviour
@@ -7,12 +8,22 @@ public class UnitManager : MonoBehaviour
     [SerializeField] Transform DragOb;
     [SerializeField] Unit Unit;
     public Transform SkillRange;
+    [SerializeField] Transform RightCursor;
 
     Vector2 mouseposition;
     PlayerManager PlayerManager;
+
+    public List<Guardian> guardians;
+
+    public Texture2D Origin;
+    public Texture2D Move;
+    public Texture2D Skill;
+    
     private void Start()
     {
+        //guardians = new List<Guardian>();
         PlayerManager = GetComponent<PlayerManager>();
+        Cursor.SetCursor(Origin, Vector2.zero, CursorMode.Auto);
     }
     private void Update()
     {
@@ -27,6 +38,8 @@ public class UnitManager : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(1))
         {
+            RightCursor.position = nowmouse;
+            RightCursor.GetComponent<Animator>().Play("Click");
             if (Unit)
             {
                 Unit.TargetWid = nowmouse;
@@ -47,9 +60,21 @@ public class UnitManager : MonoBehaviour
             }
         }
 
+        if(Unit || PlayerManager.SeletedUnits.Count > 0)
+        {
+            Cursor.SetCursor(Move, Vector2.zero, CursorMode.Auto);
+        }
+        else if (PlayerManager.SelectSkill)
+        {
+            Cursor.SetCursor(Skill, Vector2.zero, CursorMode.Auto);
+        }else
+        {
+            Cursor.SetCursor(Origin, Vector2.zero, CursorMode.Auto);
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
-            foreach(Unit u in PlayerManager.Units)
+            foreach (Unit u in PlayerManager.Units)
             {
                 u.GetComponent<SpriteRenderer>().material = NotSelect;
             }
@@ -61,7 +86,6 @@ public class UnitManager : MonoBehaviour
                 if (ray && ray.transform.CompareTag("Unit"))
                 {
                     Unit = ray.transform.GetComponent<Unit>();
-                    PlayerManager.SeletedUnit = Unit;
                     Unit.GetComponent<SpriteRenderer>().material = Select;
                 }
                 else
@@ -107,6 +131,11 @@ public class UnitManager : MonoBehaviour
         }
         if (PlayerManager.SelectSkill)
         {
+            if (Unit)
+            {
+                Unit.GetComponent<SpriteRenderer>().material = NotSelect;
+                Unit = null;
+            }
             if (!SkillRange.gameObject.activeSelf)
             {
                 SkillRange.gameObject.SetActive(true);
