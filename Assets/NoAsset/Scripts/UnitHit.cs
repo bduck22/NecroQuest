@@ -43,7 +43,13 @@ public class UnitHit : MonoBehaviour
         {
             float Damage = other.GetComponentInChildren<AttackEffect>().Damage;
             Unit.HpChange(Damage * other.GetComponentInChildren<AttackEffect>().Weight);
-            Destroy(other.gameObject);
+            if (!other.GetComponentInChildren<AttackEffect>().Range)
+            {
+                Destroy(other.gameObject);
+            }else
+            {
+                other.enabled = false;
+            }
             StartCoroutine(Invining());
         }
     }

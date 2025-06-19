@@ -5123,7 +5123,7 @@ MonoBehaviour:
   AttackType: 1
   LodingTime: 0.1
   Target: {fileID: 0}
-  AttackOb: {fileID: 0}
+  AttackOb: {fileID: 5695021508635743584, guid: d70277f29c9aba7428ca50510c67b9ab, type: 3}
   attack: 0
   spawnManager: {fileID: 0}
   Ghosted: 1

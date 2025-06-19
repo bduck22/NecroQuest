@@ -7,6 +7,7 @@ public class AttackEffect : MonoBehaviour
     public float Damage;
     public float Weight;
     public bool Skill;
+    public bool Range;
     void Start()
     {
         

@@ -64,6 +64,7 @@ public class MobBase : MonoBehaviour
         Damage = stat.Damage;
         AttackSpeed = stat.AttackSpeed;
         Intersection = stat.Intersection;
+        AttackWeight = 1;
         Target = null;
         AttackTime = 0;
         Buff.Clear();
@@ -178,7 +179,11 @@ public class MobBase : MonoBehaviour
             if (Type == MobType.Shade)
             {
                 HpCh(-Hp);
-                AttackEffect Ob = Instantiate(AttackOb).GetComponent<AttackEffect>();
+                AttackEffect Ob = Instantiate(AttackOb, transform.position, Quaternion.identity).GetComponent<AttackEffect>();
+                Ob.Mob = this;
+                Ob.Damage = Damage;
+                Ob.Weight = AttackWeight;
+                Ob.Range = true;
             }
             if (Type == MobType.Ghost&&!collision.transform.parent.GetComponent<Unit>().Invin)
             {
@@ -256,14 +261,14 @@ public class MobBase : MonoBehaviour
                             break;
                         case UnitTargetType.Far:
 
-                            if (Vector2.Distance(transform.position, targetP) < Vector2.Distance(transform.position, u.transform.position))
+                            if (Vector2.Distance(transform.position, Target.transform.position) < Vector2.Distance(transform.position, u.transform.position))
                             {
                                 Target = u;
                             }
                             break;
                         case UnitTargetType.Close:
 
-                            if (Vector2.Distance(transform.position, targetP) > Vector2.Distance(transform.position, u.transform.position))
+                            if (Vector2.Distance(transform.position, Target.transform.position) > Vector2.Distance(transform.position, u.transform.position))
                             {
                                 Target = u;
                             }
