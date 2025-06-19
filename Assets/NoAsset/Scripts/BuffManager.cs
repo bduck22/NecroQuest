@@ -135,8 +135,8 @@ public class BuffManager : MonoBehaviour
                 Unit.PlusStats.Speed += BT.Value;
                 Unit.PlusStats.AttackDamage += BT.Value2/100f;
                 Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
-                Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().size += new Vector2(0,2.3f);
-                Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().offset += new Vector2(0, 1.15f);
+                Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().size += new Vector2(1.5f,2.3f);
+                Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().offset += new Vector2(-0.75f, 1.15f);
                 Unit.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).localScale += new Vector3(2.5f, 2.5f, 2.5f);
                 break;
             case Buff_Type.BerserkP:
@@ -174,8 +174,8 @@ public class BuffManager : MonoBehaviour
                     Unit.PlusStats.Speed -= BT.Value;
                     Unit.PlusStats.AttackDamage -= BT.Value2 / 100f;
                     Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(false);
-                    Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().size -= new Vector2(0, 2.3f);
-                    Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().offset -= new Vector2(0, 1.15f);
+                    Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().size -= new Vector2(1.5f, 2.3f);
+                    Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().offset -= new Vector2(-0.75f, 1.15f);
                     Unit.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).localScale -= new Vector3(2.5f, 2.5f, 2.5f);
                     break;
             }

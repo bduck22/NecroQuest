@@ -48,10 +48,12 @@ public class PlayerManager : MonoBehaviour
         GoldBase gold = null;
         foreach (GoldBase g in Goldpool)
         {
-            if (!g.gameObject.activeSelf)
+            if (!g.gameObject.activeSelf&&!gold)
             {
+                g.transform.position = position;
                 g.gameObject.SetActive(true);
                 gold = g;
+                break;
             }
         }
         if (!gold)

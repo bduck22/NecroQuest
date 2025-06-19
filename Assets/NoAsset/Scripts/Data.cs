@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
-public class ItemBase
+public class NameDEscriptionBase
 {
     public string Name;
     public string Description;
@@ -33,8 +32,25 @@ public enum GuardianType
     Ten
 }
 
+public class MobStat : NameDEscriptionBase
+{
+    public float Hp;
+    public float Speed;
+    public float Damage;
+    public float AttackSpeed;
+    public float Intersection;
+    public MobStat(float Hp, float Speed, float Damage, float AttackSpeed, float Intersection)
+    {
+        this.Hp = Hp;
+        this.Speed = Speed;
+        this.Damage = Damage;
+        this.AttackSpeed = AttackSpeed;
+        this.Intersection = Intersection;
+    }
+}
+
 [System.Serializable]
-public class Guardian : ItemBase
+public class Guardian : NameDEscriptionBase
 {
     public GuardianType GuardianType;
     public UnitStats Stats;
@@ -60,6 +76,12 @@ public static class Data
         {7, new Guardian((GuardianType)7, "8이름", "8설명") },
         {8, new Guardian((GuardianType)8, "9이름", "9설명") },
         {9, new Guardian((GuardianType)9, "10이름", "10설명") },
+    };
+    public static readonly Dictionary<MobType, MobStat> MobData = new Dictionary<MobType, MobStat>()
+    {
+        {MobType.Zombie, new MobStat(5, 1.5f, 1, 0, 0) },
+        {MobType.Skull, new MobStat(5, 1.5f, 1, 1, 7) },
+        {MobType.Ghost, new MobStat(3, 10f, 1, 0, 12) },
     };
     //public static readonly Dictionary<int, Acc> AccData = new Dictionary<int, Acc>()
     //{

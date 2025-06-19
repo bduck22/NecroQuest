@@ -11,13 +11,18 @@ public class UnitHit : MonoBehaviour
         HitImage = transform.parent.GetChild(4).GetComponent<SpriteRenderer>();
         Unit = transform.parent.GetComponent<Unit>();
     }
+    public void Hit()
+    {
+        StartCoroutine(Invining());
+    }
     IEnumerator Invining()
     {
-        Unit.Invin = true;
+        if (Unit.Invin) yield return null;
+        else Unit.Invin = true;
         HitImage.color = Color.red;
-        yield return new WaitForSeconds(Unit.InvinTime / 3);
+        yield return new WaitForSeconds((Unit.InvinTime+Unit.PlusStats.InvinTime) / 3f*2);
         HitImage.color = Color.white;
-        yield return new WaitForSeconds(Unit.InvinTime/3*2);
+        yield return new WaitForSeconds((Unit.InvinTime + Unit.PlusStats.InvinTime) / 3f);
         Unit.Invin = false;
     }
     private void OnCollisionStay2D(Collision2D collision)
@@ -26,7 +31,7 @@ public class UnitHit : MonoBehaviour
         {
             if (!Unit.Invin)
             {
-                float Damage = collision.transform.GetComponent<MobBase>().Damage;
+                float Damage = collision.transform.GetComponent<MobBase>().Damage * collision.transform.GetComponent<MobBase>().AttackWeight;
                 Unit.HpChange(Damage);
                 StartCoroutine(Invining());
             }

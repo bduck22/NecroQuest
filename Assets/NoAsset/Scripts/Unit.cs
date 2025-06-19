@@ -17,6 +17,7 @@ public struct UnitStats
     public float AttackDamage; //기본공격피해량
     public float SkillDamage; //스킬피해량
     public float SkillCool; //쿨타임
+    public float InvinTime; //무적시간
 }
 
 public class Unit : MonoBehaviour
@@ -232,7 +233,7 @@ public class Unit : MonoBehaviour
                     Effect = Instantiate(AttackEffect.gameObject, AttackAnimation.transform.position, AttackAnimation.transform.localRotation);
                     Effect.GetComponentInChildren<SpiritMove>().Target = TargetUnit.transform;
                     Effect.GetComponentInChildren<AttackEffect>().Unit = this;
-                    Effect.GetComponentInChildren<AttackEffect>().Damage = Damage;
+                    Effect.GetComponentInChildren<AttackEffect>().Damage = Damage+PlusStats.Damage;
                     Effect.GetComponentInChildren<AttackEffect>().Weight = attackweight;
                 }
                 break;
@@ -243,7 +244,7 @@ public class Unit : MonoBehaviour
         if (UnitClass != UnitClass.HolyM)
         {
             Effect.GetComponentInChildren<AttackEffect>().Unit = this;
-            Effect.GetComponentInChildren<AttackEffect>().Damage = Damage;
+            Effect.GetComponentInChildren<AttackEffect>().Damage = Damage + PlusStats.Damage;
             Effect.GetComponentInChildren<AttackEffect>().Weight = attackweight;
         }
 
@@ -391,7 +392,7 @@ public class Unit : MonoBehaviour
             {
                 Damage *= 1.3f;
             }
-            PlayerManager.instance.Heal(transform, -Damage);
+            PlayerManager.instance.Heal(transform, -Damage * weight);
         }
         Hp -= Damage;
         if (Hp > MaxHp * 3) Hp = MaxHp * 3;

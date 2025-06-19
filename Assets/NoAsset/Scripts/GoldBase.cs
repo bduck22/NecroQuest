@@ -17,11 +17,11 @@ public class GoldBase : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("HitBox"))
+        if (collision.CompareTag("HitBox")&&gameObject.activeSelf)
         {
+            gameObject.SetActive(false);
             GameManager.instance.gold += Value;
             GoldNumber.Spawn((Vector2)transform.position + new Vector2(0, 1.2f), Value);
-            gameObject.SetActive(false);
         }
     }
 }

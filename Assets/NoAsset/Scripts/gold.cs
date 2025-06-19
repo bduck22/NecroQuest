@@ -4,7 +4,7 @@ public class gold : MonoBehaviour
 {
     Vector2 goldposition;
     bool updown;
-    void Start()
+    private void OnEnable()
     {
         goldposition = transform.position;
     }

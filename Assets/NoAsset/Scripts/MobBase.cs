@@ -1,9 +1,7 @@
-using DamageNumbersPro;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class MobBase : MonoBehaviour
 {
@@ -36,35 +34,43 @@ public class MobBase : MonoBehaviour
 
     private SpriteRenderer HitImage;
 
-    bool hit=true;
+    bool hit = true;
     //private NavMeshAgent agent;
 
     Transform Arm;
 
-    float AttackTime=0;
+    float AttackTime = 0;
 
     Rigidbody2D rigidbody;
 
     Vector3 targetP;
 
-    [SerializeField]bool attack;
+    [SerializeField] bool attack;
 
     public SpawnManager spawnManager;
 
     Animator ani;
+
+    public bool Ghosted;
     public void MobInit()
     {
         attack = false;
         hit = true;
         HitImage.color = Color.white;
-        //moving = true;
-        MaxHp = 5;
-        Hp = MaxHp*3;
-        Speed = 1.5f;
-        Damage = 1;
+        MobStat stat = Data.MobData[Type];
+        MaxHp = stat.Hp;
+        Hp = MaxHp * 3;
+        Speed = stat.Speed;
+        Damage = stat.Damage;
+        AttackSpeed = stat.AttackSpeed;
+        Intersection = stat.Intersection;
         Target = null;
         AttackTime = 0;
         Buff.Clear();
+        if (Type == MobType.Ghost)
+        {
+            transform.GetComponentInChildren<TrailRenderer>().enabled = true;
+        }
         TargetLoad();
     }
 
@@ -81,15 +87,14 @@ public class MobBase : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        if (time >= LodingTime)
+        if (time >= LodingTime && Type != MobType.Ghost)
         {
             time = 0;
             TargetLoad();
         }
-        if (Target)//moving&&
+        if (Target)
         {
-            //agent.SetDestination(Target.transform.position);
-            if (Target.transform.position.x < transform.position.x)
+            if (targetP.x < transform.position.x)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 Arm.transform.localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
@@ -101,11 +106,20 @@ public class MobBase : MonoBehaviour
             }
             if (AttackType == Attack_Type.ShotRange)
             {
-                rigidbody.linearVelocity = (targetP - transform.position).normalized * Speed;
-                //transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Speed * Time.deltaTime);
-            }else if(AttackType == Attack_Type.longRange)
+                if (Ghosted)
+                {
+                    transform.position += targetP * Speed * Time.deltaTime;
+                    if (Type == MobType.Ghost && Vector2.Distance(transform.position, targetP) > Intersection)
+                    {
+                        TargetLoad();
+                    }
+                }
+                else rigidbody.linearVelocity = (targetP - transform.position).normalized * Speed;
+            }
+            else if (AttackType == Attack_Type.longRange)
             {
-                if(Vector2.Distance(transform.position, Target.transform.position) > Intersection+2){
+                if (Vector2.Distance(transform.position, targetP) > Intersection + 2)
+                {
                     rigidbody.linearVelocity = (targetP - transform.position).normalized * Speed;
                     attack = false;
                 }
@@ -115,7 +129,7 @@ public class MobBase : MonoBehaviour
                     attack = true;
                 }
             }
-            if (AttackType == Attack_Type.longRange && AttackTime == 1&&attack)
+            if (AttackType == Attack_Type.longRange && AttackTime == 1 && attack)
             {
                 GameObject Attack = null;
                 switch (Type)
@@ -162,6 +176,14 @@ public class MobBase : MonoBehaviour
             }
             HpCh(-(AE.Damage * AE.Weight));
         }
+        if (Type == MobType.Ghost&&collision.CompareTag("HitBox"))
+        {
+            if (!collision.transform.parent.GetComponent<Unit>().Invin)
+            {
+                collision.transform.parent.GetComponent<Unit>().HpChange(Damage* AttackWeight);
+                collision.GetComponent<UnitHit>().Hit();
+            }
+        }
     }
     IEnumerator HitAni()
     {
@@ -183,6 +205,10 @@ public class MobBase : MonoBehaviour
             {
                 spawnManager.MobCount--;
                 PlayerManager.instance.CreateGold(100, transform.position);
+                if (Type == MobType.Ghost)
+                {
+                    transform.GetComponentInChildren<TrailRenderer>().enabled=false;
+                }
                 gameObject.SetActive(false);
             }
             if (damage < 0)
@@ -228,14 +254,14 @@ public class MobBase : MonoBehaviour
                             break;
                         case UnitTargetType.Far:
 
-                            if (Vector2.Distance(transform.position, Target.transform.position) < Vector2.Distance(transform.position, u.transform.position))
+                            if (Vector2.Distance(transform.position, targetP) < Vector2.Distance(transform.position, u.transform.position))
                             {
                                 Target = u;
                             }
                             break;
                         case UnitTargetType.Close:
 
-                            if (Vector2.Distance(transform.position, Target.transform.position) > Vector2.Distance(transform.position, u.transform.position))
+                            if (Vector2.Distance(transform.position, targetP) > Vector2.Distance(transform.position, u.transform.position))
                             {
                                 Target = u;
                             }
@@ -247,6 +273,10 @@ public class MobBase : MonoBehaviour
         if (Target)
         {
             targetP = Target.transform.position;
+            if (Type == MobType.Ghost)
+            {
+                targetP = (targetP - transform.position).normalized;
+            }
         }
     }
 }
