@@ -80,9 +80,6 @@ public class MobBase : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         Arm = transform.GetChild(1);
         HitImage = GetComponent<SpriteRenderer>();
-        //agent = GetComponent<NavMeshAgent>();
-        //agent.updateRotation = false;
-        //agent.updateUpAxis = false;
     }
     void Update()
     {
@@ -176,9 +173,14 @@ public class MobBase : MonoBehaviour
             }
             HpCh(-(AE.Damage * AE.Weight));
         }
-        if (Type == MobType.Ghost&&collision.CompareTag("HitBox"))
+        if (collision.CompareTag("HitBox"))
         {
-            if (!collision.transform.parent.GetComponent<Unit>().Invin)
+            if (Type == MobType.Shade)
+            {
+                HpCh(-Hp);
+                AttackEffect Ob = Instantiate(AttackOb).GetComponent<AttackEffect>();
+            }
+            if (Type == MobType.Ghost&&!collision.transform.parent.GetComponent<Unit>().Invin)
             {
                 collision.transform.parent.GetComponent<Unit>().HpChange(Damage* AttackWeight);
                 collision.GetComponent<UnitHit>().Hit();
@@ -273,7 +275,7 @@ public class MobBase : MonoBehaviour
         if (Target)
         {
             targetP = Target.transform.position;
-            if (Type == MobType.Ghost)
+            if (Ghosted)
             {
                 targetP = (targetP - transform.position).normalized;
             }

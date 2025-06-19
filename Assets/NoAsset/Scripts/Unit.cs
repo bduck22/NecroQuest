@@ -76,6 +76,7 @@ public class Unit : MonoBehaviour
     }
     public void UnitInit()
     {
+        PlusStats = new UnitStats();
         Hp = (MaxHp+ PlusStats.Hp) * 3;
         AttackTime = 0;
         SkillTime = SkillCoolTime;
@@ -92,7 +93,7 @@ public class Unit : MonoBehaviour
         switch (UnitClass)
         {
             case UnitClass.GuardN:
-                PlusStats.GetDamage += 0.5f;
+                PlusStats.GetDamage -= 0.5f;
                 break;
             case UnitClass.Berserker:
                 Buff.Add(new Buff(Buff_Type.BerserkP, Damage, AttackSpeed, 0, true));
@@ -238,7 +239,7 @@ public class Unit : MonoBehaviour
                 }
                 break;
             case UnitClass.HolyM:
-                TargetUnit.GetComponent<Unit>().HpChange(-Damage);
+                TargetUnit.GetComponent<Unit>().HpChange(-Damage-PlusStats.Damage);
                 break;
         }
         if (UnitClass != UnitClass.HolyM)
@@ -374,7 +375,7 @@ public class Unit : MonoBehaviour
         float weight=1;
         if (Damage > 0)
         {
-            weight -= PlusStats.GetDamage;
+            weight += PlusStats.GetDamage;
             if (Moral > 200)
             {
                 Damage *= 0.7f;
