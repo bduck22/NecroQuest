@@ -64,6 +64,16 @@ public class PlayerManager : MonoBehaviour
         gold.Value = value;
     }
 
+    public void UnitsMoral(float Moral)
+    {
+        foreach(Unit unit in Units)
+        {
+            unit.Moral += Moral;
+            if (unit.Moral <= 0) unit.Moral = 0;
+            else if (unit.Moral > 250) unit.Moral = 250;
+        }
+    }
+
     private void Update()
     {
         if (GameManager.instance.GameStatus != GameStatus.Waving)
@@ -80,6 +90,7 @@ public class PlayerManager : MonoBehaviour
                 }
                 Units[i].Moral -= MoralDownPer * ((GameManager.instance.Diffi) / 2f) * Time.deltaTime;
                 if (Units[i].Moral <= 0) Units[i].Moral = 0;
+                else if (Units[i].Moral > 250) Units[i].Moral = 250;
             }
         }
     }

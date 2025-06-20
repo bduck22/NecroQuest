@@ -401,14 +401,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9236998403d5aff41a41e9cf4cdfcf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 55
-  Hp: 165
+  MaxHp: 10000
+  Hp: 100000
   Speed: 1
   Damage: 1
   Buff: []
-  AttackSpeed: 0
+  AttackSpeed: 1
   Intersection: -1.25
-  AttackWeight: 0
+  AttackWeight: 1
   Type: 3
   MobTargetType: 0
   AttackType: 0
@@ -418,7 +418,7 @@ MonoBehaviour:
   attack: 0
   spawnManager: {fileID: 0}
   Ghosted: 0
-  AttackPostion: {fileID: 0}
+  AttackPostion: {fileID: 4027098207399727058}
 --- !u!70 &7250002700845083235
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -133,6 +133,7 @@ public class Unit : MonoBehaviour
 
         if (Hp <= 0)
         {
+            PlayerManager.instance.UnitsMoral(-50);
             gameObject.SetActive(false);
         }
 
@@ -380,6 +381,7 @@ public class Unit : MonoBehaviour
             {
                 Damage *= 0.7f;
             }
+            Moral -= 1;
             PlayerManager.instance.Deal(transform, Damage*weight);
         }
         else

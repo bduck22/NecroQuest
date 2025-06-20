@@ -225,6 +225,7 @@ public class MobBase : MonoBehaviour
             if (Hp <= 0)
             {
                 spawnManager.MobCount--;
+                PlayerManager.instance.UnitsMoral(10);
                 PlayerManager.instance.CreateGold(100, transform.position);
                 if (Type == MobType.Ghost)
                 {

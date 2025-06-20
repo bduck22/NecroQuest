@@ -82,7 +82,8 @@ public static class Data
         {MobType.Zombie, new MobStat(5, 1.5f, 1, 0, 0) },
         {MobType.Skull, new MobStat(5, 1.5f, 1, 1, 7) },
         {MobType.Ghost, new MobStat(3, 10f, 1, 0, 12) },
-        {MobType.Shade, new MobStat(5, 5, 30, 0, 0) }
+        {MobType.Shade, new MobStat(5, 5, 30, 0.2f, 0) },
+        {MobType.Ghoul, new MobStat(10, 2, 1, 1, -1.25f) }
     };
     //public static readonly Dictionary<int, Acc> AccData = new Dictionary<int, Acc>()
     //{

@@ -43,18 +43,19 @@ public class UnitHit : MonoBehaviour
         if (other.CompareTag("Projectile"))
         {
             AttackEffect effect = other.GetComponentInChildren<AttackEffect>();
+            if (!effect.Range)
+            {
+                Destroy(other.gameObject);
+            }
+            else
+            {
+                other.enabled = false;
+            }
             float Damage = effect.Damage;
             Unit.HpChange(Damage * effect.Weight);
             if (effect.Mob.Type == MobType.Ghoul)
             {
                 effect.Mob.HpCh(Damage * effect.Weight);
-            }
-            if (!effect.Range)
-            {
-                Destroy(other.gameObject);
-            }else
-            {
-                other.enabled = false;
             }
             StartCoroutine(Invining());
         }
