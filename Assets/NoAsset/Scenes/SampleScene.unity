@@ -2634,7 +2634,7 @@ MonoBehaviour:
   AttackAnimation: {fileID: 1722718213}
   AttackEffect: {fileID: 4678447364193906356, guid: 8d8ee58603c103545a4a401d21a06325, type: 3}
   Interaction: {fileID: 17476306}
-  locked: 1
+  locked: 0
   AttackWeight: 1
   SkillEffect: {fileID: 1714899305343434362, guid: 3366ad2605acd154191adb96c283a874, type: 3}
   SkillCoolTime: 2
@@ -3648,7 +3648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &244800909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5551,7 +5551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &417822744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5637,7 +5637,7 @@ MonoBehaviour:
   AttackAnimation: {fileID: 597342258}
   AttackEffect: {fileID: 5497008307163381122, guid: 2ca72c1b3ad1b064a9bd4c557d537dd3, type: 3}
   Interaction: {fileID: 1644818281}
-  locked: 1
+  locked: 0
   AttackWeight: 1
   SkillEffect: {fileID: 4056741552405515256, guid: 38d9e4f8fcd5b0148859da4fc994cbf3, type: 3}
   SkillCoolTime: 10
@@ -155799,7 +155799,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 116102349
   m_SortingLayer: 1
-  m_SortingOrder: 4
+  m_SortingOrder: 3
   m_Sprite: {fileID: 4058470633746537672, guid: 31777ecee1b0efc4caaf5ff9700fa324, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -156704,7 +156704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1296205394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156790,7 +156790,7 @@ MonoBehaviour:
   AttackAnimation: {fileID: 1737364891}
   AttackEffect: {fileID: 636789113939564156, guid: a11a73f76af3a964aa0c19c5fd4c5569, type: 3}
   Interaction: {fileID: 1199097365}
-  locked: 1
+  locked: 0
   AttackWeight: 1
   SkillEffect: {fileID: 0}
   SkillCoolTime: 2
@@ -163966,8 +163966,8 @@ MonoBehaviour:
   Wave: 0
   Waves:
   - MobInfo:
-    - Type: 0
-      Count: 1
+    - Type: 2
+      Count: 50
       middle: 0
       final: 0
   - MobInfo:
@@ -164109,7 +164109,7 @@ MonoBehaviour:
   AttackAnimation: {fileID: 2003036329}
   AttackEffect: {fileID: 4208623540891777918, guid: 957388e96d8d0fc47919f741b22fce3f, type: 3}
   Interaction: {fileID: 1207651571}
-  locked: 1
+  locked: 0
   AttackWeight: 1
   SkillEffect: {fileID: 4430899587564424174, guid: 3a40b812650c8b64996e8b5d58ce6ba4, type: 3}
   SkillCoolTime: 10
@@ -165636,7 +165636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1660688875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168866,7 +168866,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 116102349
   m_SortingLayer: 1
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: 4058470633746537672, guid: 31777ecee1b0efc4caaf5ff9700fa324, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -171421,6 +171421,72 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &6761089263195413933
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1754917627043384283, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.3636804
+      objectReference: {fileID: 0}
+    - target: {fileID: 1754917627043384283, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.6183915
+      objectReference: {fileID: 0}
+    - target: {fileID: 1754917627043384283, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1754917627043384283, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1754917627043384283, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1754917627043384283, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1754917627043384283, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1754917627043384283, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1754917627043384283, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1754917627043384283, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3165540045876887770, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+      propertyPath: m_Name
+      value: Zombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761177313752418403, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+      propertyPath: AttackPostion
+      value: 
+      objectReference: {fileID: 6761089263195413934}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+--- !u!4 &6761089263195413934 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4027098207399727058, guid: bc3cb09e5717c014a89a6359e25d2eb7, type: 3}
+  m_PrefabInstance: {fileID: 6761089263195413933}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -171444,3 +171510,4 @@ SceneRoots:
   - {fileID: 1382425914}
   - {fileID: 1274886954}
   - {fileID: 167397905}
+  - {fileID: 6761089263195413933}

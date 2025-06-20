@@ -52,6 +52,8 @@ public class MobBase : MonoBehaviour
     Animator ani;
 
     public bool Ghosted;
+
+    [SerializeField] private Transform AttackPostion;
     public void MobInit()
     {
         attack = false;
@@ -79,7 +81,10 @@ public class MobBase : MonoBehaviour
     {
         ani = GetComponentInChildren<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
-        Arm = transform.GetChild(1);
+        if (!Ghosted)
+        {
+            Arm = transform.GetChild(1);
+        }
         HitImage = GetComponent<SpriteRenderer>();
     }
     void Update()
@@ -92,15 +97,21 @@ public class MobBase : MonoBehaviour
         }
         if (Target)
         {
-            if (targetP.x < transform.position.x)
+            if (Target.transform.position.x < transform.position.x)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
-                Arm.transform.localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
+                if (Arm)
+                {
+                    Arm.transform.localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
+                }
             }
             else
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
-                Arm.transform.localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
+                if (Arm)
+                {
+                    Arm.transform.localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
+                }
             }
             if (AttackType == Attack_Type.ShotRange)
             {
@@ -129,20 +140,23 @@ public class MobBase : MonoBehaviour
             }
             if (AttackType == Attack_Type.longRange && AttackTime == 1 && attack)
             {
-                GameObject Attack = null;
+                ani.SetTrigger("Attack");
+                GameObject Attack = Instantiate(AttackOb.gameObject);
+                Attack.transform.position = AttackPostion.position;
+                AttackEffect AE = Attack.GetComponentInChildren<AttackEffect>();
                 switch (Type)
                 {
                     case MobType.Skull:
-                        ani.SetTrigger("Attack");
-                        Attack = Instantiate(AttackOb.gameObject);
-                        Attack.transform.position = transform.GetChild(1).GetChild(0).GetChild(1).position;
                         Attack.GetComponent<TargetMove>().Target = Target.transform;
                         Attack.GetComponent<TargetMove>().Speed = 8f;
                         break;
+                    case MobType.Ghoul:
+                        AE.Range = true;
+                        break;
                 }
-                Attack.GetComponentInChildren<AttackEffect>().Mob = this;
-                Attack.GetComponentInChildren<AttackEffect>().Damage = Damage;
-                Attack.GetComponentInChildren<AttackEffect>().Weight = AttackWeight;
+                AE.Mob = this;
+                AE.Damage = Damage;
+                AE.Weight = AttackWeight;
                 AttackTime = 0;
             }
         }
@@ -202,7 +216,7 @@ public class MobBase : MonoBehaviour
         yield return new WaitForSeconds(1 / 3f);
         hit = true;
     }
-    void HpCh(float damage)
+    public void HpCh(float damage)
     {
         if (gameObject.activeSelf)
         {

@@ -1,4 +1,5 @@
 using DamageNumbersPro;
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -41,9 +42,14 @@ public class UnitHit : MonoBehaviour
     {
         if (other.CompareTag("Projectile"))
         {
-            float Damage = other.GetComponentInChildren<AttackEffect>().Damage;
-            Unit.HpChange(Damage * other.GetComponentInChildren<AttackEffect>().Weight);
-            if (!other.GetComponentInChildren<AttackEffect>().Range)
+            AttackEffect effect = other.GetComponentInChildren<AttackEffect>();
+            float Damage = effect.Damage;
+            Unit.HpChange(Damage * effect.Weight);
+            if (effect.Mob.Type == MobType.Ghoul)
+            {
+                effect.Mob.HpCh(Damage * effect.Weight);
+            }
+            if (!effect.Range)
             {
                 Destroy(other.gameObject);
             }else

@@ -125,6 +125,7 @@ MonoBehaviour:
   attack: 0
   spawnManager: {fileID: 0}
   Ghosted: 0
+  AttackPostion: {fileID: 4684024569503484408}
 --- !u!70 &7315068180447663399
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
