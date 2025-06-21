@@ -6,19 +6,25 @@ public class BuffCardManager : MonoBehaviour
 {
     public Transform[] Cards;
     public Guardian[] carddata;
-    UnitManager unitManager;
     int[] keys;
-    void Start()
+    public int Loadcount;
+    Text LoadButton;
+    private void Awake()
     {
-        unitManager = PlayerManager.instance.UnitManager;
-        Cards = new Transform[] { transform.GetChild(0), transform.GetChild(1) , transform.GetChild(2) };
-        carddata = new Guardian[Cards.Length];
-        keys = new int[Cards.Length];
-
+        Cards = new Transform[] { transform.GetChild(0), transform.GetChild(1), transform.GetChild(2) };
+        LoadButton = transform.GetChild(3).GetComponentInChildren<Text>();
+    }
+    public void Load()
+    {
+        Loadcount = 3;
         CardLoad();
     }
+
     public void CardLoad()
     {
+        carddata = new Guardian[Cards.Length];
+        keys = new int[Cards.Length];
+        Loadcount--;
         for (int i = 0; i < 3; i++)
         {
             int R = Random.Range(0, Data.GuardianData.Count);
@@ -33,10 +39,19 @@ public class BuffCardManager : MonoBehaviour
             Cards[i].GetChild(1).GetComponentInChildren<Text>().text = carddata[i].Name;
             Cards[i].GetChild(2).GetComponent<Text>().text = carddata[i].Description;
         }
+
+        if(Loadcount > 0)
+        {
+            LoadButton.gameObject.SetActive(true);
+            LoadButton.text = "새로고침 " + Loadcount;
+        }
+        else LoadButton.transform.parent.gameObject.SetActive(false);
+
     }
     public void CardSelect(int number)
     {
-        unitManager.guardians.Add(carddata[number]);
+        PlayerManager.instance.guardians.Add(carddata[number]);
+        PlayerManager.instance.GuardianLoad();
     }
     private bool Check(int R, int m)
     {
@@ -46,7 +61,7 @@ public class BuffCardManager : MonoBehaviour
                 return false;
             }
         }
-        foreach (Guardian g in unitManager.guardians)
+        foreach (Guardian g in PlayerManager.instance.guardians)
         {
             if(g.GuardianType== Data.GuardianData[R].GuardianType)
             {

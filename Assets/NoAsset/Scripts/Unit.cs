@@ -6,18 +6,33 @@ using UnityEngine;
 [System.Serializable]
 public struct UnitStats
 {
-    public float Speed; //이동속도
-    public float AttackSpeed; //공격속도
-    public float Hp; //체력
-    public float Damage; //공격력
-    public float GetDamage; //받는 피해량
-    public float SetValue; //가하는 피해와 회복량
-    public float GetHeal; //받는 회복량
-    public float Intersection; //사거리
-    public float AttackDamage; //기본공격피해량
-    public float SkillDamage; //스킬피해량
-    public float SkillCool; //쿨타임
-    public float InvinTime; //무적시간
+    public float Speed; //이동속도 +
+    public float AttackSpeed; //공격속도 +
+    public float Hp; //체력 +
+    public float Damage; //공격력 +
+    public float GetDamage; //받는 피해량 - .
+    public float SetValue; //가하는 피해와 회복량 + .
+    public float GetHeal; //받는 회복량 + .
+    public float Intersection; //사거리 +
+    public float AttackDamage; //기본공격피해량 + .
+    public float SkillDamage; //스킬피해량 + .
+    public float SkillCool; //쿨타임 +
+    public float InvinTime; //무적시간 +
+    public void PlusStat(UnitStats stats)
+    {
+        Speed += stats.Speed;
+        AttackSpeed += stats.AttackSpeed;
+        Hp += stats.Hp;
+        Damage += stats.Damage;
+        GetDamage += stats.GetDamage;
+        SetValue += stats.SetValue;
+        GetHeal += stats.GetHeal;
+        Intersection += stats.Intersection;
+        AttackDamage += stats.AttackDamage;
+        SkillDamage += stats.SkillDamage;
+        SkillCool += stats.SkillCool;
+        InvinTime += stats.InvinTime;
+    }
 }
 
 public class Unit : MonoBehaviour
@@ -76,14 +91,14 @@ public class Unit : MonoBehaviour
     }
     public void UnitInit()
     {
-        PlusStats = new UnitStats();
         Hp = (MaxHp+ PlusStats.Hp) * 3;
-        AttackTime = 0;
-        SkillTime = SkillCoolTime;
+        AttackTime = 1;
+        SkillTime = SkillCoolTime-PlusStats.SkillCool;
         Interaction.radius = Intersection + 2f+PlusStats.Intersection;
         TargetUnit = null;
         Invin = false;
         Move = false;
+        locked = false;
     }
     public void Spawn()
     {

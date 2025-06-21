@@ -39,6 +39,8 @@ public class PlayerManager : MonoBehaviour
     public List<GoldBase> Goldpool;
 
     public Transform GoldOb;
+
+    public List<Guardian> guardians;
     private void Start()
     {
         UnitManager = GetComponent<UnitManager>();
@@ -108,6 +110,37 @@ public class PlayerManager : MonoBehaviour
                 Units[i].Skill();
                 break;
         }
+    }
+    public void GuardianLoad()
+    {
+        foreach (Unit unit in Units)
+        {
+            unit.PlusStats.PlusStat(guardians[guardians.Count-1].Stats);
+            unit.UnitInit();
+        }
+    }
+    public void UnitsInit()
+    {
+        foreach (Unit unit in Units)
+        {
+            unit.UnitInit();
+        }
+    }
+    public void UnitStop()
+    {
+        foreach (Unit unit in Units)
+        {
+            unit.locked = true;
+        }
+    }
+    public bool Checklock()
+    {
+        foreach (Unit unit in Units)
+        {
+            if (unit.locked) return false;
+        }
+        UnitStop();
+        return true;
     }
     public void Heal(Transform transform, float Damage)
     {

@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public enum UnitTargetType
 {
@@ -182,9 +180,6 @@ public class GameManager : MonoBehaviour
             case GameStatus.WaveStart:
                 WaveStart();
                 break;
-            case GameStatus.Waving:
-                Waving();
-                break;
             case GameStatus.WaveEnd:
                 WaveEnd();
                 break;
@@ -203,13 +198,10 @@ public class GameManager : MonoBehaviour
 
     public void WaveStart()
     {
+        PlayerManager.instance.UnitsInit();
+        one = true;
         SpawnManager.WaveStart();
         GameStatus = GameStatus.Waving;
-    }
-
-    void Waving()
-    {
-
     }
 
     void WaveEnd()
@@ -221,7 +213,7 @@ public class GameManager : MonoBehaviour
         else GameStatus = GameStatus.Rest;
     }
 
-    public Transform GuardianSelecter;
+    public BuffCardManager GuardianSelecter;
     bool one=true;
     void Rest()
     {
@@ -229,10 +221,11 @@ public class GameManager : MonoBehaviour
         {
             one = false;
             float R = Random.Range(0.0f, 1.0f);
-            if(R < 0.3f)
+            if(R < 0.9f)
             {
                 Time.timeScale = 0;
                 GuardianSelecter.gameObject.SetActive(true);
+                GuardianSelecter.Load();
             }
             else
             {

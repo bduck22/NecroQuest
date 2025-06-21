@@ -22,10 +22,13 @@ public class SpawnManager : MonoBehaviour
     {
         if(GameManager.instance.GameStatus == GameStatus.Waving)
         {
-            if(MobCount <= 0&&!waving)
+            if (MobCount <= 0 && !waving)
             {
-                Debug.Log("웨이브 끝");
-                GameManager.instance.GameStatus = GameStatus.WaveEnd;
+                if (PlayerManager.instance.Checklock())
+                {
+                    Debug.Log("웨이브 끝");
+                    GameManager.instance.GameStatus = GameStatus.WaveEnd;
+                }
             }
         }
         if (Input.GetKeyDown(KeyCode.C))

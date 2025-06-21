@@ -13,8 +13,6 @@ public class UnitManager : MonoBehaviour
     Vector2 mouseposition;
     PlayerManager PlayerManager;
 
-    public List<Guardian> guardians;
-
     public Texture2D Origin;
     public Texture2D Move;
     public Texture2D Skill;

@@ -53,12 +53,19 @@ public class MobStat : NameDEscriptionBase
 public class Guardian : NameDEscriptionBase
 {
     public GuardianType GuardianType;
-    public UnitStats Stats;
+    public UnitStats Stats = new UnitStats();
     public Guardian(GuardianType guardianType, string Name, string Description)
     {
         this.Name = Name;
         this.Description = Description;
         this.GuardianType = guardianType;
+        switch (guardianType)
+        {
+            case GuardianType.One:
+                Stats.SkillCool += 1;
+                Stats.SetValue += 0.2f;
+                break;
+        }
     }
 }
 
@@ -66,7 +73,7 @@ public static class Data
 {
     public static readonly Dictionary<int, Guardian> GuardianData = new Dictionary<int, Guardian>()
     {
-        {0, new Guardian((GuardianType)0, "1이름", "1설명") },
+        {0, new Guardian((GuardianType)0, "마법친화", "1설명") },
         {1, new Guardian((GuardianType)1, "2이름", "2설명") },
         {2, new Guardian((GuardianType)2, "3이름", "3설명") },
         {3, new Guardian((GuardianType)3, "4이름", "4설명") },

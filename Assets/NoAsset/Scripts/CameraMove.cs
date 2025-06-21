@@ -8,9 +8,6 @@ public class CameraMove : MonoBehaviour
     public float ZoomSpeed;
     [SerializeField] Vector2 MaxVector;
     [SerializeField] Vector2 MinVector;
-    void Start()
-    {
-    }
     void Update()
     {
 
@@ -50,10 +47,12 @@ public class CameraMove : MonoBehaviour
         if ((scroll < 0 || Input.GetKey(KeyCode.E)) && Camera.main.orthographicSize < MaxZoom)
         {
             Camera.main.orthographicSize += (-scroll)+ZoomSpeed * Time.deltaTime;
+            transform.localScale = new Vector3(Camera.main.orthographicSize/5, Camera.main.orthographicSize/5, 1);
         }
         if ((scroll > 0 || Input.GetKey(KeyCode.Q)) && Camera.main.orthographicSize > MinZoom)
         {
             Camera.main.orthographicSize -= scroll+ZoomSpeed * Time.deltaTime;
+            transform.localScale = new Vector3(Camera.main.orthographicSize / 5, Camera.main.orthographicSize / 5, 1);
         }
     }
 }
