@@ -56,7 +56,10 @@ public class UnitManager : MonoBehaviour
                 foreach (int num in PlayerManager.SeletedUnits)
                 {
                     Unit unit = PlayerManager.Units[num];
-                    unit.TargetWid = nowmouse;
+                    if (unit.TargetWid != nowmouse)
+                    {
+                        unit.TargetWid = nowmouse;
+                    }
                     unit.Move = true;
                 }
             }
@@ -149,9 +152,11 @@ public class UnitManager : MonoBehaviour
                 case UnitClass.ArchM:
                     float stack = PlayerManager.SelectSkill.Buff[0].Value * 0.02f + 1;
                     SkillRange.localScale = new Vector3(stack * 2, 2 * stack, 1);
+                    SkillRange.localRotation = Quaternion.Euler(45, 0, 0);
                     break;
                 case UnitClass.HolyM:
                     SkillRange.localScale = new Vector3(5.7f, 5.7f, 1);
+                    SkillRange.localRotation = Quaternion.Euler(0, 0, 0);
                     break;
             }
         }

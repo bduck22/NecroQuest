@@ -25,7 +25,7 @@ public class UnitInfoUi : MonoBehaviour
     }
     void LoadInfo()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 4; i++)
         {
             if (PlayerManager.instance.Units.Length > i)
             {

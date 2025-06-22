@@ -42,6 +42,7 @@ public class Unit : MonoBehaviour
     public bool Move;
 
     [Header("Stats")]
+    public int Level;
     public float Speed;
     public float AttackSpeed;
     public float Hp;
@@ -229,6 +230,7 @@ public class Unit : MonoBehaviour
                 Effect = Instantiate(AttackEffect.gameObject, AttackAnimation.transform);
                 break;
             case UnitClass.DragonN:
+                Effect = AttackAnimation.gameObject;
                 break;
             case UnitClass.Berserker:
                 Effect = AttackAnimation.gameObject;
@@ -322,7 +324,8 @@ public class Unit : MonoBehaviour
                         AttackAnimation.transform.localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.left, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).eulerAngles.z);
                     }
                     AttackAnimation.SetTrigger("Skill");
-                    Effect = Instantiate(SkillEffect.gameObject, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+                    Effect = Instantiate(SkillEffect.gameObject);
+                    Effect.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     Effect.transform.position = new Vector3(Effect.transform.position.x, Effect.transform.position.y, 0);
                     Effect.transform.localScale = new Vector3((Buff[0].Value * 0.02f) + 1f, (Buff[0].Value * 0.02f) + 1f, 1);
                     Effect = Effect.transform.GetChild(0).gameObject;

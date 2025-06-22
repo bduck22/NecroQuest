@@ -146,7 +146,6 @@ public class PlayerManager : MonoBehaviour
     }
     public void UnitStop()
     {
-        Debug.Log("asd");
         foreach (Unit unit in Units)
         {
             unit.locked = true;

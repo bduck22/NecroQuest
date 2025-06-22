@@ -177,7 +177,7 @@ public class MobBase : MonoBehaviour
             AttackEffect AE = collision.GetComponent<AttackEffect>();
             if (AE.Unit.UnitClass == UnitClass.DragonN)
             {
-
+                AE.Unit.HpChange(-(AE.Damage * AE.Weight));
             }
             if (AE.Unit.UnitClass == UnitClass.GuardN)
             {
@@ -211,9 +211,9 @@ public class MobBase : MonoBehaviour
         if (!hit) yield return null;
         else hit = false;
         HitImage.color = Color.red;
-        yield return new WaitForSeconds(2 / 3f);
+        yield return new WaitForSeconds(1.5f / 3f);
         HitImage.color = Color.white;
-        yield return new WaitForSeconds(1 / 3f);
+        yield return new WaitForSeconds(0.75f / 3f);
         hit = true;
     }
     public void HpCh(float damage)
