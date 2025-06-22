@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitManager : MonoBehaviour
@@ -6,7 +5,6 @@ public class UnitManager : MonoBehaviour
     [SerializeField] Material NotSelect;
     [SerializeField] Material Select;
     [SerializeField] Transform DragOb;
-    [SerializeField] Unit Unit;
     public Transform SkillRange;
     [SerializeField] Transform RightCursor;
 
@@ -16,83 +14,92 @@ public class UnitManager : MonoBehaviour
     public Texture2D Origin;
     public Texture2D Move;
     public Texture2D Skill;
-    
+
     private void Start()
     {
         //guardians = new List<Guardian>();
         PlayerManager = GetComponent<PlayerManager>();
         Cursor.SetCursor(Origin, Vector2.zero, CursorMode.Auto);
     }
+    void SelectClear()
+    {
+        foreach (Unit u in PlayerManager.Units)
+        {
+            u.GetComponent<SpriteRenderer>().material = NotSelect;
+        }
+        PlayerManager.SeletedUnits.Clear();
+    }
     private void Update()
     {
         Vector2 nowmouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            RightCursor.position = nowmouse;
+            RightCursor.GetComponent<Animator>().Play("Click");
+        }
         if (Input.GetMouseButton(1))
         {
+            if (PlayerManager.SeletedUnits.Count > 0)
+            {
+                Cursor.SetCursor(Move, Vector2.zero, CursorMode.Auto);
+            }
+
             if (PlayerManager.SelectSkill)
             {
                 PlayerManager.SelectSkill = null;
                 SkillRange.gameObject.SetActive(false);
             }
-        }
-        if (Input.GetMouseButtonUp(1))
-        {
-            RightCursor.position = nowmouse;
-            RightCursor.GetComponent<Animator>().Play("Click");
-            if (Unit)
-            {
-                Unit.TargetWid = nowmouse;
-                Unit.GetComponent<SpriteRenderer>().material = NotSelect;
-                Unit.Move = true;
-                Unit = null;
-            }
+
             if (PlayerManager.SeletedUnits.Count > 0)
             {
-                for (; PlayerManager.SeletedUnits.Count > 0;)
+                foreach (int num in PlayerManager.SeletedUnits)
                 {
-                    Unit unit = PlayerManager.Units[PlayerManager.SeletedUnits[0]];
-                    unit.GetComponent<SpriteRenderer>().material = NotSelect;
+                    Unit unit = PlayerManager.Units[num];
                     unit.TargetWid = nowmouse;
                     unit.Move = true;
-                    PlayerManager.SeletedUnits.RemoveAt(0);
                 }
             }
         }
-
-        if(Unit || PlayerManager.SeletedUnits.Count > 0)
-        {
-            Cursor.SetCursor(Move, Vector2.zero, CursorMode.Auto);
-        }
-        else if (PlayerManager.SelectSkill)
-        {
-            Cursor.SetCursor(Skill, Vector2.zero, CursorMode.Auto);
-        }else
+        if (Input.GetMouseButtonUp(1))
         {
             Cursor.SetCursor(Origin, Vector2.zero, CursorMode.Auto);
+            RightCursor.position = nowmouse;
+            RightCursor.GetComponent<Animator>().Play("Click");
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            foreach (Unit u in PlayerManager.Units)
-            {
-                u.GetComponent<SpriteRenderer>().material = NotSelect;
-            }
-            PlayerManager.SeletedUnits.Clear();
+
             if (!PlayerManager.SelectSkill)
             {
                 mouseposition = nowmouse;
                 RaycastHit2D ray = Physics2D.Raycast(nowmouse, Vector2.zero, 10, LayerMask.GetMask("Unit"));
                 if (ray && ray.transform.CompareTag("Unit"))
                 {
-                    Unit = ray.transform.GetComponent<Unit>();
-                    Unit.GetComponent<SpriteRenderer>().material = Select;
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        int number = int.Parse(ray.transform.name);
+                        ray.transform.GetComponent<SpriteRenderer>().material = Select;
+                        PlayerManager.instance.SeletedUnits.Add(number);
+                    }
+                    else if (Input.GetKey(KeyCode.LeftControl))
+                    {
+                        int number = int.Parse(ray.transform.name);
+                        ray.transform.GetComponent<SpriteRenderer>().material = NotSelect;
+                        PlayerManager.instance.SeletedUnits.Remove(number);
+                    }
+                    else
+                    {
+                        SelectClear();
+                        int number = int.Parse(ray.transform.name);
+                        ray.transform.GetComponent<SpriteRenderer>().material = Select;
+                        PlayerManager.instance.SeletedUnits.Add(number);
+                    }
                 }
                 else
                 {
-                    if (Unit)
-                    {
-                        Unit.GetComponent<SpriteRenderer>().material = NotSelect;
-                        Unit = null;
-                    }
+                    SelectClear();
                 }
             }
         }
@@ -108,6 +115,7 @@ public class UnitManager : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
+            Cursor.SetCursor(Origin, Vector2.zero, CursorMode.Auto);
             DragOb.GetComponent<DragSelect>().Close = true;
             DragOb.gameObject.SetActive(false);
             if (PlayerManager.SelectSkill)
@@ -129,11 +137,8 @@ public class UnitManager : MonoBehaviour
         }
         if (PlayerManager.SelectSkill)
         {
-            if (Unit)
-            {
-                Unit.GetComponent<SpriteRenderer>().material = NotSelect;
-                Unit = null;
-            }
+            Cursor.SetCursor(Skill, Vector2.zero, CursorMode.Auto);
+            SelectClear();
             if (!SkillRange.gameObject.activeSelf)
             {
                 SkillRange.gameObject.SetActive(true);
@@ -143,7 +148,7 @@ public class UnitManager : MonoBehaviour
             {
                 case UnitClass.ArchM:
                     float stack = PlayerManager.SelectSkill.Buff[0].Value * 0.02f + 1;
-                    SkillRange.localScale = new Vector3(stack*2, 2 * stack, 1);
+                    SkillRange.localScale = new Vector3(stack * 2, 2 * stack, 1);
                     break;
                 case UnitClass.HolyM:
                     SkillRange.localScale = new Vector3(5.7f, 5.7f, 1);

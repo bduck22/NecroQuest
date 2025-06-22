@@ -61,7 +61,7 @@ public class MobBase : MonoBehaviour
         HitImage.color = Color.white;
         MobStat stat = Data.MobData[Type];
         MaxHp = stat.Hp;
-        Hp = MaxHp * 3;
+        Hp = MaxHp * 20;
         Speed = stat.Speed;
         Damage = stat.Damage;
         AttackSpeed = stat.AttackSpeed;
@@ -221,7 +221,7 @@ public class MobBase : MonoBehaviour
         if (gameObject.activeSelf)
         {
             Hp += damage;
-            if (Hp > MaxHp * 3) Hp = MaxHp * 3;
+            if (Hp > MaxHp * 20) Hp = MaxHp * 20;
             if (Hp <= 0)
             {
                 spawnManager.MobCount--;

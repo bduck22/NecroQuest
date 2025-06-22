@@ -140,9 +140,9 @@ public class BuffManager : MonoBehaviour
                 Unit.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).localScale += new Vector3(2.5f, 2.5f, 2.5f);
                 break;
             case Buff_Type.BerserkP:
-                float lostHP = ((Unit.PlusStats.Hp + Unit.MaxHp) * 3 - Unit.Hp);
-                Unit.Damage = BT.Value + (lostHP / 10f / 0.5f) * 0.5f;
-                Unit.AttackSpeed = BT.Value2 + (lostHP / 20f / 0.5f) * 0.5f;
+                float lostHP = ((Unit.PlusStats.Hp + Unit.MaxHp) * 20 - Unit.Hp);
+                Unit.Damage = BT.Value + Mathf.CeilToInt(lostHP / 20f / 0.5f) * 0.5f;
+                Unit.AttackSpeed = BT.Value2 + Mathf.CeilToInt(lostHP / 30f / 0.5f) * 0.5f;
                 break;
         }
         if(BT.Time <= 0)

@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
     private void Awake()
     {
+        UnitManager = GetComponent<UnitManager>();
         if (instance == null)
         {
             instance = this;
@@ -41,10 +42,6 @@ public class PlayerManager : MonoBehaviour
     public Transform GoldOb;
 
     public List<Guardian> guardians;
-    private void Start()
-    {
-        UnitManager = GetComponent<UnitManager>();
-    }
     public void CreateGold(int value, Vector2 position)
     {
         GoldBase gold = null;
@@ -96,6 +93,27 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
+    public void StageStart()
+    {
+        foreach(Unit unit in Units)
+        {
+            if (unit.UnitClass == UnitClass.SpiritM)
+            {
+                float a = unit.Damage;
+                if(a<unit.Speed) a = unit.Speed;
+                if(a<unit.AttackSpeed) a = unit.AttackSpeed;
+                if(a<unit.MaxHp) a = unit.MaxHp;
+
+                foreach(Unit unit2 in Units)
+                {
+                    if (a <= unit.Damage) unit2.PlusStats.Damage += Mathf.CeilToInt(unit.Damage / 5f / 0.5f) * 0.5f;
+                    if (a <= unit.Speed) unit2.PlusStats.Speed += Mathf.CeilToInt(unit.Speed / 5f / 0.5f) * 0.5f;
+                    if (a <= unit.AttackSpeed) unit2.PlusStats.AttackSpeed += Mathf.CeilToInt(unit.AttackSpeed / 5f / 0.5f) * 0.5f;
+                    if (a <= unit.MaxHp) unit2.PlusStats.Hp += Mathf.CeilToInt(unit.MaxHp / 5f / 0.5f) * 0.5f;
+                }
+            }
+        }
+    }
     public void SkillUse(int i)
     {
         switch (Units[i].UnitClass)
@@ -128,6 +146,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void UnitStop()
     {
+        Debug.Log("asd");
         foreach (Unit unit in Units)
         {
             unit.locked = true;

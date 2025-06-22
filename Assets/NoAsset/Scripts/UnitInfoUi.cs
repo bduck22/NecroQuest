@@ -19,6 +19,7 @@ public class UnitInfoUi : MonoBehaviour
         }
         else
         {
+            time = 0;
             LoadInfo();
         }
     }
@@ -38,7 +39,7 @@ public class UnitInfoUi : MonoBehaviour
                         Cha.GetChild(j).gameObject.SetActive(true);
                     }
                     Cha.GetChild(0).GetComponentInChildren<Text>().text = "";
-                    Cha.GetChild(1).GetComponent<Image>().color = Color.red;
+                    Cha.GetChild(1).GetChild(1).GetComponent<Image>().color = Color.red;
                     //Cha.GetChild(0).GetChild(0).GetComponent<Image>().sprite  스킬 아이콘
                     Cha.GetChild(0).GetChild(1).GetComponent<Image>().fillAmount = 0;
                     Cha.GetChild(2).GetComponent<Slider>().value = 0;
@@ -56,10 +57,18 @@ public class UnitInfoUi : MonoBehaviour
                     Cha.GetChild(0).GetComponentInChildren<Text>().text = (unit.SkillCoolTime-unit.PlusStats.SkillCool - unit.SkillTime).ToString("#,###");
                     //Cha.GetChild(0).GetChild(0).GetComponent<Image>().sprite  스킬 아이콘
                     Cha.GetChild(0).GetChild(1).GetComponent<Image>().fillAmount = 1 - unit.SkillTime / (unit.SkillCoolTime - unit.PlusStats.SkillCool);
-                    Cha.GetChild(1).GetComponent<Image>().color = Color.white;
-                    Cha.GetChild(1).GetComponent<Image>().sprite = Resources.Load<Sprite>(unit.UnitClass.ToString() + "Head");
-                    Cha.GetChild(2).GetComponent<Slider>().value = unit.Hp / ((unit.MaxHp+unit.PlusStats.Hp) * 3f);
-                    Cha.GetChild(2).GetComponentInChildren<TMP_Text>().text = unit.Hp.ToString("#,###.#") + " / " + ((unit.MaxHp + unit.PlusStats.Hp) * 3f).ToString("#,###.#");
+                    if (PlayerManager.instance.SeletedUnits.Contains(int.Parse(unit.name)))
+                    {
+                        Cha.GetChild(1).GetComponent<Image>().color = Color.red;
+                    }
+                    else
+                    {
+                        Cha.GetChild(1).GetComponent<Image>().color = Color.white;
+                    }
+                    Cha.GetChild(1).GetChild(1).GetComponent<Image>().color = Color.white;
+                    Cha.GetChild(1).GetChild(1).GetComponent<Image>().sprite = Resources.Load<Sprite>(unit.UnitClass.ToString() + "Head");
+                    Cha.GetChild(2).GetComponent<Slider>().value = unit.Hp / ((unit.MaxHp+unit.PlusStats.Hp) * 20f);
+                    Cha.GetChild(2).GetComponentInChildren<TMP_Text>().text = unit.Hp.ToString("#,###.#") + " / " + ((unit.MaxHp + unit.PlusStats.Hp) * 20f).ToString("#,###.#");
                     Cha.GetChild(3).GetComponent<Slider>().value = unit.Moral / 250f;
                     Cha.GetChild(3).GetComponentInChildren<TMP_Text>().text = unit.Moral.ToString("#,###.#") + " / 250";
                 }

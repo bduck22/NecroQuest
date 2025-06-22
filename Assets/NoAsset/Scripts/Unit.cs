@@ -82,23 +82,21 @@ public class Unit : MonoBehaviour
     public bool skill;
     public float SkillWeight;
 
-    private UnitManager UM;
-    void Start()
+    private void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        UM = PlayerManager.instance.UnitManager;
         Spawn();
     }
     public void UnitInit()
     {
-        Hp = (MaxHp+ PlusStats.Hp) * 3;
+        Hp = (MaxHp+ PlusStats.Hp) * 20;
         AttackTime = 1;
         SkillTime = SkillCoolTime-PlusStats.SkillCool;
         Interaction.radius = Intersection + 2f+PlusStats.Intersection;
         TargetUnit = null;
         Invin = false;
         Move = false;
-        locked = false;
+        if(GameManager.instance.GameStatus == GameStatus.Waving)locked = false;
     }
     public void Spawn()
     {
@@ -236,6 +234,11 @@ public class Unit : MonoBehaviour
                 Effect = AttackAnimation.gameObject;
                 break;
             case UnitClass.Archer:
+                float R = Random.Range(0f, 1f);
+                if(R < 0.3f)
+                {
+                    attackweight += 0.5f;
+                }
                 Effect = Instantiate(AttackEffect.gameObject, (AttackAnimation.transform.position + TargetUnit.position) / 2, AttackAnimation.transform.rotation);
                 Effect.transform.localScale = new Vector3(Vector2.Distance(TargetUnit.position, AttackAnimation.transform.position) / 5f, 1.25f, 0.5f);
                 Effect.transform.GetChild(0).localScale = new Vector3(Vector2.Distance(TargetUnit.position, AttackAnimation.transform.position) / 5f, 1.25f, 0.5f);
@@ -269,7 +272,7 @@ public class Unit : MonoBehaviour
     }
     public void Skill()
     {
-        if (skill)
+        if (skill&&GameManager.instance.GameStatus == GameStatus.Waving)
         {
             float skillweight = SkillWeight + PlusStats.SetValue + PlusStats.SkillDamage;
             if (Moral <= 50)
@@ -413,6 +416,6 @@ public class Unit : MonoBehaviour
             PlayerManager.instance.Heal(transform, -Damage * weight);
         }
         Hp -= Damage;
-        if (Hp > MaxHp * 3) Hp = MaxHp * 3;
+        if (Hp > (MaxHp+PlusStats.Hp) * 20) Hp = (MaxHp + PlusStats.Hp) *20;
     }
 }

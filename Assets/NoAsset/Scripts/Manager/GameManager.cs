@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        GameStatus = GameStatus.WaveStart;
+        GameStatus = GameStatus.StageStart;
         SpawnManager = GameObject.FindAnyObjectByType<SpawnManager>();
     }
 
@@ -194,14 +194,15 @@ public class GameManager : MonoBehaviour
     void StageStart()
     {
         GameStatus = GameStatus.WaveStart;
+        PlayerManager.instance.StageStart();
     }
 
     public void WaveStart()
     {
-        PlayerManager.instance.UnitsInit();
         one = true;
-        SpawnManager.WaveStart();
         GameStatus = GameStatus.Waving;
+        PlayerManager.instance.UnitsInit();
+        SpawnManager.WaveStart();
     }
 
     void WaveEnd()
@@ -213,7 +214,7 @@ public class GameManager : MonoBehaviour
         else GameStatus = GameStatus.Rest;
     }
 
-    public BuffCardManager GuardianSelecter;
+    public Transform GuardianSelecter;
     bool one=true;
     void Rest()
     {
@@ -223,9 +224,9 @@ public class GameManager : MonoBehaviour
             float R = Random.Range(0.0f, 1.0f);
             if(R < 0.9f)
             {
-                Time.timeScale = 0;
                 GuardianSelecter.gameObject.SetActive(true);
-                GuardianSelecter.Load();
+                Time.timeScale = 0;
+                //GuardianSelecter.Load();
             }
             else
             {

@@ -43,16 +43,19 @@ public class CameraMove : MonoBehaviour
             }
         }
 
-        float scroll = Input.GetAxisRaw("Mouse ScrollWheel");
-        if ((scroll < 0 || Input.GetKey(KeyCode.E)) && Camera.main.orthographicSize < MaxZoom)
+        if (Time.timeScale != 0)
         {
-            Camera.main.orthographicSize += (-scroll)+ZoomSpeed * Time.deltaTime;
-            transform.localScale = new Vector3(Camera.main.orthographicSize/5, Camera.main.orthographicSize/5, 1);
-        }
-        if ((scroll > 0 || Input.GetKey(KeyCode.Q)) && Camera.main.orthographicSize > MinZoom)
-        {
-            Camera.main.orthographicSize -= scroll+ZoomSpeed * Time.deltaTime;
-            transform.localScale = new Vector3(Camera.main.orthographicSize / 5, Camera.main.orthographicSize / 5, 1);
+            float scroll = Input.GetAxisRaw("Mouse ScrollWheel");
+            if ((scroll < 0 || Input.GetKey(KeyCode.E)) && Camera.main.orthographicSize < MaxZoom)
+            {
+                Camera.main.orthographicSize += (-scroll) + ZoomSpeed * Time.deltaTime;
+                transform.localScale = new Vector3(Camera.main.orthographicSize / 5, Camera.main.orthographicSize / 5, 1);
+            }
+            if ((scroll > 0 || Input.GetKey(KeyCode.Q)) && Camera.main.orthographicSize > MinZoom)
+            {
+                Camera.main.orthographicSize -= scroll + ZoomSpeed * Time.deltaTime;
+                transform.localScale = new Vector3(Camera.main.orthographicSize / 5, Camera.main.orthographicSize / 5, 1);
+            }
         }
     }
 }

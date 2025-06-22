@@ -96,4 +96,9 @@ public static class Data
     //{
     //    {0, new Acc() },
     //};
+    public static float Gold;
+    public static int diffi;
+    public static List<int> Units;
+    public static List<int> UnitSlot;
+    public static UnitStats Stats;
 }

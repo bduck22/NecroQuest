@@ -14,10 +14,14 @@ public class BuffCardManager : MonoBehaviour
         Cards = new Transform[] { transform.GetChild(0), transform.GetChild(1), transform.GetChild(2) };
         LoadButton = transform.GetChild(3).GetComponentInChildren<Text>();
     }
+    private void OnEnable()
+    {
+        Loadcount = 100;
+        CardLoad();
+    }
     public void Load()
     {
-        Loadcount = 3;
-        CardLoad();
+
     }
 
     public void CardLoad()
