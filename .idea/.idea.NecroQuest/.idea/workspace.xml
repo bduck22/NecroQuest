@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="79844dab-8989-471e-a1ce-cde45dbd5f97" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NecroQuest/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NecroQuest/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NoAsset/Scenes/Lobby.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NoAsset/Scenes/Lobby.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/NoAsset/Scripts/GachaSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NoAsset/Scripts/GachaSystem.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,6 +94,8 @@
       <workItem from="1750146514603" duration="4000" />
       <workItem from="1750342028108" duration="3409000" />
       <workItem from="1750659086918" duration="305000" />
+      <workItem from="1750673864022" duration="2257000" />
+      <workItem from="1750676650738" duration="19000" />
     </task>
     <servers />
   </component>

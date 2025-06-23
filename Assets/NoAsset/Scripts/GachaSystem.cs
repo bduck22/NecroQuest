@@ -9,63 +9,64 @@ public class GachaSystem : MonoBehaviour
     public Transform uiParentCanvas;
     public Button gachaButton;
     public Button resetButton;
-    public Button clearButton;
 
     public Vector3 spawnPosition = Vector3.zero;
 
     private List<GameObject> characterPool = new List<GameObject>();
     private List<GameObject> spawnedCharacters = new List<GameObject>();
 
+    private GameObject currentCharacter;
+
     void Start()
     {
         characterPool.AddRange(characterPrefabs);
         gachaButton.onClick.AddListener(PullCharacter);
         resetButton.onClick.AddListener(ResetPool);
-        clearButton.onClick.AddListener(ClearSpawnedCharacters);
     }
 
     void PullCharacter()
     {
+        ClearSpawnedCharacters();
+        
+        if (currentCharacter != null)
+            currentCharacter.SetActive(false);
+        
         if (characterPool.Count == 0)
-        {
-            Debug.Log("모든 용병을 뽑았습니다!");
             return;
-        }
 
         int index = Random.Range(0, characterPool.Count);
 
-        GameObject character = Instantiate(characterPool[index], uiParentCanvas);
-        character.transform.localPosition = spawnPosition;
+        currentCharacter = Instantiate(characterPool[index], uiParentCanvas);
+        currentCharacter.transform.localPosition = spawnPosition;
         
-        RectTransform rect = character.GetComponent<RectTransform>();
+        RectTransform rect = currentCharacter.GetComponent<RectTransform>();
         rect.localScale = Vector3.zero;
 
-        CanvasGroup cg = character.GetComponent<CanvasGroup>();
-        if (cg == null) cg = character.AddComponent<CanvasGroup>();
+        CanvasGroup cg = currentCharacter.GetComponent<CanvasGroup>();
+        if (cg == null) cg = currentCharacter.AddComponent<CanvasGroup>();
         cg.alpha = 0f;
 
-        rect.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
-        cg.DOFade(1f, 0.5f);
-
-        spawnedCharacters.Add(character);
+        rect.DOScale(Vector3.one, 0.4f).SetEase(Ease.OutBack);
+        cg.DOFade(1f, 0.4f);
+        
+        currentCharacter.SetActive(true);
+        
         characterPool.RemoveAt(index);
+    }
+    
+    public void ClearSpawnedCharacters()
+    {
+        foreach (var obj in spawnedCharacters)
+        {
+            if (obj != null)
+                obj.SetActive(false);
+        }
+        spawnedCharacters.Clear();
     }
 
     void ResetPool()
     {
         characterPool.Clear();
         characterPool.AddRange(characterPrefabs);
-        Debug.Log("캐릭터 풀을 초기화했습니다.");
-    }
-
-    void ClearSpawnedCharacters()
-    {
-        foreach (var obj in spawnedCharacters)
-        {
-            if (obj != null)
-                Destroy(obj);
-        }
-        spawnedCharacters.Clear();
-        Debug.Log("생성된 캐릭터들을 삭제했습니다.");
     }
 }
