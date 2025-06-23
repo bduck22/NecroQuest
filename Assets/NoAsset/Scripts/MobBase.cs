@@ -56,6 +56,7 @@ public class MobBase : MonoBehaviour
     [SerializeField] private Transform AttackPostion;
     public void MobInit()
     {
+        goaled = false;
         attack = false;
         hit = true;
         HitImage.color = Color.white;
@@ -87,6 +88,7 @@ public class MobBase : MonoBehaviour
         }
         HitImage = GetComponent<SpriteRenderer>();
     }
+    [SerializeField] bool goaled;
     void Update()
     {
         time += Time.deltaTime;
@@ -117,9 +119,20 @@ public class MobBase : MonoBehaviour
             {
                 if (Ghosted)
                 {
-                    transform.position += targetP * Speed * Time.deltaTime;
-                    if (Type == MobType.Ghost && Vector2.Distance(transform.position, targetP) > Intersection)
+                    
+                    if(goaled)
                     {
+                        goaled = true;
+                        transform.position += targetP * Speed * Time.deltaTime;
+                    }
+                    else
+                    {
+                        transform.position += (Target.transform.position - transform.position).normalized * Speed * Time.deltaTime;
+                    }
+                    //Debug.Log(Vector2.Distance(transform.position, Target.transform.position));
+                    if (Type == MobType.Ghost && Vector2.Distance(transform.position, Target.transform.position) > Intersection && goaled)
+                    {
+                        goaled = false;
                         TargetLoad();
                     }
                 }
@@ -199,6 +212,7 @@ public class MobBase : MonoBehaviour
                 Ob.Weight = AttackWeight;
                 Ob.Range = true;
             }
+            if(Type==MobType.Ghost) goaled = true;
             if (Type == MobType.Ghost&&!collision.transform.parent.GetComponent<Unit>().Invin)
             {
                 collision.transform.parent.GetComponent<Unit>().HpChange(Damage* AttackWeight);
