@@ -456,7 +456,7 @@ MonoBehaviour:
   Mob: {fileID: 0}
   Damage: 0
   Weight: 5
-  Skill: 0
+  Skill: 1
   Range: 0
 --- !u!1001 &6401766571295242979
 PrefabInstance:

@@ -5,14 +5,20 @@ using DG.Tweening;
 
 public class GachaSystem : MonoBehaviour
 {
-    public GameObject[] characterPrefabs;
+    public Sprite[] characterPrefabs;
     public Transform uiParentCanvas;
     public Button gachaButton;
     public Button resetButton;
+<<<<<<< Updated upstream
+=======
+    public Button clearButton;
+    public Image image;
+    public int Price;
+>>>>>>> Stashed changes
 
     public Vector3 spawnPosition = Vector3.zero;
 
-    private List<GameObject> characterPool = new List<GameObject>();
+    private List<Sprite> characterPool = new List<Sprite>();
     private List<GameObject> spawnedCharacters = new List<GameObject>();
 
     private GameObject currentCharacter;
@@ -21,18 +27,30 @@ public class GachaSystem : MonoBehaviour
     {
         characterPool.AddRange(characterPrefabs);
         gachaButton.onClick.AddListener(PullCharacter);
+<<<<<<< Updated upstream
         resetButton.onClick.AddListener(ResetPool);
+=======
+>>>>>>> Stashed changes
     }
 
-    void PullCharacter()
+    public void PullCharacter()
     {
+<<<<<<< Updated upstream
         ClearSpawnedCharacters();
         
         if (currentCharacter != null)
             currentCharacter.SetActive(false);
         
+=======
+        if(Data.Gold < Price)
+        {
+            return;
+        }
+
+>>>>>>> Stashed changes
         if (characterPool.Count == 0)
             return;
+<<<<<<< Updated upstream
 
         int index = Random.Range(0, characterPool.Count);
 
@@ -51,6 +69,26 @@ public class GachaSystem : MonoBehaviour
         
         currentCharacter.SetActive(true);
         
+=======
+        }
+        image.gameObject.SetActive(true);
+        int index = Random.Range(0, characterPool.Count);
+
+        image.sprite = characterPool[index];
+        image.transform.localPosition = spawnPosition;
+        //image.transform.GetChild(0).GetComponent<Text>().text = Data.UnitData[];
+        
+        RectTransform rect = image.GetComponent<RectTransform>();
+        rect.localScale = Vector3.zero;
+
+        CanvasGroup cg = image.GetComponent<CanvasGroup>();
+        if (cg == null) cg = image.gameObject.AddComponent<CanvasGroup>();
+        cg.alpha = 0f;
+
+        rect.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
+        cg.DOFade(1f, 0.5f);
+
+>>>>>>> Stashed changes
         characterPool.RemoveAt(index);
     }
     
@@ -64,9 +102,24 @@ public class GachaSystem : MonoBehaviour
         spawnedCharacters.Clear();
     }
 
-    void ResetPool()
+    public void ResetPool()
     {
         characterPool.Clear();
         characterPool.AddRange(characterPrefabs);
+<<<<<<< Updated upstream
+=======
+        Debug.Log("캐릭터 풀을 초기화했습니다.");
+    }
+
+    public void ClearSpawnedCharacters()
+    {
+        foreach (var obj in spawnedCharacters)
+        {
+            if (obj != null)
+                Destroy(obj);
+        }
+        spawnedCharacters.Clear();
+        Debug.Log("생성된 캐릭터들을 삭제했습니다.");
+>>>>>>> Stashed changes
     }
 }

@@ -9,7 +9,7 @@ public class DestroyEffect : MonoBehaviour
 
     void Update()
     {
-        if (!GetComponentInChildren<AttackEffect>()||transform.childCount==0)
+        if (!GetComponentInChildren<AttackEffect>()|| !GetComponentInChildren<AttackEffect>().enabled|| transform.childCount==0)
         {
             Destroy(gameObject);
         }

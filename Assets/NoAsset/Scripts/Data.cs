@@ -31,7 +31,7 @@ public enum GuardianType
     Nine,
     Ten
 }
-
+[System.Serializable]
 public class MobStat : NameDEscriptionBase
 {
     public float Hp;
@@ -69,6 +69,24 @@ public class Guardian : NameDEscriptionBase
     }
 }
 
+[System.Serializable]
+public class UnitData : NameDEscriptionBase
+{
+    public float Hp;
+    public float Speed;
+    public float Damage;
+    public float AttackSpeed;
+    public UnitData(float Hp, float Speed, float Damage, float AttackSpeed, string Name, string Description)
+    {
+        this.Hp = Hp;
+        this.Speed = Speed;
+        this.Damage = Damage;
+        this.AttackSpeed = AttackSpeed;
+        this.Name = Name;
+        this.Description = Description;
+    }
+}
+
 public static class Data
 {
     public static readonly Dictionary<int, Guardian> GuardianData = new Dictionary<int, Guardian>()
@@ -86,19 +104,43 @@ public static class Data
     };
     public static readonly Dictionary<MobType, MobStat> MobData = new Dictionary<MobType, MobStat>()
     {
-        {MobType.Zombie, new MobStat(5, 1.5f, 1, 0, 0) },
-        {MobType.Skull, new MobStat(5, 1.5f, 1, 1, 7) },
-        {MobType.Ghost, new MobStat(3, 10f, 1, 0, 12) },
-        {MobType.Shade, new MobStat(5, 5, 30, 0.2f, 0) },
-        {MobType.Ghoul, new MobStat(10, 2, 1, 1, -1.25f) }
+        {MobType.Zombie, new MobStat(2, 1.5f, 1, 0, 0) },
+        {MobType.Skull, new MobStat(1.5f, 1.5f, 1, 1, 7) },
+        {MobType.Ghost, new MobStat(1, 10f, 1, 0, 12) },
+        {MobType.Shade, new MobStat(2, 5, 15, 0.2f, 0) },
+        {MobType.Ghoul, new MobStat(2.5f, 2, 1, 1, -1.25f) }
     };
-    //public static readonly Dictionary<int, Acc> AccData = new Dictionary<int, Acc>()
-    //{
-    //    {0, new Acc() },
-    //};
+    public static readonly Dictionary<UnitClass, UnitData> UnitData = new Dictionary<UnitClass, UnitData>()
+    {
+        {UnitClass.GuardN, new UnitData(1, 1, 1, 1, "수호기사", "수호수호!") }
+    };
     public static float Gold;
     public static int diffi;
     public static List<int> Units;
-    public static List<int> UnitSlot;
     public static UnitStats Stats;
+
+    public static LocalData LocalData;
+}
+public class LocalData
+{
+    public Dictionary<UnitClass, LocalUnit> GetUnits = new Dictionary<UnitClass, LocalUnit>();//보유유닛
+    public int Gold;//골드
+    public Dictionary<BlessingType, int> Blessing = new Dictionary<BlessingType, int>();//축복
+    public UnitClass StartingUnit;//스타팅유닛
+    public List<int[]> Presets = new List<int[]>();//프리셋
+}
+public class LocalUnit
+{
+    public int level;
+    public int Damage;
+    public int AttackSpeed;
+    public int Hp;
+    public int Speed;
+}
+public enum BlessingType
+{
+    Attack,
+    Defence,
+    Skill,
+    Moral
 }

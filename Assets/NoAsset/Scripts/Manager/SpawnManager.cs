@@ -10,6 +10,9 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] private List<MobBase> Mobs = new List<MobBase>();
 
+    public Transform BossUI;
+    public string BossName;
+
     public int MobCount;
 
     public float SpawnDelay;
@@ -48,8 +51,9 @@ public class SpawnManager : MonoBehaviour
         waving = true;
         foreach (Wave_Info info in GameManager.instance.Waves[GameManager.instance.Wave].MobInfo)
         {
+            int Wid = Random.Range(2, spawnPoints.childCount-2);
             for (int i = 0; i < info.Count; i++) {
-                GameObject mob = null;
+                MobBase mob = null;
                 MobCount++;
                 foreach (MobBase o in Mobs)
                 {
@@ -57,22 +61,33 @@ public class SpawnManager : MonoBehaviour
                     {
                         if (!o.gameObject.activeSelf)
                         {
-                            mob = o.gameObject;
-                            mob.SetActive(true);
-                            mob.GetComponent<MobBase>().MobInit();
+                            mob = o;
+                            mob.gameObject.SetActive(true);
+                            mob.MobInit();
                             break;
                         }
                     }
                 }
                 if (!mob)
                 {
-                    mob = Instantiate(mobPrefabs[info.Type]);
+                    mob = Instantiate(mobPrefabs[info.Type]).GetComponent<MobBase>();
                     mob.GetComponent<MobBase>().spawnManager = this;
                     mob.GetComponent<MobBase>().MobInit();
                     Mobs.Add(mob.GetComponent<MobBase>());
                 }
-                mob.transform.position = spawnPoints.GetChild(Random.Range(0, spawnPoints.childCount)).position;
+                mob.transform.position = spawnPoints.GetChild(Wid+Random.Range(-2, 3)).position;
                 yield return new WaitForSeconds(0.15f);
+            }
+            if (info.middle)
+            {
+                MobBase mob = Instantiate(mobPrefabs[5]).GetComponent<MobBase>();
+                mob.spawnManager = this;
+                mob.MobInit();
+                Mobs.Add(mob);
+            }
+            else if(info.final)
+            {
+
             }
             yield return new WaitForSeconds(SpawnDelay);
         }

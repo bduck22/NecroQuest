@@ -102,17 +102,36 @@ public class MobBase : MonoBehaviour
             if (Target.transform.position.x < transform.position.x)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
-                if (Arm)
+                if (Arm&&Type==MobType.Zombie)
                 {
-                    Arm.transform.localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
+                    switch (Type)
+                    {
+                        case MobType.Zombie:
+                            Arm.localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
+                            break;
+                        case MobType.Ghoul:
+                            Arm.GetChild(0).localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z+30);
+                            Arm.GetChild(1).localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
+                            break;
+                    }
+                    
                 }
             }
             else
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
-                if (Arm)
+                if (Arm )
                 {
-                    Arm.transform.localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
+                    switch (Type)
+                    {
+                        case MobType.Zombie:
+                            Arm.localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
+                            break;
+                        case MobType.Ghoul:
+                            Arm.GetChild(0).localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z+30);
+                            Arm.GetChild(1).localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
+                            break;
+                    }
                 }
             }
             if (AttackType == Attack_Type.ShotRange)
@@ -129,7 +148,6 @@ public class MobBase : MonoBehaviour
                     {
                         transform.position += (Target.transform.position - transform.position).normalized * Speed * Time.deltaTime;
                     }
-                    //Debug.Log(Vector2.Distance(transform.position, Target.transform.position));
                     if (Type == MobType.Ghost && Vector2.Distance(transform.position, Target.transform.position) > Intersection && goaled)
                     {
                         goaled = false;
@@ -140,9 +158,16 @@ public class MobBase : MonoBehaviour
             }
             else if (AttackType == Attack_Type.longRange)
             {
-                if (Vector2.Distance(transform.position, targetP) > Intersection + 2)
+                if (Vector2.Distance(transform.position, Target.transform.position) > Intersection + 2)
                 {
-                    rigidbody.linearVelocity = (targetP - transform.position).normalized * Speed;
+                    if (Ghosted)
+                    {
+                        transform.position += (Target.transform.position - transform.position).normalized * Speed * Time.deltaTime;
+                    }
+                    else
+                    {
+                        rigidbody.linearVelocity = (targetP - transform.position).normalized * Speed;
+                    }
                     attack = false;
                 }
                 else
@@ -239,7 +264,7 @@ public class MobBase : MonoBehaviour
             if (Hp <= 0)
             {
                 spawnManager.MobCount--;
-                PlayerManager.instance.UnitsMoral(10);
+                PlayerManager.instance.UnitsMoral(5);
                 PlayerManager.instance.CreateGold(100, transform.position);
                 if (Type == MobType.Ghost)
                 {

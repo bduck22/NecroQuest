@@ -4789,9 +4789,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Unit: {fileID: 0}
+  Mob: {fileID: 0}
   Damage: 5
   Weight: 1
-  Skill: 0
+  Skill: 1
+  Range: 0
 --- !u!95 &5178595330283247161
 Animator:
   serializedVersion: 7

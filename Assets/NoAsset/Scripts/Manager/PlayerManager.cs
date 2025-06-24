@@ -42,6 +42,8 @@ public class PlayerManager : MonoBehaviour
     public Transform GoldOb;
 
     public List<Guardian> guardians;
+
+    public Transform InfoPop;
     public void CreateGold(int value, Vector2 position)
     {
         GoldBase gold = null;
@@ -155,7 +157,7 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (Unit unit in Units)
         {
-            if (unit.locked) return false;
+            if (unit.locked||unit.Hlocked) return false;
         }
         UnitStop();
         return true;
@@ -171,4 +173,18 @@ public class PlayerManager : MonoBehaviour
         HitPrefab.Spawn(transform.position, Damage);
         Instantiate(HitEffect, transform.position, Quaternion.identity);
     }
+
+    public bool open = true;
+    public int opened=-1;
+    public void ChaInfo(int number)
+    {
+        if (opened == number)
+        {
+            open = false;
+        }
+        else open = true;
+        if(!open) opened = -1;
+        else opened = number;
+        InfoPop.gameObject.SetActive(open);
+    } 
 }

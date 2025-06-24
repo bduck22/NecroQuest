@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
-    [SerializeField] Material NotSelect;
-    [SerializeField] Material Select;
+    public Material NotSelect;
+    public Material Select;
     [SerializeField] Transform DragOb;
     public Transform SkillRange;
     [SerializeField] Transform RightCursor;

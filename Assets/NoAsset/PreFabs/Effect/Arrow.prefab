@@ -5549,8 +5549,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Unit: {fileID: 0}
+  Mob: {fileID: 0}
   Damage: 0
   Weight: 2
+  Skill: 1
+  Range: 0
 --- !u!61 &4175074665549340521
 BoxCollider2D:
   m_ObjectHideFlags: 0

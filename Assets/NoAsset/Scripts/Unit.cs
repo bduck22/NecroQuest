@@ -71,10 +71,11 @@ public class Unit : MonoBehaviour
     [SerializeField] CircleCollider2D Interaction;
 
     public bool locked;
+    public bool Hlocked;
 
     public float AttackWeight;
 
-    private Rigidbody2D rigidbody;
+    public Rigidbody2D rigidbody;
 
     [Header("Skill")]
     public Transform SkillEffect;
@@ -153,7 +154,7 @@ public class Unit : MonoBehaviour
 
         if (AttackTime < 1)
         {
-            if (!locked)
+            if (!locked||!Hlocked)
             {
                 AttackTime += (AttackSpeed+PlusStats.AttackSpeed) * Time.deltaTime;
             }
@@ -165,24 +166,24 @@ public class Unit : MonoBehaviour
 
         if (SkillTime < (SkillCoolTime- PlusStats.SkillCool))
         {
-            if (!locked)
+            if (!locked|| !Hlocked)
             {
                 SkillTime += Time.deltaTime;
             }
         }
-        else if (!skill)
+        else if (!skill|| !Hlocked)
         {
             skill = true;
             SkillTime = (SkillCoolTime-PlusStats.SkillCool);
         }
 
-        if (TargetUnit && AttackTime == 1 && !locked)
+        if (TargetUnit && AttackTime == 1 && !locked&& !Hlocked)
         {
             AttackTime = 0;
             Attack();
         }
 
-        if (Move)
+        if (Move&& !Hlocked)
         {
             if ((Vector2)transform.position != TargetWid)
             {
@@ -298,6 +299,10 @@ public class Unit : MonoBehaviour
                     Effect = Instantiate(SkillEffect.gameObject, transform.position, transform.rotation);
                     break;
                 case UnitClass.DragonN:
+                    IsDamaged= true;
+                    Hlocked = true;
+                    AttackAnimation.SetTrigger("Skill");
+                    Effect = Instantiate(SkillEffect.gameObject, transform.position, AttackAnimation.transform.rotation);
                     break;
                 case UnitClass.Berserker:
                     locked = true;

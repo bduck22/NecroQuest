@@ -11,4 +11,12 @@ public class SkillAniEnd : MonoBehaviour
     {
         Unit.locked = false;
     }
+    public void ReMove()
+    {
+        Unit.Hlocked = false;
+    }
+    public void DrangonDash()
+    {
+        Unit.transform.position = Unit.AttackAnimation.transform.GetChild(1).position;
+    }
 }
