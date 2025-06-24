@@ -14,6 +14,9 @@ public class GachaSystem : MonoBehaviour
     public Button clearButton;
     public Image image;
     public int Price;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
     public Vector3 spawnPosition = Vector3.zero;
@@ -28,13 +31,17 @@ public class GachaSystem : MonoBehaviour
         characterPool.AddRange(characterPrefabs);
         gachaButton.onClick.AddListener(PullCharacter);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         resetButton.onClick.AddListener(ResetPool);
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     }
 
     public void PullCharacter()
     {
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
         ClearSpawnedCharacters();
         
@@ -43,9 +50,18 @@ public class GachaSystem : MonoBehaviour
         
 =======
         if(Data.Gold < Price)
+=======
+        if(Data.Gold < Price)
         {
             return;
         }
+
+        if (characterPool.Count == 0)
+>>>>>>> Stashed changes
+        {
+            return;
+        }
+<<<<<<< Updated upstream
 
 >>>>>>> Stashed changes
         if (characterPool.Count == 0)
@@ -81,6 +97,18 @@ public class GachaSystem : MonoBehaviour
         RectTransform rect = image.GetComponent<RectTransform>();
         rect.localScale = Vector3.zero;
 
+=======
+        image.gameObject.SetActive(true);
+        int index = Random.Range(0, characterPool.Count);
+
+        image.sprite = characterPool[index];
+        image.transform.localPosition = spawnPosition;
+        //image.transform.GetChild(0).GetComponent<Text>().text = Data.UnitData[];
+        
+        RectTransform rect = image.GetComponent<RectTransform>();
+        rect.localScale = Vector3.zero;
+
+>>>>>>> Stashed changes
         CanvasGroup cg = image.GetComponent<CanvasGroup>();
         if (cg == null) cg = image.gameObject.AddComponent<CanvasGroup>();
         cg.alpha = 0f;
@@ -88,6 +116,9 @@ public class GachaSystem : MonoBehaviour
         rect.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
         cg.DOFade(1f, 0.5f);
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         characterPool.RemoveAt(index);
     }
