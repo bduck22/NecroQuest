@@ -44,6 +44,8 @@ public class PlayerManager : MonoBehaviour
     public List<Guardian> guardians;
 
     public Transform InfoPop;
+
+    public SpawnManager SpawnManager;
     public void CreateGold(int value, Vector2 position)
     {
         GoldBase gold = null;
@@ -182,9 +184,13 @@ public class PlayerManager : MonoBehaviour
         {
             open = false;
         }
-        else open = true;
+        else
+        {
+            open = true;
+        }
         if(!open) opened = -1;
         else opened = number;
         InfoPop.gameObject.SetActive(open);
+        if(open) InfoPop.GetComponent<InfomationUI>().On(number);
     } 
 }

@@ -17,6 +17,7 @@ public class SkillAniEnd : MonoBehaviour
     }
     public void DrangonDash()
     {
-        Unit.transform.position = Unit.AttackAnimation.transform.GetChild(1).position;
+        Unit.rigidbody.linearVelocity = (Unit.AttackAnimation.transform.GetChild(1).position - Unit.transform.position).normalized * (215);
+        //Unit.transform.position = Unit.AttackAnimation.transform.GetChild(1).position;
     }
 }

@@ -288,7 +288,7 @@ Transform:
   m_GameObject: {fileID: 1561875791994269393}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 2.2, z: 0}
+  m_LocalPosition: {x: -0.41, y: 2.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -615,6 +615,7 @@ MonoBehaviour:
   Buff: []
   AttackSpeed: 1
   Intersection: -1.25
+  SpawnSpeed: 0
   AttackWeight: 1
   Type: 3
   MobTargetType: 2
@@ -622,11 +623,19 @@ MonoBehaviour:
   LodingTime: 0.1
   Target: {fileID: 0}
   AttackOb: {fileID: 6614026691645075885, guid: f6afadb7647796e4a83c34a983a486c1, type: 3}
+  HitImage:
+  - {fileID: 4702812875256735063}
+  - {fileID: 2556850022449860380}
+  - {fileID: 327323038061611086}
+  - {fileID: 7808464877740267768}
+  - {fileID: 7236047097969660848}
   attack: 0
   spawnManager: {fileID: 0}
   Ghosted: 0
   AttackPostion: {fileID: 3093063264043823427}
+  spawnlock: 0
   goaled: 0
+  spawntime: 0
 --- !u!70 &7250002700845083235
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -661,8 +670,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.04561566, y: -0.10365546}
-  m_Size: {x: 1.6533804, y: 4.4781055}
+  m_Offset: {x: 0.02038762, y: -0.21590948}
+  m_Size: {x: 1.5213739, y: 5.584196}
   m_Direction: 0
 --- !u!50 &188987948865471529
 Rigidbody2D:
@@ -1188,7 +1197,7 @@ Animator:
   m_GameObject: {fileID: 8261198120691629128}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 00f667df6404f9e4db70eccce85ffd0e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

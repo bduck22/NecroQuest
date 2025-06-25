@@ -35,16 +35,19 @@ public class BuffManager : MonoBehaviour
                 if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral1)) == -1)
                 {
                     Unit.Buff.Add(new Buff(Buff_Type.Moral1, 0, 0, false));
+                    Unit.PlusStats.GetDamage += 0.1f;
+                    Unit.PlusStats.SetValue -= 0.1f;
+                    Unit.PlusStats.GetHeal -= 0.1f;
                 }
             }
             else
             {
                 if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral1)) != -1)
                 {
-                    Unit.PlusStats.GetDamage += 0.1f;
+                    Unit.Buff.RemoveAt(Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral1)));
+                    Unit.PlusStats.GetDamage -= 0.1f;
                     Unit.PlusStats.SetValue += 0.1f;
                     Unit.PlusStats.GetHeal += 0.1f;
-                    Unit.Buff.RemoveAt(Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral1)));
                 }
             }
 
@@ -53,14 +56,33 @@ public class BuffManager : MonoBehaviour
                 if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral2))==-1)
                 {
                     Unit.Buff.Add(new Buff(Buff_Type.Moral2, 0, 0, false));
+                    Unit.InteractionUp(-1);
                 }
             }
             else
             {
                 if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral2)) != -1)
                 {
-                    Unit.InteractionUp(1);
                     Unit.Buff.RemoveAt(Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral2)));
+                    Unit.InteractionUp(1);
+                }
+            }
+
+            if (Unit.Moral > 150 && Unit.Moral <= 200)
+            {
+                if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral4)) == -1)
+                {
+                    Unit.Buff.Add(new Buff(Buff_Type.Moral4, 0, 0, false));
+                    Unit.AllStatUp(0.5f);
+
+                }
+            }
+            else
+            {
+                if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral4)) != -1)
+                {
+                    Unit.Buff.RemoveAt(Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral4)));
+                    Unit.AllStatUp(-0.5f);
                 }
             }
 
@@ -69,16 +91,19 @@ public class BuffManager : MonoBehaviour
                 if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral5)) == -1)
                 {
                     Unit.Buff.Add(new Buff(Buff_Type.Moral5, 0, 0, false));
+                    Unit.PlusStats.GetDamage -= 0.1f;
+                    Unit.PlusStats.SetValue += 0.1f;
+                    Unit.PlusStats.GetHeal += 0.1f;
                 }
             }
             else
             {
                 if (Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral5)) != -1)
                 {
-                    Unit.PlusStats.GetDamage -= 0.1f;
+                    Unit.Buff.RemoveAt(Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral5)));
+                    Unit.PlusStats.GetDamage += 0.1f;
                     Unit.PlusStats.SetValue -= 0.1f;
                     Unit.PlusStats.GetHeal -= 0.1f;
-                    Unit.Buff.RemoveAt(Unit.Buff.FindIndex(item => item.Type.Equals(Buff_Type.Moral5)));
                 }
             }
         }
@@ -113,22 +138,6 @@ public class BuffManager : MonoBehaviour
                 Unit.Speed += BT.Value;
                 BuffEffect = Instantiate(GameManager.instance.BuffEffects[1].gameObject, (!IsUnit ? Mob.transform : Unit.transform.GetChild(3)));
                 BuffEffect.transform.localPosition = Vector3.zero;
-                break;
-            case Buff_Type.Moral1:
-                Unit.PlusStats.GetDamage -= 0.1f;
-                Unit.PlusStats.SetValue -= 0.1f;
-                Unit.PlusStats.GetHeal -= 0.1f;
-                break;
-            case Buff_Type.Moral2:
-                Unit.InteractionUp(-1);
-                break;
-            case Buff_Type.Moral4:
-                Unit.AllStatUp(0.5f);
-                break;
-            case Buff_Type.Moral5:
-                Unit.PlusStats.GetDamage += 0.1f;
-                Unit.PlusStats.SetValue += 0.1f;
-                Unit.PlusStats.GetHeal += 0.1f;
                 break;
             case Buff_Type.Berserk:
                 BuffEffect = Instantiate(GameManager.instance.BuffEffects[2].gameObject, (!IsUnit ? Mob.transform : Unit.transform));

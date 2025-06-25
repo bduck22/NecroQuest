@@ -148,7 +148,13 @@ public class Unit : MonoBehaviour
 
         if (Hp <= 0)
         {
-            PlayerManager.instance.UnitsMoral(-50);
+            if (PlayerManager.instance.SpawnManager.Boss)
+            {
+                if (PlayerManager.instance.SpawnManager.Boss.Type == MobType.Dullahan)
+                {
+                    PlayerManager.instance.SpawnManager.Boss.DullahanHeal(transform);
+                }
+            }
             gameObject.SetActive(false);
         }
 
@@ -423,7 +429,7 @@ public class Unit : MonoBehaviour
             }
             PlayerManager.instance.Heal(transform, -Damage * weight);
         }
-        Hp -= Damage;
+        Hp -= Damage * weight;
         if (Hp > (MaxHp+PlusStats.Hp) * 20) Hp = (MaxHp + PlusStats.Hp) *20;
     }
 }

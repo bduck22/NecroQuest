@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MobBase : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class MobBase : MonoBehaviour
 
     public float AttackSpeed;
     public float Intersection;
+
+    public float SpawnSpeed;
 
     public float AttackWeight;
     [Header("Type")]
@@ -32,7 +35,7 @@ public class MobBase : MonoBehaviour
 
     //[SerializeField] private bool moving;
 
-    private SpriteRenderer HitImage;
+    public SpriteRenderer[] HitImage;
 
     bool hit = true;
     //private NavMeshAgent agent;
@@ -54,12 +57,19 @@ public class MobBase : MonoBehaviour
     public bool Ghosted;
 
     [SerializeField] private Transform AttackPostion;
+
+    public bool spawnlock;
     public void MobInit()
     {
+        spawnlock = false;
+        spawntime = 0;
         goaled = false;
         attack = false;
         hit = true;
-        HitImage.color = Color.white;
+        foreach(SpriteRenderer image in HitImage)
+        {
+            image.color = Color.white;
+        }
         MobStat stat = Data.MobData[Type];
         MaxHp = stat.Hp;
         Hp = MaxHp * 20;
@@ -86,7 +96,6 @@ public class MobBase : MonoBehaviour
         {
             Arm = transform.GetChild(1);
         }
-        HitImage = GetComponent<SpriteRenderer>();
     }
     [SerializeField] bool goaled;
     void Update()
@@ -198,6 +207,19 @@ public class MobBase : MonoBehaviour
                 AttackTime = 0;
             }
         }
+        if(spawntime == SpawnSpeed && !spawnlock)
+        {
+            spawntime = 0;
+            switch (Type)
+            {
+                case MobType.Dullahan:
+                    spawnManager.Spawn(2, 5);
+                    break;
+                case MobType.Necro:
+                    spawnManager.Spawn(Random.Range(0, 5), 3);
+                    break;
+            }
+        }
         if (AttackTime < 1)
         {
             AttackTime += AttackSpeed * Time.deltaTime;
@@ -206,7 +228,21 @@ public class MobBase : MonoBehaviour
         {
             AttackTime = 1;
         }
+        if(Type==MobType.Dullahan || Type == MobType.Necro)
+        {
+            if (spawntime < SpawnSpeed)
+            {
+                if (!spawnlock) {
+                    spawntime += Time.deltaTime;
+                }
+            }
+            else
+            {
+                spawntime = SpawnSpeed;
+            }
+        }
     }
+    public float spawntime;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Attack"))
@@ -245,15 +281,43 @@ public class MobBase : MonoBehaviour
             }
         }
     }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("HitBox") || collision.CompareTag("Mob"))
+    //    {
+    //        Debug.Log(collision.name);
+    //        if (collision.CompareTag("HitBox"))
+    //        {
+    //            if (collision.GetComponent<Unit>().Hp <= 0) transform.parent.GetComponent<MobBase>().HpCh(10);
+    //        }
+    //        if (collision.CompareTag("Mob"))
+    //        {
+    //            if (collision.GetComponent<MobBase>().Hp <= 0) transform.parent.GetComponent<MobBase>().HpCh(10);
+    //        }
+    //    }
+    //}
     IEnumerator HitAni()
     {
         if (!hit) yield return null;
         else hit = false;
-        HitImage.color = Color.red;
+        foreach (SpriteRenderer image in HitImage)
+        {
+            image.color = Color.red;
+        }
         yield return new WaitForSeconds(1.5f / 3f);
-        HitImage.color = Color.white;
+        foreach (SpriteRenderer image in HitImage)
+        {
+            image.color = Color.white;
+        }
         yield return new WaitForSeconds(0.75f / 3f);
         hit = true;
+    }
+    public void DullahanHeal(Transform position)
+    {
+        if(Vector2.Distance(transform.position, position.position) < 10)
+        {
+            HpCh(10);
+        }
     }
     public void HpCh(float damage)
     {
@@ -264,6 +328,13 @@ public class MobBase : MonoBehaviour
             if (Hp <= 0)
             {
                 spawnManager.MobCount--;
+                if (spawnManager.Boss)
+                {
+                    if (spawnManager.Boss.Type == MobType.Dullahan)
+                    {
+                        spawnManager.Boss.DullahanHeal(transform);
+                    }
+                }
                 PlayerManager.instance.UnitsMoral(5);
                 PlayerManager.instance.CreateGold(100, transform.position);
                 if (Type == MobType.Ghost)

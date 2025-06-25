@@ -107,12 +107,19 @@ public static class Data
         {MobType.Zombie, new MobStat(2, 1.5f, 1, 0, 0) },
         {MobType.Skull, new MobStat(1.5f, 1.5f, 1, 1, 7) },
         {MobType.Ghost, new MobStat(1, 10f, 1, 0, 12) },
-        {MobType.Shade, new MobStat(2, 5, 15, 0.2f, 0) },
-        {MobType.Ghoul, new MobStat(2.5f, 2, 1, 1, -1.25f) }
+        {MobType.Shade, new MobStat(2, 5, 15, 0.5f, 0) },
+        {MobType.Ghoul, new MobStat(2.5f, 2, 1, 1, -1.5f) },
+        {MobType.Dullahan, new MobStat(15, 5, 10, 0.5f, 1f) }
     };
     public static readonly Dictionary<UnitClass, UnitData> UnitData = new Dictionary<UnitClass, UnitData>()
     {
-        {UnitClass.GuardN, new UnitData(1, 1, 1, 1, "수호기사", "수호수호!") }
+        {UnitClass.GuardN, new UnitData(1, 1, 1, 1, "수호기사", "수호수호!") },
+        {UnitClass.HolyM, new UnitData(1, 1, 1, 1, "신관", "수호수호!") },
+        {UnitClass.SpiritM, new UnitData(1, 1, 1, 1, "정령사", "수호수호!") },
+        {UnitClass.Berserker, new UnitData(1, 1, 1, 1, "광전사", "수호수호!") },
+        {UnitClass.ArchM, new UnitData(1, 1, 1, 1, "대마법사", "수호수호!") },
+        {UnitClass.Archer, new UnitData(1, 1, 1, 1, "궁수", "수호수호!") },
+        {UnitClass.DragonN, new UnitData(1, 1, 1, 1, "용기사", "수호수호!") }
     };
     public static float Gold;
     public static int diffi;

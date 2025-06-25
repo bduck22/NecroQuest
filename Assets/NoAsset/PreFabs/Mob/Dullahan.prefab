@@ -169,8 +169,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 116102349
-  m_SortingLayer: 1
+  m_SortingLayerID: 800119093
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 2688571421925474851, guid: 7dc13d2aa97066b4192238bca45cf2e6, type: 3}
   m_Color: {r: 0.8792453, g: 0.8792453, b: 0.8792453, a: 1}
@@ -201,19 +201,23 @@ MonoBehaviour:
   Damage: 1
   Buff: []
   AttackSpeed: 0
-  Intersection: 5
+  Intersection: 2
+  SpawnSpeed: 5
   AttackWeight: 0
-  Type: 0
+  Type: 5
   MobTargetType: 0
-  AttackType: 1
+  AttackType: 0
   LodingTime: 0.1
   Target: {fileID: 0}
   AttackOb: {fileID: 0}
+  HitImage: []
   attack: 0
   spawnManager: {fileID: 0}
   Ghosted: 1
   AttackPostion: {fileID: 0}
+  spawnlock: 0
   goaled: 0
+  spawntime: 0
 --- !u!70 &9124295395637418167
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

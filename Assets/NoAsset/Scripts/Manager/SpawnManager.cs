@@ -10,6 +10,8 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] private List<MobBase> Mobs = new List<MobBase>();
 
+    public MobBase Boss;
+    public bool IsBoss;
     public Transform BossUI;
     public string BossName;
 
@@ -52,45 +54,56 @@ public class SpawnManager : MonoBehaviour
         foreach (Wave_Info info in GameManager.instance.Waves[GameManager.instance.Wave].MobInfo)
         {
             int Wid = Random.Range(2, spawnPoints.childCount-2);
-            for (int i = 0; i < info.Count; i++) {
-                MobBase mob = null;
+            Spawn(info.Type, info.Count);
+            if (info.middle || info.final)
+            {
                 MobCount++;
-                foreach (MobBase o in Mobs)
+                if (info.middle)
                 {
-                    if(o.Type == mobPrefabs[info.Type].GetComponent<MobBase>().Type)
-                    {
-                        if (!o.gameObject.activeSelf)
-                        {
-                            mob = o;
-                            mob.gameObject.SetActive(true);
-                            mob.MobInit();
-                            break;
-                        }
-                    }
+                    Boss = Instantiate(mobPrefabs[5]).GetComponent<MobBase>();
                 }
-                if (!mob)
+                else if (info.final)
                 {
-                    mob = Instantiate(mobPrefabs[info.Type]).GetComponent<MobBase>();
-                    mob.GetComponent<MobBase>().spawnManager = this;
-                    mob.GetComponent<MobBase>().MobInit();
-                    Mobs.Add(mob.GetComponent<MobBase>());
+                    Boss = Instantiate(mobPrefabs[6]).GetComponent<MobBase>();
                 }
-                mob.transform.position = spawnPoints.GetChild(Wid+Random.Range(-2, 3)).position;
-                yield return new WaitForSeconds(0.15f);
-            }
-            if (info.middle)
-            {
-                MobBase mob = Instantiate(mobPrefabs[5]).GetComponent<MobBase>();
-                mob.spawnManager = this;
-                mob.MobInit();
-                Mobs.Add(mob);
-            }
-            else if(info.final)
-            {
-
+                    Boss.transform.position = spawnPoints.GetChild(Wid + Random.Range(-2, 3)).position;
+                IsBoss = true;
+                Boss.spawnManager = this;
+                Boss.MobInit();
+                Mobs.Add(Boss);
             }
             yield return new WaitForSeconds(SpawnDelay);
         }
         waving = false;
+    }
+    public void Spawn(int type, int count)
+    {
+        int Wid = Random.Range(2, spawnPoints.childCount - 2);
+        for (int i = 0; i < count; i++)
+        {
+            MobBase mob = null;
+            MobCount++;
+            foreach (MobBase o in Mobs)
+            {
+                if (o.Type == mobPrefabs[type].GetComponent<MobBase>().Type)
+                {
+                    if (!o.gameObject.activeSelf)
+                    {
+                        mob = o;
+                        mob.gameObject.SetActive(true);
+                        mob.MobInit();
+                        break;
+                    }
+                }
+            }
+            if (!mob)
+            {
+                mob = Instantiate(mobPrefabs[type]).GetComponent<MobBase>();
+                mob.GetComponent<MobBase>().spawnManager = this;
+                mob.GetComponent<MobBase>().MobInit();
+                Mobs.Add(mob.GetComponent<MobBase>());
+            }
+            mob.transform.position = spawnPoints.GetChild(Wid + Random.Range(-2, 3)).position;
+        }
     }
 }

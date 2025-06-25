@@ -5410,6 +5410,7 @@ MonoBehaviour:
   Buff: []
   AttackSpeed: 1
   Intersection: 7
+  SpawnSpeed: 0
   AttackWeight: 1
   Type: 2
   MobTargetType: 1
@@ -5417,9 +5418,15 @@ MonoBehaviour:
   LodingTime: 0.1
   Target: {fileID: 0}
   AttackOb: {fileID: 0}
+  HitImage:
+  - {fileID: 5201919546495241214}
   attack: 0
   spawnManager: {fileID: 0}
   Ghosted: 1
+  AttackPostion: {fileID: 0}
+  spawnlock: 0
+  goaled: 0
+  spawntime: 0
 --- !u!70 &4487786190963376410
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
