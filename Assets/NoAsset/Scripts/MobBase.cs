@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MobBase : MonoBehaviour
 {
@@ -25,6 +23,8 @@ public class MobBase : MonoBehaviour
     public Attack_Type AttackType;
 
     [Header("etc")]
+    public bool Lock;
+
     public float LodingTime;
 
     public Unit Target;
@@ -61,22 +61,31 @@ public class MobBase : MonoBehaviour
     public bool spawnlock;
     public void MobInit()
     {
+        Lock = false;
         spawnlock = false;
         spawntime = 0;
         goaled = false;
         attack = false;
         hit = true;
-        foreach(SpriteRenderer image in HitImage)
+        foreach (SpriteRenderer image in HitImage)
         {
             image.color = Color.white;
         }
         MobStat stat = Data.MobData[Type];
         MaxHp = stat.Hp;
-        Hp = MaxHp * 20;
         Speed = stat.Speed;
         Damage = stat.Damage;
         AttackSpeed = stat.AttackSpeed;
         Intersection = stat.Intersection;
+        if (spawnManager.Boss)
+        {
+            if (spawnManager.Boss.Type == MobType.Necro && Type != MobType.Necro)
+            {
+                Damage *= 1.5f;
+                MaxHp *= 1.5f;
+            }
+        }
+        Hp = MaxHp * 20;
         AttackWeight = 1;
         Target = null;
         AttackTime = 0;
@@ -101,17 +110,17 @@ public class MobBase : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        if (time >= LodingTime && Type != MobType.Ghost)
+        if (time >= LodingTime && Type != MobType.Ghost && !Lock)
         {
             time = 0;
             TargetLoad();
         }
-        if (Target)
+        if (Target && !Lock)
         {
             if (Target.transform.position.x < transform.position.x)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
-                if (Arm&&Type==MobType.Zombie)
+                if (Arm && Type == MobType.Zombie)
                 {
                     switch (Type)
                     {
@@ -119,17 +128,17 @@ public class MobBase : MonoBehaviour
                             Arm.localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
                             break;
                         case MobType.Ghoul:
-                            Arm.GetChild(0).localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z+30);
+                            Arm.GetChild(0).localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z + 30);
                             Arm.GetChild(1).localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
                             break;
                     }
-                    
+
                 }
             }
             else
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
-                if (Arm )
+                if (Arm)
                 {
                     switch (Type)
                     {
@@ -137,18 +146,18 @@ public class MobBase : MonoBehaviour
                             Arm.localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
                             break;
                         case MobType.Ghoul:
-                            Arm.GetChild(0).localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z+30);
+                            Arm.GetChild(0).localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z + 30);
                             Arm.GetChild(1).localRotation = Quaternion.Euler(0, 0, -Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
                             break;
                     }
                 }
             }
-            if (AttackType == Attack_Type.ShotRange)
+            if (AttackType == Attack_Type.ShotRange )
             {
                 if (Ghosted)
                 {
-                    
-                    if(goaled)
+
+                    if (goaled)
                     {
                         goaled = true;
                         transform.position += targetP * Speed * Time.deltaTime;
@@ -165,7 +174,7 @@ public class MobBase : MonoBehaviour
                 }
                 else rigidbody.linearVelocity = (targetP - transform.position).normalized * Speed;
             }
-            else if (AttackType == Attack_Type.longRange)
+            else if (AttackType == Attack_Type.longRange )
             {
                 if (Vector2.Distance(transform.position, Target.transform.position) > Intersection + 2)
                 {
@@ -182,15 +191,31 @@ public class MobBase : MonoBehaviour
                 else
                 {
                     rigidbody.linearVelocity = Vector2.zero;
-                    attack = true;
+                    if (Type == MobType.Necro)
+                    {
+                        if (spawnlock)
+                        {
+                            attack = true;
+                        }
+                    }
+                    else
+                    {
+                        attack = true;
+                    }
                 }
             }
-            if (AttackType == Attack_Type.longRange && AttackTime == 1 && attack)
+            if (AttackType == Attack_Type.longRange && AttackTime == 1 && attack&&!Lock)
             {
                 ani.SetTrigger("Attack");
-                GameObject Attack = Instantiate(AttackOb.gameObject);
-                Attack.transform.position = AttackPostion.position;
-                AttackEffect AE = Attack.GetComponentInChildren<AttackEffect>();
+                GameObject Attack=null;
+                AttackEffect AE=null;
+                if (AttackOb)
+                {
+                    Attack = Instantiate(AttackOb.gameObject);
+                    Attack.transform.position = AttackPostion.position;
+                    AE = Attack.GetComponentInChildren<AttackEffect>();
+                }
+
                 switch (Type)
                 {
                     case MobType.Skull:
@@ -200,6 +225,9 @@ public class MobBase : MonoBehaviour
                     case MobType.Ghoul:
                         AE.Range = true;
                         break;
+                    case MobType.Necro:
+                        AE = AttackPostion.GetComponent<AttackEffect>();
+                        break;
                 }
                 AE.Mob = this;
                 AE.Damage = Damage;
@@ -207,7 +235,7 @@ public class MobBase : MonoBehaviour
                 AttackTime = 0;
             }
         }
-        if(spawntime == SpawnSpeed && !spawnlock)
+        if (spawntime == SpawnSpeed && !spawnlock)
         {
             spawntime = 0;
             switch (Type)
@@ -228,11 +256,12 @@ public class MobBase : MonoBehaviour
         {
             AttackTime = 1;
         }
-        if(Type==MobType.Dullahan || Type == MobType.Necro)
+        if (Type == MobType.Dullahan || Type == MobType.Necro && !Lock)
         {
             if (spawntime < SpawnSpeed)
             {
-                if (!spawnlock) {
+                if (!spawnlock)
+                {
                     spawntime += Time.deltaTime;
                 }
             }
@@ -273,10 +302,10 @@ public class MobBase : MonoBehaviour
                 Ob.Weight = AttackWeight;
                 Ob.Range = true;
             }
-            if(Type==MobType.Ghost) goaled = true;
-            if (Type == MobType.Ghost&&!collision.transform.parent.GetComponent<Unit>().Invin)
+            if (Type == MobType.Ghost) goaled = true;
+            if (Type == MobType.Ghost && !collision.transform.parent.GetComponent<Unit>().Invin)
             {
-                collision.transform.parent.GetComponent<Unit>().HpChange(Damage* AttackWeight);
+                collision.transform.parent.GetComponent<Unit>().HpChange(Damage * AttackWeight);
                 collision.GetComponent<UnitHit>().Hit();
             }
         }
@@ -314,34 +343,60 @@ public class MobBase : MonoBehaviour
     }
     public void DullahanHeal(Transform position)
     {
-        if(Vector2.Distance(transform.position, position.position) < 10)
+        if (Vector2.Distance(transform.position, position.position) < 10)
         {
             HpCh(10);
         }
     }
     public void HpCh(float damage)
     {
-        if (gameObject.activeSelf)
+        if (gameObject.activeSelf && !Lock)
         {
             Hp += damage;
             if (Hp > MaxHp * 20) Hp = MaxHp * 20;
             if (Hp <= 0)
             {
-                spawnManager.MobCount--;
-                if (spawnManager.Boss)
+                if (Type == MobType.Necro && !spawnlock)
                 {
-                    if (spawnManager.Boss.Type == MobType.Dullahan)
+                    Lock = true;
+                    int C = 0;
+                    spawnlock = true;
+                    spawnManager.StopAllCoroutines();
+                    foreach (MobBase mob in spawnManager.Mobs)
                     {
-                        spawnManager.Boss.DullahanHeal(transform);
+                        if (mob != this)
+                        {
+                            if (mob.gameObject.activeSelf)
+                            {
+                                mob.HpCh(-mob.Hp);
+                                C++;
+                                spawnManager.MobCount--;
+                            }
+                        }
                     }
+                    MaxHp += ((int)(C / 10f / 0.5f)) * 0.5f;
+                    PlayerManager.instance.Heal(transform, MaxHp * 20);
+                    Hp = MaxHp * 20;
+                    ani.SetTrigger("P2");
                 }
-                PlayerManager.instance.UnitsMoral(5);
-                PlayerManager.instance.CreateGold(100, transform.position);
-                if (Type == MobType.Ghost)
+                else
                 {
-                    transform.GetComponentInChildren<TrailRenderer>().enabled=false;
+                    spawnManager.MobCount--;
+                    if (spawnManager.Boss)
+                    {
+                        if (spawnManager.Boss.Type == MobType.Dullahan)
+                        {
+                            spawnManager.Boss.DullahanHeal(transform);
+                        }
+                    }
+                    PlayerManager.instance.UnitsMoral(5);
+                    PlayerManager.instance.CreateGold(100, transform.position);
+                    if (Type == MobType.Ghost)
+                    {
+                        transform.GetComponentInChildren<TrailRenderer>().enabled = false;
+                    }
+                    gameObject.SetActive(false);
                 }
-                gameObject.SetActive(false);
             }
             if (damage < 0)
             {
@@ -410,5 +465,9 @@ public class MobBase : MonoBehaviour
                 targetP = (targetP - transform.position).normalized;
             }
         }
+    }
+    public void LockF()
+    {
+        Lock = false;
     }
 }

@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
 
     private Transform spawnPoints;
 
-    [SerializeField] private List<MobBase> Mobs = new List<MobBase>();
+    public List<MobBase> Mobs = new List<MobBase>();
 
     public MobBase Boss;
     public bool IsBoss;

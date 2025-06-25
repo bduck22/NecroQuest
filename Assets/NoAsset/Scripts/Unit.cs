@@ -121,7 +121,7 @@ public class Unit : MonoBehaviour
     public void HpUp(float value)
     {
         PlusStats.Hp += value;
-        Hp += value*3;
+        Hp += value*20;
     }
     public void InteractionUp(float value)
     {
