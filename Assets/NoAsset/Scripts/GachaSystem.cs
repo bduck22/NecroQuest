@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using DG.Tweening;
+using System;
 
 public class GachaSystem : MonoBehaviour
 {
@@ -15,33 +16,40 @@ public class GachaSystem : MonoBehaviour
 
     public Vector3 spawnPosition = Vector3.zero;
 
-    private List<Sprite> characterPool = new List<Sprite>();
-    private List<GameObject> spawnedCharacters = new List<GameObject>();
+    public List<int> characterPool = new List<int>();
 
     void Start()
     {
-        characterPool.AddRange(characterPrefabs);
         gachaButton.onClick.AddListener(PullCharacter);
+        for (int j = 0; j < 7; j++)
+        {
+            characterPool.Add(j);
+        }
+        foreach (int i in Data.Units)
+        {
+            characterPool.Remove(i);
+        }
     }
 
     public void PullCharacter()
     {
-        if(Data.Gold < Price)
+        if (characterPool.Count <= 0)
+        {
+            LobbyManager.Instance.Wanning(Wannings.Unit);
+            return;
+        }
+
+        if (!LobbyManager.Instance.UseMoney(Price))
         {
             return;
         }
 
-        if (characterPool.Count == 0)
-        {
-            Debug.Log("모든 용병을 뽑았습니다!");
-            return;
-        }
         image.gameObject.SetActive(true);
-        int index = Random.Range(0, characterPool.Count);
+        int index = UnityEngine.Random.Range(0, characterPool.Count);
 
-        image.sprite = characterPool[index];
+        image.sprite = characterPrefabs[characterPool[index]];
         image.transform.localPosition = spawnPosition;
-        //image.transform.GetChild(0).GetComponent<Text>().text = Data.UnitData[];
+        image.transform.GetComponentInChildren<Text>().text = Data.UnitData[(UnitClass)characterPool[index]].Name;
         
         RectTransform rect = image.GetComponent<RectTransform>();
         rect.localScale = Vector3.zero;
@@ -53,24 +61,7 @@ public class GachaSystem : MonoBehaviour
         rect.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
         cg.DOFade(1f, 0.5f);
 
-        characterPool.RemoveAt(index);
-    }
-
-    public void ResetPool()
-    {
-        characterPool.Clear();
-        characterPool.AddRange(characterPrefabs);
-        Debug.Log("캐릭터 풀을 초기화했습니다.");
-    }
-
-    public void ClearSpawnedCharacters()
-    {
-        foreach (var obj in spawnedCharacters)
-        {
-            if (obj != null)
-                Destroy(obj);
-        }
-        spawnedCharacters.Clear();
-        Debug.Log("생성된 캐릭터들을 삭제했습니다.");
+        LobbyManager.Instance.UnitAdd(characterPool[index]);
+        characterPool.Remove(characterPool[index]);
     }
 }

@@ -19,6 +19,7 @@ public class InfomationUI : MonoBehaviour
     private Image S;
 
     public Unit unit;
+    public UnitClass uClass;
     private void Awake()
     {
         icon = transform.GetChild(0).GetChild(0).GetComponent<Image>();
@@ -47,15 +48,41 @@ public class InfomationUI : MonoBehaviour
         P.sprite = Resources.Load<Sprite>(unit.UnitClass.ToString() + "P");
         S.sprite = Resources.Load<Sprite>(unit.UnitClass.ToString() + "S");
     }
+    public void On()
+    {
+        unit = new Unit();
+        unit.Damage = Data.UnitData[uClass].Damage + Data.LocalData.GetUnits[uClass].Damage;
+        unit.UnitClass = uClass;
+        unit.Speed = Data.UnitData[uClass].Speed+Data.LocalData.GetUnits[uClass].Speed;
+        unit.MaxHp = Data.UnitData[uClass].Hp + Data.LocalData.GetUnits[uClass].Hp;
+        unit.AttackSpeed = Data.UnitData[uClass].AttackSpeed + Data.LocalData.GetUnits[uClass].AttackSpeed;
+
+        icon.sprite = Resources.Load<Sprite>(uClass.ToString() + "Head");
+        name.text = Data.UnitData[uClass].Name;
+        level.text = "Lv : " + unit.Level.ToString("#,##0");
+        P.sprite = Resources.Load<Sprite>(uClass.ToString() + "P");
+        S.sprite = Resources.Load<Sprite>(uClass.ToString() + "S");
+    }
     void Update()
     {
-        hp.text = (((unit.MaxHp + unit.PlusStats.Hp) / 0.5f) *0.5f).ToString("#,##0.#");
-        speed.text = (((unit.Speed + unit.PlusStats.Speed) / 0.5f) * 0.5f).ToString("#,##0.#");
-        damage.text = (((unit.Damage + unit.PlusStats.Damage) / 0.5f) * 0.5f).ToString("#,##0.#");
-        attackspeed.text = (((unit.AttackSpeed + unit.PlusStats.AttackSpeed) / 0.5f) * 0.5f).ToString("#,##0.#");
+        hp.text = (Mathf.CeilToInt((unit.MaxHp + unit.PlusStats.Hp) / 0.5f) *0.5f).ToString("#,##0.#");
+        speed.text = (Mathf.CeilToInt((unit.Speed + unit.PlusStats.Speed) / 0.5f) * 0.5f).ToString("#,##0.#");
+        damage.text = (Mathf.CeilToInt((unit.Damage + unit.PlusStats.Damage) / 0.5f) * 0.5f).ToString("#,##0.#");
+        attackspeed.text = (Mathf.CeilToInt((unit.AttackSpeed + unit.PlusStats.AttackSpeed) / 0.5f) * 0.5f).ToString("#,##0.#");
         moralS.value = unit.Moral / 250f;
         moralT.text = unit.Moral.ToString("#,##0.#") + " / " + 250f;
         healthS.value = unit.Hp / (unit.MaxHp+unit.PlusStats.Hp)*20f;
         healthT.text = unit.Hp.ToString("#,##0.#") + " / " + ((unit.MaxHp + unit.PlusStats.Hp) * 20f).ToString("#,##0.#");
+    }
+    public void Set(int n)
+    {
+        if(uClass != (UnitClass)Data.Units[n]){
+            uClass = (UnitClass)Data.Units[n];
+            gameObject.SetActive(true);
+        }
+        else
+        {
+            gameObject.SetActive(!gameObject.activeSelf);
+        }
     }
 }

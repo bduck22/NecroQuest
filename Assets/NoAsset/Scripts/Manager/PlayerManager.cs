@@ -110,10 +110,10 @@ public class PlayerManager : MonoBehaviour
 
                 foreach(Unit unit2 in Units)
                 {
-                    if (a <= unit.Damage) unit2.PlusStats.Damage += Mathf.CeilToInt(unit.Damage / 5f / 0.5f) * 0.5f;
-                    if (a <= unit.Speed) unit2.PlusStats.Speed += Mathf.CeilToInt(unit.Speed / 5f / 0.5f) * 0.5f;
-                    if (a <= unit.AttackSpeed) unit2.PlusStats.AttackSpeed += Mathf.CeilToInt(unit.AttackSpeed / 5f / 0.5f) * 0.5f;
-                    if (a <= unit.MaxHp) unit2.PlusStats.Hp += Mathf.CeilToInt(unit.MaxHp / 5f / 0.5f) * 0.5f;
+                    if (a <= unit.Damage) unit2.PlusStats.Damage += unit.Damage / 5f;
+                    if (a <= unit.Speed) unit2.PlusStats.Speed +=unit.Speed / 5f;
+                    if (a <= unit.AttackSpeed) unit2.PlusStats.AttackSpeed += unit.AttackSpeed / 5f;
+                    if (a <= unit.MaxHp) unit2.PlusStats.Hp += unit.MaxHp / 5f;
                 }
             }
         }

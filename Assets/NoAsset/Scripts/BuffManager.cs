@@ -150,8 +150,8 @@ public class BuffManager : MonoBehaviour
                 break;
             case Buff_Type.BerserkP:
                 float lostHP = ((Unit.PlusStats.Hp + Unit.MaxHp) * 20 - Unit.Hp);
-                Unit.Damage = BT.Value + Mathf.CeilToInt(lostHP / 20f / 0.5f) * 0.5f;
-                Unit.AttackSpeed = BT.Value2 + Mathf.CeilToInt(lostHP / 30f / 0.5f) * 0.5f;
+                Unit.Damage = BT.Value + lostHP / 20f;
+                Unit.AttackSpeed = BT.Value2 + lostHP / 30f;
                 break;
         }
         if(BT.Time <= 0)

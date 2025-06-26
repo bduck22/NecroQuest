@@ -1747,7 +1747,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &174608365
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3695,6 +3695,7 @@ MonoBehaviour:
     SkillDamage: 0
     SkillCool: 0
     InvinTime: 0
+    MoralUp: 0
   UnitClass: 6
   UnitTargetType: 0
   Invin: 0
@@ -3705,7 +3706,9 @@ MonoBehaviour:
   AttackEffect: {fileID: 4678447364193906356, guid: 8d8ee58603c103545a4a401d21a06325, type: 3}
   Interaction: {fileID: 55938002}
   locked: 0
+  Hlocked: 0
   AttackWeight: 1
+  rigidbody: {fileID: 0}
   SkillEffect: {fileID: 1714899305343434362, guid: 3366ad2605acd154191adb96c283a874, type: 3}
   SkillCoolTime: 2
   SkillTime: 0
@@ -52658,6 +52661,7 @@ MonoBehaviour:
     SkillDamage: 0
     SkillCool: 0
     InvinTime: 0
+    MoralUp: 0
   UnitClass: 0
   UnitTargetType: 0
   Invin: 0
@@ -52668,7 +52672,9 @@ MonoBehaviour:
   AttackEffect: {fileID: 4678447364193906356, guid: 8d8ee58603c103545a4a401d21a06325, type: 3}
   Interaction: {fileID: 1460281121}
   locked: 0
+  Hlocked: 0
   AttackWeight: 0
+  rigidbody: {fileID: 0}
   SkillEffect: {fileID: 0}
   SkillCoolTime: 0
   SkillTime: 0
@@ -56220,7 +56226,11 @@ MonoBehaviour:
   uiParentCanvas: {fileID: 174608365}
   gachaButton: {fileID: 1509109645}
   resetButton: {fileID: 1226103843}
+  clearButton: {fileID: 0}
+  image: {fileID: 0}
+  Price: 0
   spawnPosition: {x: 0, y: 0, z: 0}
+  characterPool: 
 --- !u!4 &1131638328
 Transform:
   m_ObjectHideFlags: 0
@@ -57008,7 +57018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1226103843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271226,7 +271236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1509109645
 MonoBehaviour:
   m_ObjectHideFlags: 0

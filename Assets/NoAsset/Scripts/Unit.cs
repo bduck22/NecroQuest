@@ -18,6 +18,7 @@ public struct UnitStats
     public float SkillDamage; //스킬피해량 + .
     public float SkillCool; //쿨타임 +
     public float InvinTime; //무적시간 +
+    public float MoralUp;
     public void PlusStat(UnitStats stats)
     {
         Speed += stats.Speed;
@@ -32,6 +33,7 @@ public struct UnitStats
         SkillDamage += stats.SkillDamage;
         SkillCool += stats.SkillCool;
         InvinTime += stats.InvinTime;
+        MoralUp += stats.MoralUp;
     }
 }
 
@@ -108,7 +110,7 @@ public class Unit : MonoBehaviour
         switch (UnitClass)
         {
             case UnitClass.GuardN:
-                PlusStats.GetDamage -= 0.5f;
+                PlusStats.GetDamage -= 0.25f;
                 break;
             case UnitClass.Berserker:
                 Buff.Add(new Buff(Buff_Type.BerserkP, Damage, AttackSpeed, 0, true));

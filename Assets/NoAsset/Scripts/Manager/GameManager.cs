@@ -28,9 +28,6 @@ public enum MobType
 }
 public enum GameStatus
 {
-    Main,
-    Lobby,
-    Organ,
     StageStart,
     WaveStart,
     Waving,
@@ -168,12 +165,6 @@ public class GameManager : MonoBehaviour
     {
         switch (GameStatus)
         {
-            case GameStatus.Main:
-                break;
-            case GameStatus.Lobby:
-                break;
-            case GameStatus.Organ:
-                break;
             case GameStatus.StageStart:
                 StageStart();
                 break;

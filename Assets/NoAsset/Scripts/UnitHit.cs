@@ -21,7 +21,7 @@ public class UnitHit : MonoBehaviour
         if (Unit.Invin) yield return null;
         else Unit.Invin = true;
         HitImage.color = Color.red;
-        yield return new WaitForSeconds((Unit.InvinTime+Unit.PlusStats.InvinTime) / 3f*2);
+        yield return new WaitForSeconds((Unit.InvinTime + Unit.PlusStats.InvinTime) / 3f * 2);
         HitImage.color = Color.white;
         yield return new WaitForSeconds((Unit.InvinTime + Unit.PlusStats.InvinTime) / 3f);
         Unit.Invin = false;
@@ -33,31 +33,34 @@ public class UnitHit : MonoBehaviour
             if (!Unit.Invin)
             {
                 float Damage = collision.transform.GetComponent<MobBase>().Damage * collision.transform.GetComponent<MobBase>().AttackWeight;
-                Unit.HpChange(Damage);
-                StartCoroutine(Invining());
+                Hit(Damage);
             }
         }
     }
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Projectile"))
+        if (collision.CompareTag("Projectile"))
         {
-            AttackEffect effect = other.GetComponentInChildren<AttackEffect>();
+            AttackEffect effect = collision.GetComponentInChildren<AttackEffect>();
             if (!effect.Range)
             {
-                Destroy(other.gameObject);
+                Destroy(collision.gameObject);
             }
-            else
-            {
-                other.enabled = false;
-            }
-            float Damage = effect.Damage;
-            Unit.HpChange(Damage * effect.Weight);
+            float Damage = effect.Damage * effect.Weight;
             if (effect.Mob.Type == MobType.Ghoul)
             {
-                effect.Mob.HpCh(Damage * effect.Weight);
+                effect.Mob.HpCh(Damage);
             }
-            StartCoroutine(Invining());
+            if (effect.Mob.Type == MobType.Necro)
+            {
+                effect.Mob.HpCh(Damage);
+            }
+            Hit(Damage);
         }
+    }
+    void Hit(float Damage)
+    {
+        Unit.HpChange(Damage);
+        StartCoroutine(Invining());
     }
 }

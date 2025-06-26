@@ -2957,6 +2957,7 @@ MonoBehaviour:
     SkillDamage: 0
     SkillCool: 0
     InvinTime: 0
+    MoralUp: 0
   UnitClass: 4
   UnitTargetType: 0
   Invin: 0
@@ -3950,6 +3951,7 @@ MonoBehaviour:
     SkillDamage: 0
     SkillCool: 0
     InvinTime: 0
+    MoralUp: 0
   UnitClass: 5
   UnitTargetType: 0
   Invin: 0
@@ -5880,6 +5882,7 @@ MonoBehaviour:
     SkillDamage: 0
     SkillCool: 0
     InvinTime: 0
+    MoralUp: 0
   UnitClass: 0
   UnitTargetType: 0
   Invin: 0
@@ -7487,7 +7490,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1023
+    m_Bits: 3071
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -36691,7 +36694,7 @@ MonoBehaviour:
   Move: 0
   Level: 0
   Speed: 5
-  AttackSpeed: 1
+  AttackSpeed: 3
   Hp: 0
   MaxHp: 5
   Damage: 5
@@ -36711,6 +36714,7 @@ MonoBehaviour:
     SkillDamage: 0
     SkillCool: 0
     InvinTime: 0
+    MoralUp: 0
   UnitClass: 1
   UnitTargetType: 0
   Invin: 0
@@ -173129,6 +173133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 0}
+  uClass: 0
 --- !u!1 &760448024
 GameObject:
   m_ObjectHideFlags: 0
@@ -180489,6 +180494,7 @@ MonoBehaviour:
     SkillDamage: 0
     SkillCool: 0
     InvinTime: 0
+    MoralUp: 0
   UnitClass: 2
   UnitTargetType: 0
   Invin: 0
@@ -188079,12 +188085,12 @@ MonoBehaviour:
   TargetWid: {x: 0, y: 0}
   Move: 0
   Level: 0
-  Speed: 1
+  Speed: 5
   AttackSpeed: 2
   Hp: 0
   MaxHp: 5
   Damage: 5
-  Intersection: 5
+  Intersection: 10
   Moral: 125
   Buff: []
   PlusStats:
@@ -188100,6 +188106,7 @@ MonoBehaviour:
     SkillDamage: 0
     SkillCool: 0
     InvinTime: 0
+    MoralUp: 0
   UnitClass: 3
   UnitTargetType: 1
   Invin: 0
@@ -194834,6 +194841,7 @@ MonoBehaviour:
     SkillDamage: 0
     SkillCool: 0
     InvinTime: 0
+    MoralUp: 0
   UnitClass: 6
   UnitTargetType: 2
   Invin: 0
@@ -201825,67 +201833,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1071310106}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1514266012529169622
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2019936472662252155, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
-      propertyPath: spawnManager
-      value: 
-      objectReference: {fileID: 1224217177}
-    - target: {fileID: 3200245888405481169, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 31.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200245888405481169, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200245888405481169, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200245888405481169, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200245888405481169, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200245888405481169, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200245888405481169, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200245888405481169, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200245888405481169, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200245888405481169, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8837096029819375160, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
-      propertyPath: m_Name
-      value: Ghoul
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 95b04a2c32cbd974db8d8ff1ac99ff7d, type: 3}
 --- !u!1001 &8036822565274587750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -201971,6 +201918,5 @@ SceneRoots:
   - {fileID: 1382425914}
   - {fileID: 167397905}
   - {fileID: 98379565}
-  - {fileID: 1514266012529169622}
   - {fileID: 8036822565274587750}
   - {fileID: 1349602110}

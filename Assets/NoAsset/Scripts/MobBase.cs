@@ -206,7 +206,6 @@ public class MobBase : MonoBehaviour
             }
             if (AttackType == Attack_Type.longRange && AttackTime == 1 && attack&&!Lock)
             {
-                ani.SetTrigger("Attack");
                 GameObject Attack=null;
                 AttackEffect AE=null;
                 if (AttackOb)
@@ -227,12 +226,14 @@ public class MobBase : MonoBehaviour
                         break;
                     case MobType.Necro:
                         AE = AttackPostion.GetComponent<AttackEffect>();
+                        AE.Damage = Mathf.CeilToInt(MaxHp * 20/40/0.5f)*0.5f;
                         break;
                 }
                 AE.Mob = this;
-                AE.Damage = Damage;
+                AE.Damage += Damage;
                 AE.Weight = AttackWeight;
                 AttackTime = 0;
+                ani.SetTrigger("Attack");
             }
         }
         if (spawntime == SpawnSpeed && !spawnlock)
@@ -274,39 +275,42 @@ public class MobBase : MonoBehaviour
     public float spawntime;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Attack"))
+        if (!Lock)
         {
-            //collision.enabled = false;
-            AttackEffect AE = collision.GetComponent<AttackEffect>();
-            if (AE.Unit.UnitClass == UnitClass.DragonN)
+            if (collision.CompareTag("Attack"))
             {
-                AE.Unit.HpChange(-(AE.Damage * AE.Weight));
-            }
-            if (AE.Unit.UnitClass == UnitClass.GuardN)
-            {
-                if (AE.Skill)
+                //collision.enabled = false;
+                AttackEffect AE = collision.GetComponent<AttackEffect>();
+                if (AE.Unit.UnitClass == UnitClass.DragonN)
                 {
-                    Buff.Add(new Buff(Buff_Type.Provo, AE.Unit.transform, 5));
+                    AE.Unit.HpChange(-(AE.Damage * AE.Weight));
                 }
+                if (AE.Unit.UnitClass == UnitClass.GuardN)
+                {
+                    if (AE.Skill)
+                    {
+                        Buff.Add(new Buff(Buff_Type.Provo, AE.Unit.transform, 5));
+                    }
+                }
+                HpCh(-(AE.Damage * AE.Weight));
             }
-            HpCh(-(AE.Damage * AE.Weight));
-        }
-        if (collision.CompareTag("HitBox"))
-        {
-            if (Type == MobType.Shade)
+            if (collision.CompareTag("HitBox"))
             {
-                HpCh(-Hp);
-                AttackEffect Ob = Instantiate(AttackOb, transform.position, Quaternion.identity).GetComponent<AttackEffect>();
-                Ob.Mob = this;
-                Ob.Damage = Damage;
-                Ob.Weight = AttackWeight;
-                Ob.Range = true;
-            }
-            if (Type == MobType.Ghost) goaled = true;
-            if (Type == MobType.Ghost && !collision.transform.parent.GetComponent<Unit>().Invin)
-            {
-                collision.transform.parent.GetComponent<Unit>().HpChange(Damage * AttackWeight);
-                collision.GetComponent<UnitHit>().Hit();
+                if (Type == MobType.Shade)
+                {
+                    HpCh(-Hp);
+                    AttackEffect Ob = Instantiate(AttackOb, transform.position, Quaternion.identity).GetComponent<AttackEffect>();
+                    Ob.Mob = this;
+                    Ob.Damage = Damage;
+                    Ob.Weight = AttackWeight;
+                    Ob.Range = true;
+                }
+                if (Type == MobType.Ghost) goaled = true;
+                if (Type == MobType.Ghost && !collision.transform.parent.GetComponent<Unit>().Invin)
+                {
+                    collision.transform.parent.GetComponent<Unit>().HpChange(Damage * AttackWeight);
+                    collision.GetComponent<UnitHit>().Hit();
+                }
             }
         }
     }
@@ -370,11 +374,10 @@ public class MobBase : MonoBehaviour
                             {
                                 mob.HpCh(-mob.Hp);
                                 C++;
-                                spawnManager.MobCount--;
                             }
                         }
                     }
-                    MaxHp += ((int)(C / 10f / 0.5f)) * 0.5f;
+                    MaxHp += C / 10f;
                     PlayerManager.instance.Heal(transform, MaxHp * 20);
                     Hp = MaxHp * 20;
                     ani.SetTrigger("P2");
