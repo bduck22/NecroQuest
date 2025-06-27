@@ -7,10 +7,6 @@ public class UnitInfoUi : MonoBehaviour
     [SerializeField] private float LoadTime;
 
     float time;
-    void Start()
-    {
-        LoadFirst();
-    }
 
     void Update()
     {
@@ -24,7 +20,7 @@ public class UnitInfoUi : MonoBehaviour
             LoadInfo();
         }
     }
-    void LoadFirst()
+    public void LoadFirst()
     {
         for (int i = 0; i < 4; i++)
         {

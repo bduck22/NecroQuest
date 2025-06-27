@@ -65,14 +65,14 @@ public class InfomationUI : MonoBehaviour
     }
     void Update()
     {
-        hp.text = (Mathf.CeilToInt((unit.MaxHp + unit.PlusStats.Hp) / 0.5f) *0.5f).ToString("#,##0.#");
-        speed.text = (Mathf.CeilToInt((unit.Speed + unit.PlusStats.Speed) / 0.5f) * 0.5f).ToString("#,##0.#");
-        damage.text = (Mathf.CeilToInt((unit.Damage + unit.PlusStats.Damage) / 0.5f) * 0.5f).ToString("#,##0.#");
-        attackspeed.text = (Mathf.CeilToInt((unit.AttackSpeed + unit.PlusStats.AttackSpeed) / 0.5f) * 0.5f).ToString("#,##0.#");
+        hp.text = (unit.MaxHp + unit.PlusStats.Hp).ToString("#,##0.0");
+        speed.text = (unit.Speed + unit.PlusStats.Speed).ToString("#,##0.0");
+        damage.text = (unit.Damage + unit.PlusStats.Damage).ToString("#,##0.0");
+        attackspeed.text = (unit.AttackSpeed + unit.PlusStats.AttackSpeed).ToString("#,##0.0");
         moralS.value = unit.Moral / 250f;
-        moralT.text = unit.Moral.ToString("#,##0.#") + " / " + 250f;
+        moralT.text = unit.Moral.ToString("#,##0.0") + " / " + 250f;
         healthS.value = unit.Hp / (unit.MaxHp+unit.PlusStats.Hp)*20f;
-        healthT.text = unit.Hp.ToString("#,##0.#") + " / " + ((unit.MaxHp + unit.PlusStats.Hp) * 20f).ToString("#,##0.#");
+        healthT.text = unit.Hp.ToString("#,##0.0") + " / " + ((unit.MaxHp + unit.PlusStats.Hp) * 20f).ToString("#,##0.0");
     }
     public void Set(int n)
     {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -31,6 +32,10 @@ public class LobbyManager : MonoBehaviour
     public Text DiffiT;
 
     public Image[] PreButton;
+
+    public Transform Blessings;
+
+    public Transform BlessingLv;
 
     string path;
     void Update()
@@ -130,11 +135,16 @@ public class LobbyManager : MonoBehaviour
         else
         {
             Data.LocalData = new LocalData();
-            Data.LocalData.Gold = 0;
+            Data.LocalData.Gold = 2000000;
             Data.LocalData.diffi = 0;
+            DiffiT.text = Data.LocalData.diffi.ToString("#,##0");
             SetPreset(0);
             Data.Stats = new UnitStats();
             Data.Units = new List<int>();
+            for(int i = 1; i <=4; i++)
+            {
+                BuffTLoad(i);
+            }
             for (int i = 0; i < 3; i++)
             {
                 Data.LocalData.Presets.Add(new int[4] { -1, -1, -1, -1 });
@@ -206,10 +216,50 @@ public class LobbyManager : MonoBehaviour
         {
             if (l != -1)
             {
+                Data.Stats.Damage += (Data.LocalData.Blessing[BlessingType.Attack] * 0.5f);
+                Data.Stats.AttackSpeed += (Data.LocalData.Blessing[BlessingType.Attack] * 0.1f);
+                Data.Stats.Hp += (Data.LocalData.Blessing[BlessingType.Defence] * 0.5f);
+                Data.Stats.GetDamage -= (Data.LocalData.Blessing[BlessingType.Defence] * 0.015f);
+                Data.Stats.SkillCool += (Data.LocalData.Blessing[BlessingType.Skill] * 0.2f);
+                Data.Stats.SkillDamage += (Data.LocalData.Blessing[BlessingType.Skill] * 0.1f);
+                Data.Stats.MoralUp += (Data.LocalData.Blessing[BlessingType.Moral] * 0.1f);
                 SceneManager.LoadScene(2);
                 return;
             }
         }
         Wanning(Wannings.EmptyPre);
+    }
+    public void BuffLevelUp(int Type)
+    {
+        if (!UseMoney((Data.LocalData.Blessing[(BlessingType)(Type)]+1)*1000))
+        {
+            return;
+        }
+        Data.LocalData.Blessing[(BlessingType)(Type)]++;
+        BuffTLoad(Type + 1);
+    }
+    public void BuffTLoad(int n)
+    {
+        Blessings.GetChild(n).GetChild(2).GetComponent<TMP_Text>().text = "Lv." + Data.LocalData.Blessing[(BlessingType)(n - 1)].ToString("#,##0");
+        switch (n-1)
+        {
+            case 0:
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "공격력 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)]*0.5f).ToString("#,##0.0")+
+                    "\n공격속도 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)]*0.1f).ToString("#,##0.0");
+                break;
+            case 1:
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "체력 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.5f).ToString("#,##0.0") +
+                    "\n받는피해량 -" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] *0.015f).ToString("#,##0.#%");
+                break;
+            case 2:
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "스킬 쿨타임 -" + (Data.LocalData.Blessing[(BlessingType)(n - 1)]*0.1f).ToString("#,##0.0초") +
+                    "\n스킬피해량 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] *0.1f).ToString("#,##0%");
+                break;
+            case 3:
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "획득 사기량 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0%");
+                break;
+        }
+        Blessings.GetChild(n).GetChild(4).GetComponentInChildren<TMP_Text>().text = "레벨업("+ ((Data.LocalData.Blessing[(BlessingType)(n - 1)]+1)*1000).ToString("#,##0$)");
+        BlessingLv.GetChild(n - 1).GetChild(1).GetComponent<Text>().text = "Lv." + Data.LocalData.Blessing[(BlessingType)(n - 1)].ToString("#,##0");
     }
 }

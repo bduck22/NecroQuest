@@ -1,9 +1,14 @@
 using DamageNumbersPro;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
-using UnityEngine.Pool;
 
+public enum QuestType
+{
+    Hit,
+    Wave,
+    Monster,
+    Attack
+}
 
 public class PlayerManager : MonoBehaviour
 {
@@ -52,13 +57,18 @@ public class PlayerManager : MonoBehaviour
 
     public Transform[] UnitPrefabs;
 
-    
+    public QuestType QuestType;
+    public float QuestValue;
+
+    public Transform QuestClear;
+
+    public UnitInfoUi UUi;
     public void CreateGold(int value, Vector2 position)
     {
         GoldBase gold = null;
         foreach (GoldBase g in Goldpool)
         {
-            if (!g.gameObject.activeSelf&&!gold)
+            if (!g.gameObject.activeSelf && !gold)
             {
                 g.transform.position = position;
                 g.gameObject.SetActive(true);
@@ -87,28 +97,53 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public bool Alive=false;
     private void Update()
     {
         if (GameManager.instance.GameStatus != GameStatus.Waving)
         {
+            if (QuestValue <= 0)
+            {
+                QuestClear.gameObject.SetActive(true);
+            }
             return;
+        }
+        else
+        {
+            if(QuestClear.gameObject.activeSelf) QuestClear.gameObject.SetActive(false);
         }
         for (int i = 0; i < Units.Length; i++)
         {
-            if (Units[i]!=null &&Units[i].gameObject.activeSelf)
+            if (Units[i] != null && Units[i].gameObject.activeSelf)
             {
                 if (Input.GetKeyDown((KeyCode)49 + i))
                 {
                     SkillUse(i);
                 }
-                Units[i].Moral -= MoralDownPer * ((GameManager.instance.Diffi) / 2f) * Time.deltaTime;
+                Units[i].Moral -= MoralDownPer * ((GameManager.instance.Diffi+1) / 2f) * Time.deltaTime;
                 if (Units[i].Moral <= 0) Units[i].Moral = 0;
                 else if (Units[i].Moral > 250) Units[i].Moral = 250;
             }
         }
     }
+    public void isAlive()
+    {
+        for(int i = 0; i < Units.Length; i++)
+        {
+            if (Units[i] != null && Units[i].gameObject.activeSelf)
+            {
+                Alive = true;
+            }
+        }
+        if (!Alive)
+        {
+            GameManager.instance.GameStatus = GameStatus.Result;
+        }
+        else Alive = false;
+    }
     public void StageStart()
     {
+        GameManager.instance.Diffi = Data.LocalData.diffi;
         for (int i = 0; i < 4; i++)
         {
             if (Data.LocalData.Presets[Data.LocalData.SelectPreSet][i] != -1)
@@ -139,6 +174,7 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
+        UUi.LoadFirst();
         GameManager.instance.GameStatus = GameStatus.WaveStart;
     }
     public void SkillUse(int i)
@@ -212,7 +248,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     public bool open = true;
-    public int opened=-1;
+    public int opened = -1;
     public void ChaInfo(int number)
     {
         if (opened == number)
@@ -223,9 +259,9 @@ public class PlayerManager : MonoBehaviour
         {
             open = true;
         }
-        if(!open) opened = -1;
+        if (!open) opened = -1;
         else opened = number;
         InfoPop.gameObject.SetActive(open);
-        if(open) InfoPop.GetComponent<InfomationUI>().On(number);
-    } 
+        if (open) InfoPop.GetComponent<InfomationUI>().On(number);
+    }
 }

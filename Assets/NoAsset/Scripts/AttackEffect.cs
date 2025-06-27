@@ -8,12 +8,4 @@ public class AttackEffect : MonoBehaviour
     public float Weight;
     public bool Skill;
     public bool Range;
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-        
-    }
 }

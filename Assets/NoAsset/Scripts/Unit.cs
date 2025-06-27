@@ -157,6 +157,7 @@ public class Unit : MonoBehaviour
 
         if (Hp <= 0)
         {
+            PlayerManager.instance.isAlive();
             if (PlayerManager.instance.SpawnManager.Boss)
             {
                 if (PlayerManager.instance.SpawnManager.Boss.Type == MobType.Dullahan)

@@ -70,10 +70,10 @@ public class UnitUpgrade : MonoBehaviour
         Sdesc.text = Data.UnitData[uClass].Skill.Description;
         Pname.text = Data.UnitData[uClass].Passive.Name;
         Pdesc.text = Data.UnitData[uClass].Passive.Description;
-        Hp.text = (Mathf.CeilToInt((Data.UnitData[uClass].Hp + Data.LocalData.GetUnits[uClass].Hp) / 0.5f) * 0.5f).ToString("#,##0.#");
-        Damage.text = (Mathf.CeilToInt((Data.UnitData[uClass].Damage + Data.LocalData.GetUnits[uClass].Damage) / 0.5f) * 0.5f).ToString("#,##0.#");
-        AttackSpeed.text = (Mathf.CeilToInt((Data.UnitData[uClass].AttackSpeed + Data.LocalData.GetUnits[uClass].AttackSpeed) / 0.5f) * 0.5f).ToString("#,##0.#");
-        Speed.text = (Mathf.CeilToInt((Data.UnitData[uClass].Speed + Data.LocalData.GetUnits[uClass].Speed) / 0.5f) * 0.5f).ToString("#,##0.#");
+        Hp.text = (Data.UnitData[uClass].Hp + Data.LocalData.GetUnits[uClass].Hp).ToString("#,##0.0");
+        Damage.text =(Data.UnitData[uClass].Damage + Data.LocalData.GetUnits[uClass].Damage).ToString("#,##0.0");
+        AttackSpeed.text = (Data.UnitData[uClass].AttackSpeed + Data.LocalData.GetUnits[uClass].AttackSpeed).ToString("#,##0.0");
+        Speed.text = (Data.UnitData[uClass].Speed + Data.LocalData.GetUnits[uClass].Speed).ToString("#,##0.0");
         Profile.sprite = Resources.Load<Sprite>(uClass.ToString() + "Head");
 
         Simage.sprite = Resources.Load<Sprite>(uClass.ToString() + "S");

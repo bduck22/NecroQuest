@@ -226,7 +226,7 @@ public class MobBase : MonoBehaviour
                         break;
                     case MobType.Necro:
                         AE = AttackPostion.GetComponent<AttackEffect>();
-                        AE.Damage = Mathf.CeilToInt(MaxHp * 20/40/0.5f)*0.5f;
+                        AE.Damage = MaxHp * 20/40;
                         break;
                 }
                 AE.Mob = this;

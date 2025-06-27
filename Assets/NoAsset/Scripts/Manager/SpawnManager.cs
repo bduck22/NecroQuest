@@ -53,6 +53,7 @@ public class SpawnManager : MonoBehaviour
         waving = true;
         foreach (Wave_Info info in GameManager.instance.Waves[GameManager.instance.Wave].MobInfo)
         {
+            yield return new WaitForSeconds(SpawnDelay);
             int Wid = Random.Range(2, spawnPoints.childCount-2);
             Spawn(info.Type, info.Count);
             if (info.middle || info.final)
@@ -72,7 +73,6 @@ public class SpawnManager : MonoBehaviour
                 Boss.MobInit();
                 Mobs.Add(Boss);
             }
-            yield return new WaitForSeconds(SpawnDelay);
         }
         waving = false;
     }

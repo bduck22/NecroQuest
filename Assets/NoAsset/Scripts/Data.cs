@@ -88,6 +88,7 @@ public class UnitData : NameDEscriptionBase
         this.Speed = Speed;
         this.Damage = Damage;
         this.AttackSpeed = AttackSpeed;
+
         this.Name = Name;
         this.Description = Description;
         this.Cooltime = Cooltime;

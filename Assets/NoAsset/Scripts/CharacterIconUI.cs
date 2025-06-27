@@ -15,7 +15,7 @@ public class CharacterIconUI : MonoBehaviour, IPointerClickHandler
         }
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            PlayerManager.instance.ChaInfo(int.Parse(PlayerManager.instance.Units[number].transform.name));
+            PlayerManager.instance.ChaInfo(number);
         }
     }
 }
