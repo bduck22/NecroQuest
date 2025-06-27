@@ -25,7 +25,10 @@ public class UnitManager : MonoBehaviour
     {
         foreach (Unit u in PlayerManager.Units)
         {
-            u.GetComponent<SpriteRenderer>().material = NotSelect;
+            if (u != null)
+            {
+                u.GetComponent<SpriteRenderer>().material = NotSelect;
+            }
         }
         PlayerManager.SeletedUnits.Clear();
     }
@@ -55,6 +58,7 @@ public class UnitManager : MonoBehaviour
             {
                 foreach (int num in PlayerManager.SeletedUnits)
                 {
+                    Debug.Log(num);
                     Unit unit = PlayerManager.Units[num];
                     if (unit.TargetWid != nowmouse)
                     {

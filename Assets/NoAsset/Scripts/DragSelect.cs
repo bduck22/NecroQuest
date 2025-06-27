@@ -17,7 +17,14 @@ public class DragSelect : MonoBehaviour
     {
         if (collision.CompareTag("HitBox"))
         {
-            int number = int.Parse(collision.transform.parent.name);
+            int number = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                if (PlayerManager.instance.Units[i] == collision.transform.parent.GetComponent<Unit>())
+                {
+                    number = i; break;
+                }
+            }
             PlayerManager.instance.SeletedUnits.Add(number);
             collision.transform.parent.GetComponent<SpriteRenderer>().material = Select;
         }
@@ -28,7 +35,14 @@ public class DragSelect : MonoBehaviour
         {
             if (!Close)
             {
-                int number = int.Parse(collision.transform.parent.name);
+                int number = 0;
+                for (int i = 0; i < 4; i++)
+                {
+                    if (PlayerManager.instance.Units[i] == collision.transform.parent.GetComponent<Unit>())
+                    {
+                        number = i; break;
+                    }
+                }
                 PlayerManager.instance.SeletedUnits.Remove(number);
                 collision.transform.parent.GetComponent<SpriteRenderer>().material = NotSelect;
             }

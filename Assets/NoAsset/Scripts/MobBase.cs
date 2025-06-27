@@ -426,7 +426,7 @@ public class MobBase : MonoBehaviour
         Target = null;
         foreach (Unit u in PlayerManager.instance.Units)
         {
-            if (u.gameObject.activeSelf)
+            if (u!=null&&u.gameObject.activeSelf)
             {
                 if (!Target)
                 {

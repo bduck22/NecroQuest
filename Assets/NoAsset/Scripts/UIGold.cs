@@ -14,7 +14,7 @@ public class UIGold : MonoBehaviour
 
     void Update()
     {
-        text.text = Data.Gold.ToString("#,##0");
+        text.text = Data.LocalData.Gold.ToString("#,##0");
     }
     public void Spawn(int value)
     {

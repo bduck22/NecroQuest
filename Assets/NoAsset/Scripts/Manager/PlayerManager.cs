@@ -21,6 +21,7 @@ public class PlayerManager : MonoBehaviour
             Destroy(gameObject);
         }
         Cursor.lockState = CursorLockMode.Confined;
+        Units = new Unit[4];
     }
     public Unit[] Units;
 
@@ -46,6 +47,12 @@ public class PlayerManager : MonoBehaviour
     public Transform InfoPop;
 
     public SpawnManager SpawnManager;
+
+    public Transform UnitSpawnPoints;
+
+    public Transform[] UnitPrefabs;
+
+    
     public void CreateGold(int value, Vector2 position)
     {
         GoldBase gold = null;
@@ -69,11 +76,14 @@ public class PlayerManager : MonoBehaviour
 
     public void UnitsMoral(float Moral)
     {
-        foreach(Unit unit in Units)
+        foreach (Unit unit in Units)
         {
-            unit.Moral += Moral;
-            if (unit.Moral <= 0) unit.Moral = 0;
-            else if (unit.Moral > 250) unit.Moral = 250;
+            if (unit != null)
+            {
+                unit.Moral += Moral * (1 + unit.PlusStats.MoralUp);
+                if (unit.Moral <= 0) unit.Moral = 0;
+                else if (unit.Moral > 250) unit.Moral = 250;
+            }
         }
     }
 
@@ -85,7 +95,7 @@ public class PlayerManager : MonoBehaviour
         }
         for (int i = 0; i < Units.Length; i++)
         {
-            if (Units[i].gameObject.activeSelf)
+            if (Units[i]!=null &&Units[i].gameObject.activeSelf)
             {
                 if (Input.GetKeyDown((KeyCode)49 + i))
                 {
@@ -99,24 +109,37 @@ public class PlayerManager : MonoBehaviour
     }
     public void StageStart()
     {
-        foreach(Unit unit in Units)
+        for (int i = 0; i < 4; i++)
         {
-            if (unit.UnitClass == UnitClass.SpiritM)
+            if (Data.LocalData.Presets[Data.LocalData.SelectPreSet][i] != -1)
             {
-                float a = unit.Damage;
-                if(a<unit.Speed) a = unit.Speed;
-                if(a<unit.AttackSpeed) a = unit.AttackSpeed;
-                if(a<unit.MaxHp) a = unit.MaxHp;
-
-                foreach(Unit unit2 in Units)
+                Unit Unit = Instantiate(UnitPrefabs[Data.LocalData.Presets[Data.LocalData.SelectPreSet][i]].gameObject, UnitSpawnPoints.GetChild(i).transform.position, Quaternion.identity).GetComponent<Unit>();
+                Units[i] = Unit;
+                Unit.Spawn();
+            }
+        }
+        foreach (Unit unit in Units)
+        {
+            if (unit != null)
+            {
+                if (unit.UnitClass == UnitClass.SpiritM)
                 {
-                    if (a <= unit.Damage) unit2.PlusStats.Damage += unit.Damage / 5f;
-                    if (a <= unit.Speed) unit2.PlusStats.Speed +=unit.Speed / 5f;
-                    if (a <= unit.AttackSpeed) unit2.PlusStats.AttackSpeed += unit.AttackSpeed / 5f;
-                    if (a <= unit.MaxHp) unit2.PlusStats.Hp += unit.MaxHp / 5f;
+                    float a = unit.Damage;
+                    if (a < unit.Speed) a = unit.Speed;
+                    if (a < unit.AttackSpeed) a = unit.AttackSpeed;
+                    if (a < unit.MaxHp) a = unit.MaxHp;
+
+                    foreach (Unit unit2 in Units)
+                    {
+                        if (a <= unit.Damage) unit2.PlusStats.Damage += unit.Damage / 5f;
+                        if (a <= unit.Speed) unit2.PlusStats.Speed += unit.Speed / 5f;
+                        if (a <= unit.AttackSpeed) unit2.PlusStats.AttackSpeed += unit.AttackSpeed / 5f;
+                        if (a <= unit.MaxHp) unit2.PlusStats.Hp += unit.MaxHp / 5f;
+                    }
                 }
             }
         }
+        GameManager.instance.GameStatus = GameStatus.WaveStart;
     }
     public void SkillUse(int i)
     {
@@ -137,29 +160,41 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (Unit unit in Units)
         {
-            unit.PlusStats.PlusStat(guardians[guardians.Count-1].Stats);
-            unit.UnitInit();
+            if (unit != null)
+            {
+                unit.PlusStats.PlusStat(guardians[guardians.Count - 1].Stats);
+                unit.UnitInit();
+            }
         }
     }
     public void UnitsInit()
     {
         foreach (Unit unit in Units)
         {
-            unit.UnitInit();
+            if (unit != null)
+            {
+                unit.UnitInit();
+            }
         }
     }
     public void UnitStop()
     {
         foreach (Unit unit in Units)
         {
-            unit.locked = true;
+            if (unit != null)
+            {
+                unit.locked = true;
+            }
         }
     }
     public bool Checklock()
     {
         foreach (Unit unit in Units)
         {
-            if (unit.locked||unit.Hlocked) return false;
+            if (unit != null)
+            {
+                if (unit.locked || unit.Hlocked) return false;
+            }
         }
         UnitStop();
         return true;

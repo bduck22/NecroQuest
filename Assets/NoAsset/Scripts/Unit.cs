@@ -89,7 +89,7 @@ public class Unit : MonoBehaviour
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        Spawn();
+        //Spawn();
     }
     public void UnitInit()
     {
@@ -104,9 +104,15 @@ public class Unit : MonoBehaviour
     }
     public void Spawn()
     {
-        UnitInit();
         Buff.Clear();
         PlusStats = new UnitStats();
+        Damage = Data.UnitData[UnitClass].Damage+ Data.LocalData.GetUnits[UnitClass].Damage;
+        AttackSpeed = Data.UnitData[UnitClass].AttackSpeed+ Data.LocalData.GetUnits[UnitClass].AttackSpeed;
+        MaxHp = Data.UnitData[UnitClass].Hp+ Data.LocalData.GetUnits[UnitClass].Hp;
+        Speed = Data.UnitData[UnitClass].Speed+ Data.LocalData.GetUnits[UnitClass].Speed;
+        SkillCoolTime = Data.UnitData[UnitClass].Cooltime;
+        Level = Data.LocalData.GetUnits[UnitClass].level;
+        UnitInit();
         switch (UnitClass)
         {
             case UnitClass.GuardN:
@@ -119,6 +125,7 @@ public class Unit : MonoBehaviour
                 Buff.Add(new Buff(Buff_Type.Charge, 0, 0, false));
                 break;
         }
+        gameObject.SetActive(true);
     }
     public void HpUp(float value)
     {

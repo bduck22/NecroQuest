@@ -184,7 +184,6 @@ public class GameManager : MonoBehaviour
     }
     void StageStart()
     {
-        GameStatus = GameStatus.WaveStart;
         PlayerManager.instance.StageStart();
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum Wannings
@@ -9,7 +10,8 @@ public enum Wannings
     Gold,
     Unit,
     Saved,
-    MaxLv
+    MaxLv,
+    EmptyPre
 }
 public class LobbyManager : MonoBehaviour
 {
@@ -26,13 +28,16 @@ public class LobbyManager : MonoBehaviour
     public Text WanningT;
     public Image Open;
     public Transform Starting;
+    public Text DiffiT;
+
+    public Image[] PreButton;
 
     string path;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            Data.Gold += 10000;
+            Data.LocalData.Gold += 10000;
         }
     }
     bool iswanning = false;
@@ -77,6 +82,15 @@ public class LobbyManager : MonoBehaviour
                 else WanningT.text = WText;
                 StartCoroutine(FadeOut(1));
                 break;
+            case Wannings.EmptyPre:
+                WText = "해당편성은 비어있습니다.";
+                if (WanningT.text == WText)
+                {
+                    iswanning = true;
+                }
+                else WanningT.text = WText;
+                StartCoroutine(FadeOut(0));
+                break;
         }
 
     }
@@ -115,11 +129,12 @@ public class LobbyManager : MonoBehaviour
         }
         else
         {
-            Data.Gold = 0;
-            Data.diffi = 0;
+            Data.LocalData = new LocalData();
+            Data.LocalData.Gold = 0;
+            Data.LocalData.diffi = 0;
+            SetPreset(0);
             Data.Stats = new UnitStats();
             Data.Units = new List<int>();
-            Data.LocalData = new LocalData();
             for (int i = 0; i < 3; i++)
             {
                 Data.LocalData.Presets.Add(new int[4] { -1, -1, -1, -1 });
@@ -144,10 +159,10 @@ public class LobbyManager : MonoBehaviour
     public UIGold UG;
     public bool UseMoney(int value)
     {
-        if (Data.Gold >= value)
+        if (Data.LocalData.Gold >= value)
         {
             UG.Spawn(value);
-            Data.Gold -= value;
+            Data.LocalData.Gold -= value;
             return true;
         }
         else
@@ -160,5 +175,41 @@ public class LobbyManager : MonoBehaviour
     {
         Data.Units.Add(n);
         Data.LocalData.GetUnits.Add((UnitClass)n, new LocalUnit());
+    }
+    public void Diffi(bool b)
+    {
+        if (b)
+        {
+            Data.LocalData.diffi++;
+        }
+        else
+        {
+            if (Data.LocalData.diffi > 0)
+            {
+                Data.LocalData.diffi--;
+            }
+        }
+        DiffiT.text = Data.LocalData.diffi.ToString("#,##0");
+    }
+    public void SetPreset(int n)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            PreButton[i].color = Color.white;
+        }
+        PreButton[n].color = Color.green;
+        Data.LocalData.SelectPreSet = n;
+    }
+    public void startGame()
+    {
+        foreach (int l in Data.LocalData.Presets[Data.LocalData.SelectPreSet])
+        {
+            if (l != -1)
+            {
+                SceneManager.LoadScene(2);
+                return;
+            }
+        }
+        Wanning(Wannings.EmptyPre);
     }
 }
