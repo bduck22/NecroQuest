@@ -152,6 +152,8 @@ public class GameManager : MonoBehaviour
 
     public Transform WaveStartButton;
 
+    public Transform ResultPopup;
+
     [Header("BuffEffects")]
     public Transform[] BuffEffects;
 
@@ -189,19 +191,30 @@ public class GameManager : MonoBehaviour
 
     public void WaveStart()
     {
+        Wave++;
         one = true;
         GameStatus = GameStatus.Waving;
         PlayerManager.instance.UnitsInit();
         SpawnManager.WaveStart();
     }
 
+    public bool Cleared = false;
+
     void WaveEnd()
     {
-        if (++Wave >= Waves.Length)
+        if (Wave+1 >= Waves.Length)
         {
+            Cleared = true;
             GameStatus = GameStatus.Result;
         }
-        else GameStatus = GameStatus.Rest;
+        else
+        {
+            if (PlayerManager.instance.QuestType == QuestType.Wave)
+            {
+                PlayerManager.instance.QuestValue--;
+            }
+            GameStatus = GameStatus.Rest;
+        }
     }
 
     public Transform GuardianSelecter;
@@ -232,7 +245,11 @@ public class GameManager : MonoBehaviour
 
     void Result()
     {
-        Debug.Log("스테이지 끝");
+        if (!ResultPopup.gameObject.activeSelf)
+        {
+            ResultPopup.gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 
     public void Resume()

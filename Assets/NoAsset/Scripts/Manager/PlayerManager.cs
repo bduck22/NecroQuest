@@ -1,5 +1,6 @@
 using DamageNumbersPro;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public enum QuestType
@@ -59,10 +60,15 @@ public class PlayerManager : MonoBehaviour
 
     public QuestType QuestType;
     public float QuestValue;
+    public float OQuestValue;
 
     public Transform QuestClear;
 
     public UnitInfoUi UUi;
+
+    public TMP_Text QuestT;
+
+    public int killcount;
     public void CreateGold(int value, Vector2 position)
     {
         GoldBase gold = null;
@@ -97,6 +103,9 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    string Qdesc = string.Empty;
+    string Qdesc2 = string.Empty;
+
     public bool Alive=false;
     private void Update()
     {
@@ -112,6 +121,8 @@ public class PlayerManager : MonoBehaviour
         {
             if(QuestClear.gameObject.activeSelf) QuestClear.gameObject.SetActive(false);
         }
+        QuestT.text = OQuestValue.ToString("#,##0") + Qdesc+"\n(" + (OQuestValue - QuestValue).ToString("#,##0") + Qdesc2+")";
+
         for (int i = 0; i < Units.Length; i++)
         {
             if (Units[i] != null && Units[i].gameObject.activeSelf)
@@ -139,10 +150,39 @@ public class PlayerManager : MonoBehaviour
         {
             GameManager.instance.GameStatus = GameStatus.Result;
         }
-        else Alive = false;
+        if(GameManager.instance.GameStatus != GameStatus.Result) Alive = false;
+    }
+    public void Return()
+    {
+        GameManager.instance.GameStatus = GameStatus.Result;
     }
     public void StageStart()
     {
+        QuestType = (QuestType)Random.Range(0, 4);
+        QuestValue = Random.Range(1, 10);
+        switch (QuestType)
+        {
+            case QuestType.Hit:
+                Qdesc = "의 피해 받기";
+                Qdesc2 = "의 피해 받음";
+                QuestValue *= 500;
+                break;
+            case QuestType.Attack:
+                Qdesc = "의 피해 입히기";
+                Qdesc2 = "의 피해 입힘";
+                QuestValue *= 500;
+                break;
+            case QuestType.Wave:
+                Qdesc = "웨이브 클리어하기";
+                Qdesc2 = "웨이브 클리어";
+                break;
+            case QuestType.Monster:
+                Qdesc = "마리의 몬스터 처치하기";
+                Qdesc2 = "마리의 몬스터 처치함";
+                QuestValue *= 100;
+                break;
+        }
+        OQuestValue = QuestValue;
         GameManager.instance.Diffi = Data.LocalData.diffi;
         for (int i = 0; i < 4; i++)
         {
@@ -172,6 +212,7 @@ public class PlayerManager : MonoBehaviour
                         if (a <= unit.MaxHp) unit2.PlusStats.Hp += unit.MaxHp / 5f;
                     }
                 }
+                unit.PlusStats.PlusStat(Data.Stats);
             }
         }
         UUi.LoadFirst();

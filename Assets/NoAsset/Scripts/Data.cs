@@ -10,19 +10,6 @@ public class NameDEscriptionBase
         Description = description;
     }
 }
-public enum AccType
-{
-    One,
-    Two,
-    Three,
-    Four,
-    Five,
-    Six,
-    Seven,
-    Eight,
-    Nine,
-    Ten
-}
 public enum GuardianType
 {
     One,
@@ -34,7 +21,13 @@ public enum GuardianType
     Seven,
     Eight,
     Nine,
-    Ten
+    Ten,
+    OneZero,
+    OneOne,
+    OneTwo,
+    OneThree,
+    OneFour,
+    OneFive
 }
 [System.Serializable]
 public class MobStat : NameDEscriptionBase
@@ -114,6 +107,11 @@ public static class Data
         {7, new Guardian((GuardianType)7, "8이름", "8설명") },
         {8, new Guardian((GuardianType)8, "9이름", "9설명") },
         {9, new Guardian((GuardianType)9, "10이름", "10설명") },
+        {10, new Guardian((GuardianType)10, "11이름", "11설명") },
+        {11, new Guardian((GuardianType)11, "12이름", "12설명") },
+        {12, new Guardian((GuardianType)12, "13이름", "13설명") },
+        {13, new Guardian((GuardianType)13, "14이름", "14설명") },
+        {14, new Guardian((GuardianType)14, "15이름", "15설명") }
     };
     public static readonly Dictionary<MobType, MobStat> MobData = new Dictionary<MobType, MobStat>()
     {
@@ -184,6 +182,15 @@ public static class Data
     public static UnitStats Stats;
 
     public static LocalData LocalData;
+
+    public static void Save()
+    {
+
+    }
+    public static void Load()
+    {
+
+    }
 }
 public class LocalData
 {
@@ -200,6 +207,9 @@ public class LocalData
     };//축복
     public UnitClass StartingUnit;//스타팅유닛
     public List<int[]> Presets = new List<int[]>();//프리셋
+    public float Master;
+    public float SFX;
+    public float BGM;
 }
 public class LocalUnit
 {

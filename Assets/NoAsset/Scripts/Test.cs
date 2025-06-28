@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+    private void Start()
+    {
+        //Debug.Log(Random.Range(0, 0));
+    }
     //IEnumerator Start()  나중에 쓸만함
     //{
     //    if (Application.internetReachability == NetworkReachability.NotReachable)

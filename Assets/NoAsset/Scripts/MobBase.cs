@@ -281,6 +281,11 @@ public class MobBase : MonoBehaviour
             {
                 //collision.enabled = false;
                 AttackEffect AE = collision.GetComponent<AttackEffect>();
+                AE.Unit.SetDamages += AE.Damage * AE.Weight;
+                if (PlayerManager.instance.QuestType == QuestType.Attack)
+                {
+                    PlayerManager.instance.QuestValue-= AE.Damage * AE.Weight;
+                }
                 if (AE.Unit.UnitClass == UnitClass.DragonN)
                 {
                     AE.Unit.HpChange(-(AE.Damage * AE.Weight));
@@ -366,6 +371,7 @@ public class MobBase : MonoBehaviour
                     int C = 0;
                     spawnlock = true;
                     spawnManager.StopAllCoroutines();
+                    spawnManager.waving = false;
                     foreach (MobBase mob in spawnManager.Mobs)
                     {
                         if (mob != this)
@@ -384,6 +390,11 @@ public class MobBase : MonoBehaviour
                 }
                 else
                 {
+                    PlayerManager.instance.killcount++;
+                    if (PlayerManager.instance.QuestType == QuestType.Monster)
+                    {
+                        PlayerManager.instance.QuestValue--;
+                    }
                     spawnManager.MobCount--;
                     if (spawnManager.Boss)
                     {

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -12,26 +14,39 @@ public class SpawnManager : MonoBehaviour
 
     public MobBase Boss;
     public bool IsBoss;
-    public Transform BossUI;
-    public string BossName;
+    public Slider BossUI;
 
     public int MobCount;
 
     public float SpawnDelay;
-    bool waving = false;
+    public bool waving = false;
     void Start()
     {
         spawnPoints = transform.GetChild(0);
     }
     void Update()
     {
-        if(GameManager.instance.GameStatus == GameStatus.Waving)
+        if (IsBoss && !BossUI.transform.parent.gameObject.activeSelf)
+        {
+            BossUI.transform.parent.gameObject.SetActive(true);
+            BossUI.transform.parent.GetChild(0).GetComponentInChildren<TMP_Text>().text = (Boss.Type == MobType.Dullahan ? "듀라한" : "네크로맨서");
+        }
+        else if (IsBoss)
+        {
+            BossUI.value = Boss.Hp / (Boss.MaxHp * 20f);
+            if (Boss.Hp <= 0)
+            {
+                BossUI.transform.parent.gameObject.SetActive(false);
+                IsBoss = false;
+                Boss = null;
+            }
+        }
+        if (GameManager.instance.GameStatus == GameStatus.Waving)
         {
             if (MobCount <= 0 && !waving)
             {
                 if (PlayerManager.instance.Checklock())
                 {
-                    Debug.Log("웨이브 끝");
                     GameManager.instance.GameStatus = GameStatus.WaveEnd;
                 }
             }
@@ -54,7 +69,7 @@ public class SpawnManager : MonoBehaviour
         foreach (Wave_Info info in GameManager.instance.Waves[GameManager.instance.Wave].MobInfo)
         {
             yield return new WaitForSeconds(SpawnDelay);
-            int Wid = Random.Range(2, spawnPoints.childCount-2);
+            int Wid = Random.Range(2, spawnPoints.childCount - 2);
             Spawn(info.Type, info.Count);
             if (info.middle || info.final)
             {
@@ -67,7 +82,7 @@ public class SpawnManager : MonoBehaviour
                 {
                     Boss = Instantiate(mobPrefabs[6]).GetComponent<MobBase>();
                 }
-                    Boss.transform.position = spawnPoints.GetChild(Wid + Random.Range(-2, 3)).position;
+                Boss.transform.position = spawnPoints.GetChild(Wid + Random.Range(-2, 3)).position;
                 IsBoss = true;
                 Boss.spawnManager = this;
                 Boss.MobInit();

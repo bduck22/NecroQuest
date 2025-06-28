@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,14 +17,11 @@ public class BuffCardManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        Loadcount = 100;
+        Loadcount = 3;
         CardLoad();
     }
-    public void Load()
-    {
 
-    }
-
+    public List<int> gets = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
     public void CardLoad()
     {
         carddata = new Guardian[Cards.Length];
@@ -31,17 +29,24 @@ public class BuffCardManager : MonoBehaviour
         Loadcount--;
         for (int i = 0; i < 3; i++)
         {
-            int R = Random.Range(0, Data.GuardianData.Count);
-            while (!Check(R, i))
+            int R = Random.Range(0, gets.Count);
+            if (gets.Count == 0)
             {
-                R = Random.Range(0, Data.GuardianData.Count);
+                Cards[i].GetChild(0).gameObject.SetActive(false);
             }
-            keys[i] = R;
-            carddata[i] = Data.GuardianData[keys[i]];
+            else
+            {
+                keys[i] = gets[R];
+                carddata[i] = Data.GuardianData[keys[i]];
 
-            Cards[i].GetChild(0).GetComponent<Image>().sprite = null;
-            Cards[i].GetChild(1).GetComponentInChildren<Text>().text = carddata[i].Name;
-            Cards[i].GetChild(2).GetComponent<Text>().text = carddata[i].Description;
+                Cards[i].GetChild(0).gameObject.SetActive(true);
+                Cards[i].GetChild(0).GetComponent<Image>().sprite = null;
+                Cards[i].GetChild(1).GetComponentInChildren<Text>().text = carddata[i].Name;
+                Cards[i].GetChild(2).GetComponent<Text>().text = carddata[i].Description;
+
+                gets.RemoveAt(R);
+            }
+
         }
 
         if(Loadcount > 0)
@@ -56,22 +61,5 @@ public class BuffCardManager : MonoBehaviour
     {
         PlayerManager.instance.guardians.Add(carddata[number]);
         PlayerManager.instance.GuardianLoad();
-    }
-    private bool Check(int R, int m)
-    {
-        for (int i = 0; i < keys.Length; i++) {
-            if (keys[i] == R&&i!=m)
-            {
-                return false;
-            }
-        }
-        foreach (Guardian g in PlayerManager.instance.guardians)
-        {
-            if(g.GuardianType== Data.GuardianData[R].GuardianType)
-            {
-                return false;
-            }
-        }
-        return true;
     }
 }

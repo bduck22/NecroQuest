@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitManager : MonoBehaviour
@@ -14,6 +15,8 @@ public class UnitManager : MonoBehaviour
     public Texture2D Origin;
     public Texture2D Move;
     public Texture2D Skill;
+
+    public Transform Setting;
 
     private void Start()
     {
@@ -34,6 +37,19 @@ public class UnitManager : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Setting.gameObject.SetActive(!Setting.gameObject.activeSelf);
+            if (Setting.gameObject.activeSelf)
+            {
+                Time.timeScale = 0;
+            }
+            else
+            {
+                Time.timeScale = 1;
+            }
+        }
+
         Vector2 nowmouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (Input.GetMouseButtonDown(1))
@@ -58,7 +74,6 @@ public class UnitManager : MonoBehaviour
             {
                 foreach (int num in PlayerManager.SeletedUnits)
                 {
-                    Debug.Log(num);
                     Unit unit = PlayerManager.Units[num];
                     if (unit.TargetWid != nowmouse)
                     {
@@ -84,22 +99,27 @@ public class UnitManager : MonoBehaviour
                 RaycastHit2D ray = Physics2D.Raycast(nowmouse, Vector2.zero, 10, LayerMask.GetMask("Unit"));
                 if (ray && ray.transform.CompareTag("Unit"))
                 {
+                    int number = 0;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (PlayerManager.instance.Units[i] == ray.transform.GetComponent<Unit>())
+                        {
+                            number = i; break;
+                        }
+                    }
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
-                        int number = int.Parse(ray.transform.name);
                         ray.transform.GetComponent<SpriteRenderer>().material = Select;
                         PlayerManager.instance.SeletedUnits.Add(number);
                     }
                     else if (Input.GetKey(KeyCode.LeftControl))
                     {
-                        int number = int.Parse(ray.transform.name);
                         ray.transform.GetComponent<SpriteRenderer>().material = NotSelect;
                         PlayerManager.instance.SeletedUnits.Remove(number);
                     }
                     else
                     {
                         SelectClear();
-                        int number = int.Parse(ray.transform.name);
                         ray.transform.GetComponent<SpriteRenderer>().material = Select;
                         PlayerManager.instance.SeletedUnits.Add(number);
                     }

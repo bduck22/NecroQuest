@@ -86,6 +86,9 @@ public class Unit : MonoBehaviour
     public bool skill;
     public float SkillWeight;
 
+    public float GetDamages;
+    public float SetDamages;
+
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -157,7 +160,6 @@ public class Unit : MonoBehaviour
 
         if (Hp <= 0)
         {
-            PlayerManager.instance.isAlive();
             if (PlayerManager.instance.SpawnManager.Boss)
             {
                 if (PlayerManager.instance.SpawnManager.Boss.Type == MobType.Dullahan)
@@ -165,7 +167,15 @@ public class Unit : MonoBehaviour
                     PlayerManager.instance.SpawnManager.Boss.DullahanHeal(transform);
                 }
             }
+            Data.LocalData.GetUnits.Remove(UnitClass);
+            Data.Units.Remove((int)UnitClass);
+            if(Data.LocalData.StartingUnit == UnitClass)
+            {
+                LobbyManager.Instance.UnitAdd((int)UnitClass);
+            }
+            PlayerManager.instance.UnitsMoral(-30);
             gameObject.SetActive(false);
+            PlayerManager.instance.isAlive();
         }
 
         if (AttackTime < 1)
@@ -419,24 +429,17 @@ public class Unit : MonoBehaviour
         if (Damage > 0)
         {
             weight += PlusStats.GetDamage;
-            if (Moral > 200)
-            {
-                Damage *= 0.7f;
-            }
             Moral -= 1;
+            GetDamages += Damage * weight;
+            if (PlayerManager.instance.QuestType == QuestType.Hit)
+            {
+                PlayerManager.instance.QuestValue -= Damage * weight;
+            }
             PlayerManager.instance.Deal(transform, Damage*weight);
         }
         else
         {
             weight += PlusStats.GetHeal;
-            if (Moral <= 50)
-            {
-                Damage *= 0.7f;
-            }
-            else if (Moral > 200)
-            {
-                Damage *= 1.3f;
-            }
             PlayerManager.instance.Heal(transform, -Damage * weight);
         }
         Hp -= Damage * weight;

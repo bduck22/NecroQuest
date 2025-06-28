@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -37,12 +38,20 @@ public class LobbyManager : MonoBehaviour
 
     public Transform BlessingLv;
 
+    public Transform Setting;
+
+    public AudioMixer AudioMixer;
+
     string path;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
             Data.LocalData.Gold += 10000;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Setting.gameObject.SetActive(!Setting.gameObject.activeSelf);
         }
     }
     bool iswanning = false;
@@ -131,6 +140,12 @@ public class LobbyManager : MonoBehaviour
     {
         if (File.Exists(path))
         {
+            Setting.GetChild(0).GetComponentInChildren<Slider>().value = Data.LocalData.Master;
+            AudioMixer.SetFloat("Master", Mathf.Log10(Data.LocalData.Master));
+            Setting.GetChild(1).GetComponentInChildren<Slider>().value = Data.LocalData.SFX;
+            AudioMixer.SetFloat("SFX", Mathf.Log10(Data.LocalData.SFX));
+            Setting.GetChild(2).GetComponentInChildren<Slider>().value = Data.LocalData.BGM;
+            AudioMixer.SetFloat("BGM", Mathf.Log10(Data.LocalData.BGM));
         }
         else
         {
