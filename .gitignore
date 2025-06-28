@@ -74,3 +74,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 *.json
 Assets/NoAsset/NanumMyeongjo-ExtraBold SDF.asset
+Assets/Presets.json.meta
+Assets/LocalData.json.meta
+Assets/Characters.json.meta
+Assets/Blessings.json.meta
