@@ -93,6 +93,7 @@ public class Preset : MonoBehaviour
                 Data.LocalData.Presets[j][i] = list[j][i];
             }
         }
+        Data.Save();
         LobbyManager.Instance.Wanning(Wannings.Saved);
     }
     public void Init()

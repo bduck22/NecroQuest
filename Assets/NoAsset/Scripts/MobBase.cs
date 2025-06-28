@@ -178,6 +178,10 @@ public class MobBase : MonoBehaviour
             {
                 if (Vector2.Distance(transform.position, Target.transform.position) > Intersection + 2)
                 {
+                    if (Type == MobType.Dullahan)
+                    {
+                        ani.SetBool("Walk", true);
+                    }
                     if (Ghosted)
                     {
                         transform.position += (Target.transform.position - transform.position).normalized * Speed * Time.deltaTime;
@@ -190,6 +194,10 @@ public class MobBase : MonoBehaviour
                 }
                 else
                 {
+                    if (Type == MobType.Dullahan)
+                    {
+                        ani.SetBool("Walk", false);
+                    }
                     rigidbody.linearVelocity = Vector2.zero;
                     if (Type == MobType.Necro)
                     {
@@ -226,7 +234,10 @@ public class MobBase : MonoBehaviour
                         break;
                     case MobType.Necro:
                         AE = AttackPostion.GetComponent<AttackEffect>();
-                        AE.Damage = MaxHp * 20/40;
+                        AE.Damage = MaxHp * 20/30;
+                        break;
+                    case MobType.Dullahan:
+                        AE = AttackPostion.GetComponent<AttackEffect>();
                         break;
                 }
                 AE.Mob = this;
@@ -343,6 +354,55 @@ public class MobBase : MonoBehaviour
             image.color = Color.red;
         }
         yield return new WaitForSeconds(1.5f / 3f);
+        if (Hp <= 0)
+        {
+            if (Type == MobType.Necro && !spawnlock)
+            {
+                Lock = true;
+                int C = 0;
+                spawnlock = true;
+                spawnManager.StopAllCoroutines();
+                spawnManager.waving = false;
+                foreach (MobBase mob in spawnManager.Mobs)
+                {
+                    if (mob != this)
+                    {
+                        if (mob.gameObject.activeSelf)
+                        {
+                            mob.HpCh(-mob.Hp);
+                            C++;
+                        }
+                    }
+                }
+                MaxHp += C / 5f;
+                PlayerManager.instance.Heal(transform, MaxHp * 20);
+                Hp = MaxHp * 20;
+                ani.SetTrigger("P2");
+            }
+            else
+            {
+                PlayerManager.instance.killcount++;
+                if (PlayerManager.instance.QuestType == QuestType.Monster)
+                {
+                    PlayerManager.instance.QuestValue--;
+                }
+                spawnManager.MobCount--;
+                if (spawnManager.Boss)
+                {
+                    if (spawnManager.Boss.Type == MobType.Dullahan)
+                    {
+                        spawnManager.Boss.DullahanHeal(transform);
+                    }
+                }
+                PlayerManager.instance.UnitsMoral(5);
+                PlayerManager.instance.CreateGold(100, transform.position);
+                if (Type == MobType.Ghost)
+                {
+                    transform.GetComponentInChildren<TrailRenderer>().enabled = false;
+                }
+                gameObject.SetActive(false);
+            }
+        }
         foreach (SpriteRenderer image in HitImage)
         {
             image.color = Color.white;
@@ -363,55 +423,6 @@ public class MobBase : MonoBehaviour
         {
             Hp += damage;
             if (Hp > MaxHp * 20) Hp = MaxHp * 20;
-            if (Hp <= 0)
-            {
-                if (Type == MobType.Necro && !spawnlock)
-                {
-                    Lock = true;
-                    int C = 0;
-                    spawnlock = true;
-                    spawnManager.StopAllCoroutines();
-                    spawnManager.waving = false;
-                    foreach (MobBase mob in spawnManager.Mobs)
-                    {
-                        if (mob != this)
-                        {
-                            if (mob.gameObject.activeSelf)
-                            {
-                                mob.HpCh(-mob.Hp);
-                                C++;
-                            }
-                        }
-                    }
-                    MaxHp += C / 10f;
-                    PlayerManager.instance.Heal(transform, MaxHp * 20);
-                    Hp = MaxHp * 20;
-                    ani.SetTrigger("P2");
-                }
-                else
-                {
-                    PlayerManager.instance.killcount++;
-                    if (PlayerManager.instance.QuestType == QuestType.Monster)
-                    {
-                        PlayerManager.instance.QuestValue--;
-                    }
-                    spawnManager.MobCount--;
-                    if (spawnManager.Boss)
-                    {
-                        if (spawnManager.Boss.Type == MobType.Dullahan)
-                        {
-                            spawnManager.Boss.DullahanHeal(transform);
-                        }
-                    }
-                    PlayerManager.instance.UnitsMoral(5);
-                    PlayerManager.instance.CreateGold(100, transform.position);
-                    if (Type == MobType.Ghost)
-                    {
-                        transform.GetComponentInChildren<TrailRenderer>().enabled = false;
-                    }
-                    gameObject.SetActive(false);
-                }
-            }
             if (damage < 0)
             {
                 if (gameObject.activeSelf) StartCoroutine(HitAni());

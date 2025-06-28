@@ -1,4 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor.XR;
+using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.InputSystem;
+using Unity.VisualScripting;
+using Unity.Burst.Intrinsics;
 
 public class NameDEscriptionBase
 {
@@ -22,7 +30,6 @@ public enum GuardianType
     Eight,
     Nine,
     Ten,
-    OneZero,
     OneOne,
     OneTwo,
     OneThree,
@@ -62,6 +69,34 @@ public class Guardian : NameDEscriptionBase
             case GuardianType.One:
                 Stats.SkillCool += 1;
                 Stats.SetValue += 0.2f;
+                break;
+            case GuardianType.Two:
+                break;
+            case GuardianType.Three:
+                break;
+            case GuardianType.Four:
+                break;
+            case GuardianType.Five:
+                break;
+            case GuardianType.Six:
+                break;
+            case GuardianType.Seven:
+                break;
+            case GuardianType.Eight:
+                break;
+            case GuardianType.Nine:
+                break;
+            case GuardianType.Ten:
+                break;
+            case GuardianType.OneOne:
+                break;
+            case GuardianType.OneTwo:
+                break;
+            case GuardianType.OneThree:
+                break;
+            case GuardianType.OneFour:
+                break;
+            case GuardianType.OneFive:
                 break;
         }
     }
@@ -120,7 +155,7 @@ public static class Data
         {MobType.Ghost, new MobStat(1, 10f, 1, 0, 12) },
         {MobType.Shade, new MobStat(2, 5, 15, 0.5f, 0) },
         {MobType.Ghoul, new MobStat(2.5f, 2, 1, 1, -1.5f) },
-        {MobType.Dullahan, new MobStat(15, 5, 10, 0.5f, 1f) },
+        {MobType.Dullahan, new MobStat(15, 5, 10, 0.5f, 0) },
         {MobType.Necro, new MobStat(50, 2, 5, 1, 2.5f) }
     };
     public static readonly Dictionary<UnitClass, UnitData> UnitData = new Dictionary<UnitClass, UnitData>()
@@ -182,35 +217,64 @@ public static class Data
     public static UnitStats Stats;
 
     public static LocalData LocalData;
+    public static string path = Path.Combine(Application.dataPath, "LocalData.json");
+    public static string characterpath = Path.Combine(Application.dataPath, "Characters.json");
+    public static string blessingpath = Path.Combine(Application.dataPath, "Blessings.json");
+    public static string presetpath = Path.Combine(Application.dataPath, "Presets.json");
 
     public static void Save()
     {
+        string json = JsonUtility.ToJson(LocalData, false);
+        File.WriteAllText(path, json);
+        string json1 = Json.DicToJson(LocalData.GetUnits, false);
+        File.WriteAllText(characterpath, json1);
+        string json2 = Json.DicToJson(LocalData.Blessing, false);
+        File.WriteAllText(blessingpath, json2);
+        string json3 = Json.DoubleListToJson(LocalData.Presets, false);
+        File.WriteAllText(presetpath, json3);
 
     }
     public static void Load()
     {
+        Units = new List<int>();
+        Stats = new UnitStats();
+        LocalData = new LocalData();
 
+        string loadJson = File.ReadAllText(path);
+        LocalData = JsonUtility.FromJson<LocalData>(loadJson);
+
+        string loadJson1 = File.ReadAllText(characterpath);
+        LocalData.GetUnits = Json.JsonToDic<UnitClass, LocalUnit>(loadJson1);
+
+        string loadJson2 = File.ReadAllText(blessingpath);
+        LocalData.Blessing = Json.JsonToDic<BlessingType, int>(loadJson2);
+
+        string loadJson3 = File.ReadAllText(presetpath);
+        LocalData.Presets = Json.JsonToDoubleList<int>(loadJson3);
+
+        foreach (UnitClass u in LocalData.GetUnits.Keys)
+        {
+            Units.Add((int)u);
+        }
     }
 }
+
+[Serializable]
 public class LocalData
 {
     public int SelectPreSet;
-    public int diffi = 0;
+    public int diffi ;
     public bool First;
-    public Dictionary<UnitClass, LocalUnit> GetUnits = new Dictionary<UnitClass, LocalUnit>();//보유유닛
-    public int Gold=0;//골드
-    public Dictionary<BlessingType, int> Blessing = new Dictionary<BlessingType, int>()
-    {   {BlessingType.Attack, 0 },
-        {BlessingType.Defence, 0 },
-        { BlessingType.Skill, 0 },
-        {BlessingType.Moral, 0 }
-    };//축복
+    public Dictionary<UnitClass, LocalUnit> GetUnits;//보유유닛
+    public int Gold;//골드
+    public Dictionary<BlessingType, int> Blessing;//축복
     public UnitClass StartingUnit;//스타팅유닛
-    public List<int[]> Presets = new List<int[]>();//프리셋
-    public float Master;
-    public float SFX;
-    public float BGM;
+    public List<int[]> Presets;//프리셋
+    public float Master=1;
+    public float SFX=1;
+    public float BGM=1;
 }
+[Serializable]
 public class LocalUnit
 {
     public int level;
@@ -227,10 +291,97 @@ public class LocalUnit
         Speed = 0;
     }
 }
+[SerializeField]
 public enum BlessingType
 {
     Attack,
     Defence,
     Skill,
     Moral
+}
+public static class Json
+{
+    public static string DicToJson<TKey, TValue>(Dictionary<TKey, TValue> DicData, bool pretty)
+    {
+        List<DataDictionary<TKey, TValue>> datalist = new List<DataDictionary<TKey, TValue>>();
+        DataDictionary<TKey, TValue> data;
+        foreach (TKey key in DicData.Keys)
+        {
+            data = new DataDictionary<TKey, TValue>();
+            data.Key = key;
+            data.Value = DicData[key];
+            datalist.Add(data);
+        }
+        DataArray<TKey, TValue> arraydata = new DataArray<TKey, TValue>();
+        arraydata.data = datalist;
+
+        return JsonUtility.ToJson(arraydata, pretty);
+    }
+    public static string DoubleListToJson<TKey>(List<TKey[]> list, bool pretty)
+    {
+        List<DataDictionary<int, TKey>> datalist = new List<DataDictionary<int, TKey>>();
+        DataDictionary<int, TKey> data;
+        for (int i = 0; i < list.Count; i++)
+        {
+            foreach (TKey key in list[i])
+            {
+                data = new DataDictionary<int, TKey>();
+                data.Key = i;
+                data.Value = key;
+                datalist.Add(data);
+            }
+        }
+        DataArray<int, TKey> arraydata = new DataArray<int, TKey>();
+        arraydata.data = datalist;
+
+        return JsonUtility.ToJson(arraydata, pretty);
+    }
+    public static List<TKey[]> JsonToDoubleList<TKey>(string json)
+    {
+        DataArray<int, TKey> datalist = JsonUtility.FromJson< DataArray<int, TKey>>(json);
+
+        List<TKey[]> list = new List<TKey[]>();
+
+        int n = 0;
+        List<TKey> arr = new List<TKey>();
+        for (int i = 0; i < datalist.data.Count; i++)
+        {
+            if (n != datalist.data[i].Key)
+            {
+                list.Add(arr.ToArray());
+                arr = new List<TKey>();
+                n = datalist.data[i].Key;
+            }
+            arr.Add(datalist.data[i].Value);
+        }
+        list.Add(arr.ToArray());
+
+        return list;
+    }
+    public static Dictionary<TKey, TValue> JsonToDic<TKey, TValue>(string json)
+    {
+        DataArray < TKey, TValue> datalist = JsonUtility.FromJson< DataArray < TKey, TValue>> (json);
+        
+        Dictionary<TKey, TValue> dic = new Dictionary<TKey, TValue>();
+
+        for(int i = 0; i < datalist.data.Count; i++)
+        {
+            DataDictionary<TKey, TValue> data = datalist.data[i];
+            dic[data.Key] = data.Value;
+        }
+
+        return dic;
+    }
+}
+[Serializable]
+public class DataDictionary<TKey, TValue>
+{
+    public TKey Key;
+    public TValue Value;
+}
+
+[Serializable]
+public class DataArray<TKey, TValue>
+{
+    public List<DataDictionary<TKey, TValue>> data;
 }

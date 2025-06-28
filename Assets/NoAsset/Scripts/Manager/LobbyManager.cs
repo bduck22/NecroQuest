@@ -4,8 +4,10 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public enum Wannings
 {
@@ -24,20 +26,15 @@ public class LobbyManager : MonoBehaviour
         {
             Instance = this;
         }
-        path = Path.Combine(Application.dataPath, "LocalData.json");
         StartCoroutine(Opening());
     }
     public Text WanningT;
     public Image Open;
     public Transform Starting;
     public Text DiffiT;
-
     public Image[] PreButton;
-
     public Transform Blessings;
-
     public Transform BlessingLv;
-
     public Transform Setting;
 
     public AudioMixer AudioMixer;
@@ -55,6 +52,8 @@ public class LobbyManager : MonoBehaviour
         }
     }
     bool iswanning = false;
+
+
     public void Wanning(Wannings Type)
     {
         string WText;
@@ -127,7 +126,7 @@ public class LobbyManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        while (WanningT.color.a >0)
+        while (WanningT.color.a > 0)
         {
             WanningT.color -= Color.black * (value);
             yield return new WaitForSeconds(0.02f);
@@ -138,14 +137,18 @@ public class LobbyManager : MonoBehaviour
     }
     IEnumerator Opening()
     {
-        if (File.Exists(path))
+        if (File.Exists(Data.path))
         {
-            Setting.GetChild(0).GetComponentInChildren<Slider>().value = Data.LocalData.Master;
-            AudioMixer.SetFloat("Master", Mathf.Log10(Data.LocalData.Master));
-            Setting.GetChild(1).GetComponentInChildren<Slider>().value = Data.LocalData.SFX;
-            AudioMixer.SetFloat("SFX", Mathf.Log10(Data.LocalData.SFX));
-            Setting.GetChild(2).GetComponentInChildren<Slider>().value = Data.LocalData.BGM;
-            AudioMixer.SetFloat("BGM", Mathf.Log10(Data.LocalData.BGM));
+            Data.Load();
+            for (int i = 1; i <= 4; i++)
+            {
+                BuffTLoad(i);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                PreButton[i].color = Color.white;
+            }
+            PreButton[Data.LocalData.SelectPreSet].color = Color.green;
         }
         else
         {
@@ -153,10 +156,20 @@ public class LobbyManager : MonoBehaviour
             Data.LocalData.Gold = 2000000;
             Data.LocalData.diffi = 0;
             DiffiT.text = Data.LocalData.diffi.ToString("#,##0");
-            SetPreset(0);
+            Data.LocalData.SelectPreSet = 0;
             Data.Stats = new UnitStats();
             Data.Units = new List<int>();
-            for(int i = 1; i <=4; i++)
+            Data.LocalData.GetUnits = new Dictionary<UnitClass, LocalUnit>();
+            Data.LocalData.Blessing = new Dictionary<BlessingType, int>()
+            {   {BlessingType.Attack, 0 },
+                {BlessingType.Defence, 0 },
+                { BlessingType.Skill, 0 },
+                {BlessingType.Moral, 0 }
+            };
+            Data.LocalData.Master = 1;
+            Data.LocalData.SFX = 1;
+            Data.LocalData.BGM = 1;
+            for (int i = 1; i <= 4; i++)
             {
                 BuffTLoad(i);
             }
@@ -188,6 +201,7 @@ public class LobbyManager : MonoBehaviour
         {
             UG.Spawn(value);
             Data.LocalData.Gold -= value;
+            Data.Save();
             return true;
         }
         else
@@ -200,6 +214,7 @@ public class LobbyManager : MonoBehaviour
     {
         Data.Units.Add(n);
         Data.LocalData.GetUnits.Add((UnitClass)n, new LocalUnit());
+        Data.Save();
     }
     public void Diffi(bool b)
     {
@@ -214,6 +229,7 @@ public class LobbyManager : MonoBehaviour
                 Data.LocalData.diffi--;
             }
         }
+        Data.Save();
         DiffiT.text = Data.LocalData.diffi.ToString("#,##0");
     }
     public void SetPreset(int n)
@@ -224,6 +240,7 @@ public class LobbyManager : MonoBehaviour
         }
         PreButton[n].color = Color.green;
         Data.LocalData.SelectPreSet = n;
+        Data.Save();
     }
     public void startGame()
     {
@@ -246,35 +263,36 @@ public class LobbyManager : MonoBehaviour
     }
     public void BuffLevelUp(int Type)
     {
-        if (!UseMoney((Data.LocalData.Blessing[(BlessingType)(Type)]+1)*1000))
+        if (!UseMoney((Data.LocalData.Blessing[(BlessingType)(Type)] + 1) * 1000))
         {
             return;
         }
         Data.LocalData.Blessing[(BlessingType)(Type)]++;
+        Data.Save();
         BuffTLoad(Type + 1);
     }
     public void BuffTLoad(int n)
     {
         Blessings.GetChild(n).GetChild(2).GetComponent<TMP_Text>().text = "Lv." + Data.LocalData.Blessing[(BlessingType)(n - 1)].ToString("#,##0");
-        switch (n-1)
+        switch (n - 1)
         {
             case 0:
-                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "공격력 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)]*0.5f).ToString("#,##0.0")+
-                    "\n공격속도 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)]*0.1f).ToString("#,##0.0");
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "공격력 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.5f).ToString("#,##0.0") +
+                    "\n공격속도 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0.0");
                 break;
             case 1:
                 Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "체력 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.5f).ToString("#,##0.0") +
-                    "\n받는피해량 -" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] *0.015f).ToString("#,##0.#%");
+                    "\n받는피해량 -" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.015f).ToString("#,##0.#%");
                 break;
             case 2:
-                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "스킬 쿨타임 -" + (Data.LocalData.Blessing[(BlessingType)(n - 1)]*0.1f).ToString("#,##0.0초") +
-                    "\n스킬피해량 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] *0.1f).ToString("#,##0%");
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "스킬 쿨타임 -" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0.0초") +
+                    "\n스킬피해량 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0%");
                 break;
             case 3:
                 Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "획득 사기량 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0%");
                 break;
         }
-        Blessings.GetChild(n).GetChild(4).GetComponentInChildren<TMP_Text>().text = "레벨업("+ ((Data.LocalData.Blessing[(BlessingType)(n - 1)]+1)*1000).ToString("#,##0$)");
+        Blessings.GetChild(n).GetChild(4).GetComponentInChildren<TMP_Text>().text = "레벨업(" + ((Data.LocalData.Blessing[(BlessingType)(n - 1)] + 1) * 1000).ToString("#,##0$)");
         BlessingLv.GetChild(n - 1).GetChild(1).GetComponent<Text>().text = "Lv." + Data.LocalData.Blessing[(BlessingType)(n - 1)].ToString("#,##0");
     }
 }

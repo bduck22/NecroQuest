@@ -6,6 +6,7 @@ public enum UnitTargetType
     Far,
     LowHp
 }
+[SerializeField]
 public enum UnitClass
 {
     GuardN,

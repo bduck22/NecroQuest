@@ -55,6 +55,7 @@ public class ResultControl : MonoBehaviour
     public void Confirm()
     {
         Data.LocalData.Gold += GameManager.instance.gold;
+        Data.Save();
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }

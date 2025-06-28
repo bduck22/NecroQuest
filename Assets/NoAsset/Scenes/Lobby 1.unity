@@ -3892,6 +3892,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1524899448}
+        m_TargetAssemblyTypeName: Preset, Assembly-CSharp
+        m_MethodName: Save
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1034190111}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -24908,6 +24920,7 @@ GameObject:
   - component: {fileID: 1897661327}
   - component: {fileID: 1897661329}
   - component: {fileID: 1897661328}
+  - component: {fileID: 1897661330}
   m_Layer: 5
   m_Name: Setting
   m_TagString: Untagged
@@ -24976,6 +24989,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897661326}
   m_CullTransparentMesh: 1
+--- !u!114 &1897661330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897661326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a3b2d2f35619642b4e2ad4ecbf89ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1903494691
 GameObject:
   m_ObjectHideFlags: 0
@@ -25455,7 +25480,7 @@ MonoBehaviour:
   Blessings: {fileID: 2059033328}
   BlessingLv: {fileID: 406212228}
   Setting: {fileID: 1897661327}
-  AudioMixer: {fileID: 0}
+  AudioMixer: {fileID: 24100000, guid: a0bd72b5fe96a40429197f2e9cfc38f9, type: 2}
   UG: {fileID: 582881976}
 --- !u!4 &1925525825
 Transform:

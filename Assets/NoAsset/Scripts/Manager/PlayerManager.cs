@@ -305,4 +305,8 @@ public class PlayerManager : MonoBehaviour
         InfoPop.gameObject.SetActive(open);
         if (open) InfoPop.GetComponent<InfomationUI>().On(number);
     }
+    void OnApplicationQuit()
+    {
+        Data.Save();
+    }
 }
