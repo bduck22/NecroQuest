@@ -59,7 +59,7 @@ public class InfomationUI : MonoBehaviour
 
         icon.sprite = Resources.Load<Sprite>(uClass.ToString() + "Head");
         name.text = Data.UnitData[uClass].Name;
-        level.text = "Lv : " + unit.Level.ToString("#,##0");
+        level.text = "Lv : " + Data.LocalData.GetUnits[uClass].level.ToString("#,##0");
         P.sprite = Resources.Load<Sprite>(uClass.ToString() + "P");
         S.sprite = Resources.Load<Sprite>(uClass.ToString() + "S");
     }

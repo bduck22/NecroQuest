@@ -1,3 +1,4 @@
+using MaykerStudio.Demo;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -107,13 +108,15 @@ public class UnitUpgrade : MonoBehaviour
     }
     public void Levelup()
     {
-        if (LobbyManager.Instance.UseMoney(Price))
+        if (Data.LocalData.GetUnits[uClass].level == 25)
         {
-            if (Data.LocalData.GetUnits[uClass].level == 25)
+            LobbyManager.Instance.Wanning(Wannings.MaxLv);
+        }
+        else {
+            if (LobbyManager.Instance.UseMoney(Price))
             {
-                LobbyManager.Instance.Wanning(Wannings.MaxLv);
+                Data.LocalData.GetUnits[uClass].level++;
             }
-            else Data.LocalData.GetUnits[uClass].level++;
         }
         Load();
     }

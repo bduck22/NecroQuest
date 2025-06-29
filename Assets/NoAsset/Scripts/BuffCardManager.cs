@@ -40,7 +40,7 @@ public class BuffCardManager : MonoBehaviour
                 carddata[i] = Data.GuardianData[keys[i]];
 
                 Cards[i].GetChild(0).gameObject.SetActive(true);
-                Cards[i].GetChild(0).GetComponent<Image>().sprite = null;
+                Cards[i].GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(((GuardianType)i).ToString());
                 Cards[i].GetChild(1).GetComponentInChildren<Text>().text = carddata[i].Name;
                 Cards[i].GetChild(2).GetComponent<Text>().text = carddata[i].Description;
 
