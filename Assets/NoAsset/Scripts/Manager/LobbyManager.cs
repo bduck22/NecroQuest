@@ -159,6 +159,7 @@ public class LobbyManager : MonoBehaviour
             Data.LocalData.SelectPreSet = 0;
             Data.Stats = new UnitStats();
             Data.Units = new List<int>();
+            Data.LocalData.Presets = new List<int[]>();
             Data.LocalData.GetUnits = new Dictionary<UnitClass, LocalUnit>();
             Data.LocalData.Blessing = new Dictionary<BlessingType, int>()
             {   {BlessingType.Attack, 0 },

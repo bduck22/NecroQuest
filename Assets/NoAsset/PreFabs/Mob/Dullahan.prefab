@@ -15124,7 +15124,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124526848354686527}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -15165,7 +15165,9 @@ PolygonCollider2D:
     m_Paths:
     - - {x: -4.2784753, y: 0.7195318}
       - {x: -5.0309143, y: -1.0490223}
-      - {x: -2.788794, y: -2.5239575}
+      - {x: -4.2381806, y: -2.561221}
+      - {x: -2.7287402, y: -2.9118829}
+      - {x: -0.2433145, y: -2.725779}
       - {x: 0.63059545, y: -1.340845}
       - {x: 2.4315562, y: 0.727643}
       - {x: -1.6617725, y: 0.29183054}

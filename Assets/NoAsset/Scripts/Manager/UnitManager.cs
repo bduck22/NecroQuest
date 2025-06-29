@@ -149,14 +149,12 @@ public class UnitManager : MonoBehaviour
             {
                 if (PlayerManager.SelectSkill.gameObject.activeSelf)
                 {
-                    Debug.Log("마우스 지정 스킬");
                     PlayerManager.SelectSkill.Skill();
                     PlayerManager.SelectSkill = null;
                     SkillRange.gameObject.SetActive(false);
                 }
                 else
                 {
-                    Debug.Log("해당 유닛 사망함");
                     PlayerManager.SelectSkill = null;
                     SkillRange.gameObject.SetActive(false);
                 }
