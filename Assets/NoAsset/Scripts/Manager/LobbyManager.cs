@@ -149,6 +149,7 @@ public class LobbyManager : MonoBehaviour
                 PreButton[i].color = Color.white;
             }
             PreButton[Data.LocalData.SelectPreSet].color = Color.green;
+            DiffiT.text = Data.LocalData.diffi.ToString("#,##0");
         }
         else
         {
@@ -253,7 +254,7 @@ public class LobbyManager : MonoBehaviour
                 Data.Stats.AttackSpeed += (Data.LocalData.Blessing[BlessingType.Attack] * 0.1f);
                 Data.Stats.Hp += (Data.LocalData.Blessing[BlessingType.Defence] * 0.5f);
                 Data.Stats.GetDamage -= (Data.LocalData.Blessing[BlessingType.Defence] * 0.015f);
-                Data.Stats.SkillCool += (Data.LocalData.Blessing[BlessingType.Skill] * 0.2f);
+                Data.Stats.SkillCool -= (Data.LocalData.Blessing[BlessingType.Skill] * 0.2f);
                 Data.Stats.SkillDamage += (Data.LocalData.Blessing[BlessingType.Skill] * 0.1f);
                 Data.Stats.MoralUp += (Data.LocalData.Blessing[BlessingType.Moral] * 0.1f);
                 SceneManager.LoadScene(2);
@@ -295,5 +296,15 @@ public class LobbyManager : MonoBehaviour
         }
         Blessings.GetChild(n).GetChild(4).GetComponentInChildren<TMP_Text>().text = "레벨업(" + ((Data.LocalData.Blessing[(BlessingType)(n - 1)] + 1) * 1000).ToString("#,##0$)");
         BlessingLv.GetChild(n - 1).GetChild(1).GetComponent<Text>().text = "Lv." + Data.LocalData.Blessing[(BlessingType)(n - 1)].ToString("#,##0");
+    }
+    public void Init()
+    {
+        Data.Delete();
+        //메인화며으로이동
+    }
+    public void Quit()
+    {
+        Data.Save();
+        Application.Quit();
     }
 }

@@ -67,36 +67,73 @@ public class Guardian : NameDEscriptionBase
         switch (guardianType)
         {
             case GuardianType.One:
-                Stats.SkillCool += 1;
+                //Stats.SkillCool -= 1;
                 Stats.SetValue += 0.2f;
                 break;
             case GuardianType.Two:
+                Stats.Damage+=23;
+                Stats.MoralUp += 0.2f;
+                Stats.Speed -= 0.4f;
                 break;
             case GuardianType.Three:
+                Stats.Speed += 1.2f;
+                //Stats.SkillDamage+;
                 break;
             case GuardianType.Four:
+                Stats.Hp += 2;
+                Stats.SetValue += 0.25f;
                 break;
             case GuardianType.Five:
+                Stats.AttackSpeed += 0.7f;
+                //Stats.SkillCool -;
                 break;
             case GuardianType.Six:
+                Stats.Speed += 1.3f;
+                //Stats.SkillDamage +;
+                Stats.GetHeal -= 0.15f;
                 break;
             case GuardianType.Seven:
+                Stats.Damage += 12;
+                Stats.AttackSpeed += 1.6f;
+                Stats.GetHeal -= 0.4f;
+                Stats.Speed -= 1.2f;
                 break;
             case GuardianType.Eight:
+                Stats.GetDamage -= 0.3f;
+                Stats.AttackSpeed -= 0.6f;
                 break;
             case GuardianType.Nine:
+                Stats.Intersection += 4;
+                Stats.AttackSpeed -= 0.6f;
                 break;
             case GuardianType.Ten:
+                //Stats.SkillCool-;
+                //Stats.SkillDamage+
+                Stats.GetHeal += 0.1f;
                 break;
             case GuardianType.OneOne:
+                Stats.GetHeal += 0.15f;
+                Stats.MoralUp += 0.1f;
                 break;
             case GuardianType.OneTwo:
+                Stats.Speed += 3;
+                Stats.GetDamage += 0.2f;
                 break;
             case GuardianType.OneThree:
+                Stats.AttackSpeed += 1.8f;
+                Stats.GetHeal -= 0.2f;
+                Stats.MoralUp -= 0.2f;
                 break;
             case GuardianType.OneFour:
+                Stats.Hp += 1.8f;
+                Stats.Speed += 0.4f;
+                Stats.AttackSpeed += 1.6f;
+                //Stats.SkillDamage+
+                Stats.MoralUp -= 0.7f;
                 break;
             case GuardianType.OneFive:
+                Stats.MoralUp += 0.2f;
+                Stats.Speed -= 0.3f;
                 break;
         }
     }
@@ -132,21 +169,21 @@ public static class Data
 {
     public static readonly Dictionary<int, Guardian> GuardianData = new Dictionary<int, Guardian>()
     {
-        {0, new Guardian((GuardianType)0, "마법친화", "1설명") },
-        {1, new Guardian((GuardianType)1, "2이름", "2설명") },
-        {2, new Guardian((GuardianType)2, "3이름", "3설명") },
-        {3, new Guardian((GuardianType)3, "4이름", "4설명") },
-        {4, new Guardian((GuardianType)4, "5이름", "5설명") },
-        {5, new Guardian((GuardianType)5, "6이름", "6설명") },
-        {6, new Guardian((GuardianType)6, "7이름", "7설명") },
-        {7, new Guardian((GuardianType)7, "8이름", "8설명") },
-        {8, new Guardian((GuardianType)8, "9이름", "9설명") },
-        {9, new Guardian((GuardianType)9, "10이름", "10설명") },
-        {10, new Guardian((GuardianType)10, "11이름", "11설명") },
-        {11, new Guardian((GuardianType)11, "12이름", "12설명") },
-        {12, new Guardian((GuardianType)12, "13이름", "13설명") },
-        {13, new Guardian((GuardianType)13, "14이름", "14설명") },
-        {14, new Guardian((GuardianType)14, "15이름", "15설명") }
+        {0, new Guardian((GuardianType)0, "마법친화", "스킬 쿨타임 -초\n가하는 피해 및 회복량 +20%") },
+        {1, new Guardian((GuardianType)1, "그을린 의지", "공격력 +23\n획득 사기량+20%\n이동속도 -0.4") },
+        {2, new Guardian((GuardianType)2, "유성의 흐름", "이동속도 +1.2\n스킬 피해량 +%") },
+        {3, new Guardian((GuardianType)3, "유혈흡수", "최대체력 +2\n받는 회복량 + 100%") },
+        {4, new Guardian((GuardianType)4, "신묘한힘", "공격속도 +0.7\n스킬 쿨타임 -초") },
+        {5, new Guardian((GuardianType)5, "잿빛의 잔재주", "이동속도 +1.3\n스킬 피해량 +%\n받는 치유량 -15%") },
+        {6, new Guardian((GuardianType)6, "결의맺은 공성", "공격 +12\n공격속도 +1.6\n받는 회복량 -40%\n이동속도 -1.2") },
+        {7, new Guardian((GuardianType)7, "경질화", "받는 피해량-30%\n공격속도 -0.6") },
+        {8, new Guardian((GuardianType)8, "장거리 투사", "사거리 +4\n공격속도 -0.4") },
+        {9, new Guardian((GuardianType)9, "마력 순항", "스킬 쿨타임 -초\n스킬 피해량 +%\n받는 회복량 +10%") },
+        {10, new Guardian((GuardianType)10, "요정의 포옹", "받는 회복량 +15%\n획득 사기량 +10%") },
+        {11, new Guardian((GuardianType)11, "신속", "이동속도 +3.0\n받는 피해량 +20%") },
+        {12, new Guardian((GuardianType)12, "과로", "공격속도 +1.8\n받는 회복량 -20%\n획득 사기량 -20%") },
+        {13, new Guardian((GuardianType)13, "자력갱생", "체력 +3.5\n이동속도 +0.4\n공격속도 +1.6\n스킬 피해량 +30%") },
+        {14, new Guardian((GuardianType)14, "강건한 고양", "획득 사기량 +20%\n이동속도 -0.3") }
     };
     public static readonly Dictionary<MobType, MobStat> MobData = new Dictionary<MobType, MobStat>()
     {
@@ -256,6 +293,13 @@ public static class Data
         {
             Units.Add((int)u);
         }
+    }
+    public static void Delete()
+    {
+        File.Delete(path);
+        File.Delete(characterpath);
+        File.Delete(blessingpath);
+        File.Delete(presetpath);
     }
 }
 

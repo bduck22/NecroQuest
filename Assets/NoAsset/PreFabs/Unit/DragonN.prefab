@@ -106,7 +106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &620377403450169371
 Transform:
   m_ObjectHideFlags: 0
@@ -239,6 +239,8 @@ MonoBehaviour:
   SkillTime: 0
   skill: 0
   SkillWeight: 5
+  GetDamages: 0
+  SetDamages: 0
 --- !u!50 &953783681087180415
 Rigidbody2D:
   serializedVersion: 5
@@ -1613,8 +1615,8 @@ AudioSource:
   m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 3160206553944746551, guid: a0bd72b5fe96a40429197f2e9cfc38f9, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 795967ece53444cbe9686bfbfb34954e, type: 3}
+  m_Resource: {fileID: 8300000, guid: 795967ece53444cbe9686bfbfb34954e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

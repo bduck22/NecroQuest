@@ -73,8 +73,8 @@ public class UnitInfoUi : MonoBehaviour
                     {
                         Cha.GetChild(j).gameObject.SetActive(true);
                     }
-                    Cha.GetChild(0).GetComponentInChildren<Text>().text = (unit.SkillCoolTime - unit.PlusStats.SkillCool - unit.SkillTime).ToString("#,###");
-                    Cha.GetChild(0).GetChild(1).GetComponent<Image>().fillAmount = 1 - unit.SkillTime / (unit.SkillCoolTime - unit.PlusStats.SkillCool);
+                    Cha.GetChild(0).GetComponentInChildren<Text>().text = (unit.SkillCoolTime + unit.PlusStats.SkillCool - unit.SkillTime).ToString("#,###");
+                    Cha.GetChild(0).GetChild(1).GetComponent<Image>().fillAmount = 1 - unit.SkillTime / (unit.SkillCoolTime + unit.PlusStats.SkillCool);
                     if (PlayerManager.instance.SeletedUnits.Contains(i))
                     {
                         Cha.GetChild(1).GetComponent<Image>().color = Color.red;

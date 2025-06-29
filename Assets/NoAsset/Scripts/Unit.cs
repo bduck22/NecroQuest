@@ -98,7 +98,7 @@ public class Unit : MonoBehaviour
     {
         Hp = (MaxHp+ PlusStats.Hp) * 20;
         AttackTime = 1;
-        SkillTime = SkillCoolTime-PlusStats.SkillCool;
+        SkillTime = SkillCoolTime+PlusStats.SkillCool;
         Interaction.radius = Intersection + 2f+PlusStats.Intersection;
         TargetUnit = null;
         Invin = false;
@@ -169,6 +169,16 @@ public class Unit : MonoBehaviour
             }
             Data.LocalData.GetUnits.Remove(UnitClass);
             Data.Units.Remove((int)UnitClass);
+            int l = 0;
+            foreach(int i in Data.LocalData.Presets[Data.LocalData.SelectPreSet])
+            {
+                if(i== (int)UnitClass)
+                {
+                    Data.LocalData.Presets[Data.LocalData.SelectPreSet][l] = -1;
+                    break;
+                }
+                l++;
+            }
             if(Data.LocalData.StartingUnit == UnitClass)
             {
                 LobbyManager.Instance.UnitAdd((int)UnitClass);
@@ -190,7 +200,7 @@ public class Unit : MonoBehaviour
             AttackTime = 1;
         }
 
-        if (SkillTime < (SkillCoolTime- PlusStats.SkillCool))
+        if (SkillTime < (SkillCoolTime+ PlusStats.SkillCool))
         {
             if (!locked|| !Hlocked)
             {
@@ -200,7 +210,7 @@ public class Unit : MonoBehaviour
         else if (!skill|| !Hlocked)
         {
             skill = true;
-            SkillTime = (SkillCoolTime-PlusStats.SkillCool);
+            SkillTime = (SkillCoolTime+PlusStats.SkillCool);
         }
 
         if (TargetUnit && AttackTime == 1 && !locked&& !Hlocked)
@@ -304,14 +314,6 @@ public class Unit : MonoBehaviour
         if (skill&&GameManager.instance.GameStatus == GameStatus.Waving)
         {
             float skillweight = SkillWeight + PlusStats.SetValue + PlusStats.SkillDamage;
-            if (Moral <= 50)
-            {
-                skillweight *= 0.7f;
-            }
-            else if(Moral > 200)
-            {
-                skillweight *= 1.3f;
-            }
             bool IsDamaged = false;
             skill = false;
             SkillTime = 0;

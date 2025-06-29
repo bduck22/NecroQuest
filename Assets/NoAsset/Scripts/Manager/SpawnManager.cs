@@ -87,6 +87,7 @@ public class SpawnManager : MonoBehaviour
                 Boss.spawnManager = this;
                 Boss.MobInit();
                 Mobs.Add(Boss);
+                GetComponent<AudioSource>().Play();
             }
         }
         waving = false;
