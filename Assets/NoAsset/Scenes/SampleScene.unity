@@ -180337,8 +180337,8 @@ MonoBehaviour:
   - MobInfo:
     - Type: 4
       Count: 5
-      middle: 0
-      final: 1
+      middle: 1
+      final: 0
     - Type: 1
       Count: 5
       middle: 0

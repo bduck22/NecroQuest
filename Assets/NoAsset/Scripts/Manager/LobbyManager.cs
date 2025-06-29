@@ -297,7 +297,7 @@ public class LobbyManager : MonoBehaviour
         Blessings.GetChild(n).GetChild(4).GetComponentInChildren<TMP_Text>().text = "레벨업(" + ((Data.LocalData.Blessing[(BlessingType)(n - 1)] + 1) * 1000).ToString("#,##0$)");
         BlessingLv.GetChild(n - 1).GetChild(1).GetComponent<Text>().text = "Lv." + Data.LocalData.Blessing[(BlessingType)(n - 1)].ToString("#,##0");
     }
-    public void Init()
+    public void MainScreen()
     {
         Data.Delete();
         //메인화며으로이동
