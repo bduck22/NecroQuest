@@ -8,6 +8,7 @@ public class CharacterIconUI : MonoBehaviour, IPointerClickHandler
     public int number;
     public void OnPointerClick(PointerEventData eventData)
     {
+        transform.root.GetComponent<AudioSource>().Play();
         if(eventData.button == PointerEventData.InputButton.Left)
         {
             PlayerManager.instance.Units[number].transform.GetComponent<SpriteRenderer>().material = PlayerManager.instance.UnitManager.Select;

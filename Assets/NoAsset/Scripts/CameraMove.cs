@@ -10,6 +10,10 @@ public class CameraMove : MonoBehaviour
     [SerializeField] Vector2 MinVector;
     void Update()
     {
+        if(GameManager.instance.GameStatus == GameStatus.Result)
+        {
+            return;
+        }
 
         Vector2 mousePosition = Input.mousePosition;
 

@@ -57,6 +57,6 @@ public class ResultControl : MonoBehaviour
         Data.LocalData.Gold += GameManager.instance.gold;
         Data.Save();
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

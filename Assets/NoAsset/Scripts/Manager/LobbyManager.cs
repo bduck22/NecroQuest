@@ -13,7 +13,6 @@ public enum Wannings
 {
     Gold,
     Unit,
-    Saved,
     MaxLv,
     EmptyPre
 }
@@ -76,15 +75,6 @@ public class LobbyManager : MonoBehaviour
                 }
                 else WanningT.text = WText;
                 StartCoroutine(FadeOut(0));
-                break;
-            case Wannings.Saved:
-                WText = "저장되었습니다.";
-                if (WanningT.text == WText)
-                {
-                    iswanning = true;
-                }
-                else WanningT.text = WText;
-                StartCoroutine(FadeOut(1));
                 break;
             case Wannings.MaxLv:
                 WText = "최대레벨입니다.";
@@ -257,7 +247,7 @@ public class LobbyManager : MonoBehaviour
                 Data.Stats.SkillCool -= (Data.LocalData.Blessing[BlessingType.Skill] * 0.2f);
                 Data.Stats.SkillDamage += (Data.LocalData.Blessing[BlessingType.Skill] * 0.1f);
                 Data.Stats.MoralUp += (Data.LocalData.Blessing[BlessingType.Moral] * 0.1f);
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(3);
                 return;
             }
         }
@@ -299,7 +289,7 @@ public class LobbyManager : MonoBehaviour
     }
     public void MainScreen()
     {
-        Data.Delete();
+        SceneManager.LoadScene(0);
         //메인화며으로이동
     }
     public void Quit()

@@ -94,7 +94,6 @@ public class Preset : MonoBehaviour
             }
         }
         Data.Save();
-        LobbyManager.Instance.Wanning(Wannings.Saved);
     }
     public void Init()
     {

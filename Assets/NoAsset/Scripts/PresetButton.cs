@@ -11,6 +11,7 @@ public class PresetButton : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
+        LobbyManager.Instance.GetComponent<AudioSource>().Play();
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             preset.SetPre(int.Parse(transform.parent.name[transform.parent.name.Length - 1].ToString()) - 1);

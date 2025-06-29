@@ -1337,7 +1337,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5833333
+        time: 0.11666667
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -1349,7 +1349,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: 
+    path: Shadow
     classID: 82
     script: {fileID: 0}
     flags: 0
@@ -1367,7 +1367,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.11666667
+        time: 0.5833333
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -1379,7 +1379,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: Shadow
+    path: Arm
     classID: 82
     script: {fileID: 0}
     flags: 0
@@ -1572,7 +1572,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 0
+      path: 1926924059
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 82
@@ -1581,7 +1581,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 1926924059
+      path: 2685614196
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 82
@@ -5003,7 +5003,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5833333
+        time: 0.11666667
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -5015,7 +5015,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: 
+    path: Shadow
     classID: 82
     script: {fileID: 0}
     flags: 0
@@ -5033,7 +5033,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.11666667
+        time: 0.5833333
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -5045,7 +5045,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: Shadow
+    path: Arm
     classID: 82
     script: {fileID: 0}
     flags: 0

@@ -7,8 +7,10 @@ public class UnitHit : MonoBehaviour
 {
     Unit Unit;
     private SpriteRenderer HitImage;
+    AudioSource AS;
     void Start()
     {
+        AS = GetComponent<AudioSource>();
         HitImage = transform.parent.GetChild(4).GetComponent<SpriteRenderer>();
         Unit = transform.parent.GetComponent<Unit>();
     }
@@ -60,6 +62,7 @@ public class UnitHit : MonoBehaviour
     }
     void Hit(float Damage)
     {
+        AS.Play();
         Unit.HpChange(Damage);
         StartCoroutine(Invining());
     }

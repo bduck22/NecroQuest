@@ -249,7 +249,6 @@ public class GameManager : MonoBehaviour
         if (!ResultPopup.gameObject.activeSelf)
         {
             ResultPopup.gameObject.SetActive(true);
-            Time.timeScale = 0;
         }
     }
 
