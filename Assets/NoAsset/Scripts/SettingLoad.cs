@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingLoad : MonoBehaviour
@@ -15,6 +16,9 @@ public class SettingLoad : MonoBehaviour
     }
     private void OnDisable()
     {
-        Data.Save();
+        if(SceneManager.GetActiveScene().buildIndex != 4)
+        {
+            Data.Save();
+        }
     }
 }

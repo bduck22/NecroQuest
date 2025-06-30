@@ -143,31 +143,11 @@ public class LobbyManager : MonoBehaviour
         }
         else
         {
-            Data.LocalData = new LocalData();
-            Data.LocalData.Gold = 2000000;
             Data.LocalData.diffi = 0;
             DiffiT.text = Data.LocalData.diffi.ToString("#,##0");
-            Data.LocalData.SelectPreSet = 0;
-            Data.Stats = new UnitStats();
-            Data.Units = new List<int>();
-            Data.LocalData.Presets = new List<int[]>();
-            Data.LocalData.GetUnits = new Dictionary<UnitClass, LocalUnit>();
-            Data.LocalData.Blessing = new Dictionary<BlessingType, int>()
-            {   {BlessingType.Attack, 0 },
-                {BlessingType.Defence, 0 },
-                { BlessingType.Skill, 0 },
-                {BlessingType.Moral, 0 }
-            };
-            Data.LocalData.Master = 1;
-            Data.LocalData.SFX = 1;
-            Data.LocalData.BGM = 1;
             for (int i = 1; i <= 4; i++)
             {
                 BuffTLoad(i);
-            }
-            for (int i = 0; i < 3; i++)
-            {
-                Data.LocalData.Presets.Add(new int[4] { -1, -1, -1, -1 });
             }
             Starting.gameObject.SetActive(true);
             Time.timeScale = 0;

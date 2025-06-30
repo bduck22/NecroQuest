@@ -59,6 +59,7 @@ public class BuffCardManager : MonoBehaviour
     }
     public void CardSelect(int number)
     {
+        Time.timeScale = 1;
         PlayerManager.instance.guardians.Add(carddata[number]);
         PlayerManager.instance.GuardianLoad();
     }

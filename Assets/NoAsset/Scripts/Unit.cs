@@ -79,6 +79,8 @@ public class Unit : MonoBehaviour
 
     public Rigidbody2D rigidbody;
 
+    AudioSource audioSource;
+
     [Header("Skill")]
     public Transform SkillEffect;
     public float SkillCoolTime;
@@ -92,6 +94,7 @@ public class Unit : MonoBehaviour
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
         //Spawn();
     }
     public void UnitInit()
@@ -442,6 +445,7 @@ public class Unit : MonoBehaviour
         else
         {
             weight += PlusStats.GetHeal;
+            audioSource.Play();
             PlayerManager.instance.Heal(transform, -Damage * weight);
         }
         Hp -= Damage * weight;
