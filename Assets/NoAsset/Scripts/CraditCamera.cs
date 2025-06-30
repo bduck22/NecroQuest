@@ -17,10 +17,14 @@ public class CraditCamera : MonoBehaviour
     }
     void Update()
     {
-        if (Input.anyKey)
+        if (Input.anyKey&& !Setting.gameObject.activeSelf)
         {
-            source.pitch = 3;
-            Speed = 1.25f * 3f;
+            if(!Input.GetKey(KeyCode.Escape))
+            {
+                source.pitch = 3;
+                Speed = 1.25f * 3f;
+            }
+            
         }
         else
         {

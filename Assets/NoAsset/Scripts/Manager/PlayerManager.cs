@@ -5,7 +5,6 @@ using UnityEngine;
 
 public enum QuestType
 {
-    Hit,
     Wave,
     Monster,
     Attack
@@ -155,35 +154,32 @@ public class PlayerManager : MonoBehaviour
     public void Return()
     {
         GameManager.instance.GameStatus = GameStatus.Result;
+        isAlive();
     }
     public void StageStart()
     {
+        GameManager.instance.Diffi = Data.LocalData.diffi;
         QuestType = (QuestType)Random.Range(0, 4);
         QuestValue = Random.Range(1, 10);
         switch (QuestType)
         {
-            case QuestType.Hit:
-                Qdesc = "의 피해 받기";
-                Qdesc2 = "의 피해 받음";
-                QuestValue *= 500;
-                break;
             case QuestType.Attack:
                 Qdesc = "의 피해 입히기";
                 Qdesc2 = "의 피해 입힘";
-                QuestValue *= 500;
+                QuestValue = GameManager.instance.Diffi = (Data.LocalData.diffi == 0 ? 200 : Data.LocalData.diffi * 500);
                 break;
             case QuestType.Wave:
                 Qdesc = "웨이브 클리어하기";
                 Qdesc2 = "웨이브 클리어";
+                QuestValue = GameManager.instance.Diffi + 2;
                 break;
             case QuestType.Monster:
                 Qdesc = "마리의 몬스터 처치하기";
                 Qdesc2 = "마리의 몬스터 처치함";
-                QuestValue *= 100;
+                //QuestValue = ;
                 break;
         }
         OQuestValue = QuestValue;
-        GameManager.instance.Diffi = Data.LocalData.diffi;
         for (int i = 0; i < 4; i++)
         {
             if (Data.LocalData.Presets[Data.LocalData.SelectPreSet][i] != -1)
@@ -206,10 +202,13 @@ public class PlayerManager : MonoBehaviour
 
                     foreach (Unit unit2 in Units)
                     {
-                        if (a <= unit.Damage) unit2.PlusStats.Damage += unit.Damage / 5f;
-                        if (a <= unit.Speed) unit2.PlusStats.Speed += unit.Speed / 5f;
-                        if (a <= unit.AttackSpeed) unit2.PlusStats.AttackSpeed += unit.AttackSpeed / 5f;
-                        if (a <= unit.MaxHp) unit2.PlusStats.Hp += unit.MaxHp / 5f;
+                        if (unit2 != null)
+                        {
+                            if (a <= unit.Damage) unit2.PlusStats.Damage += unit.Damage / 5f;
+                            if (a <= unit.Speed) unit2.PlusStats.Speed += unit.Speed / 5f;
+                            if (a <= unit.AttackSpeed) unit2.PlusStats.AttackSpeed += unit.AttackSpeed / 5f;
+                            if (a <= unit.MaxHp) unit2.PlusStats.Hp += unit.MaxHp / 5f;
+                        }
                     }
                 }
                 unit.PlusStats.PlusStat(Data.Stats);

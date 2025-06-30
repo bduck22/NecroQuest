@@ -6,7 +6,7 @@ public class gold : MonoBehaviour
     bool updown;
     private void OnEnable()
     {
-        goldposition = transform.position;
+        goldposition = transform.parent.position;
     }
     void Update()
     {

@@ -97,6 +97,10 @@ public class SpawnManager : MonoBehaviour
         int Wid = Random.Range(2, spawnPoints.childCount - 2);
         for (int i = 0; i < count; i++)
         {
+            if (i % 5 == 0)
+            {
+                Wid = Random.Range(2, spawnPoints.childCount - 2);
+            }
             MobBase mob = null;
             MobCount++;
             foreach (MobBase o in Mobs)

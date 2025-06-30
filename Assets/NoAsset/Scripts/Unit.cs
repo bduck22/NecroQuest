@@ -277,7 +277,7 @@ public class Unit : MonoBehaviour
                 break;
             case UnitClass.Archer:
                 float R = Random.Range(0f, 1f);
-                if(R < 0.3f)
+                if(R < 0.2f)
                 {
                     attackweight += 0.5f;
                 }
@@ -373,20 +373,22 @@ public class Unit : MonoBehaviour
                     Unit Skill_Target=null;
                     foreach(Unit t in PlayerManager.instance.Units)
                     {
-                        if (t.gameObject.activeSelf)
-                        {
-                            if (!Skill_Target)
+                        if(t != null) {
+                            if (t.gameObject.activeSelf)
                             {
-                                if(Vector2.Distance(transform.position, t.transform.position) < ((Intersection+PlusStats.Intersection) * 0.6f) + 1.2f)
+                                if (!Skill_Target)
                                 {
-                                    Skill_Target = t;
+                                    if (Vector2.Distance(transform.position, t.transform.position) < ((Intersection + PlusStats.Intersection) * 0.6f) + 1.2f)
+                                    {
+                                        Skill_Target = t;
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                if (Skill_Target.Hp > t.Hp && Vector2.Distance(transform.position, t.transform.position) < ((Intersection + PlusStats.Intersection) * 0.6f)+1.2f)
+                                else
                                 {
-                                    Skill_Target = t;
+                                    if (Skill_Target.Hp > t.Hp && Vector2.Distance(transform.position, t.transform.position) < ((Intersection + PlusStats.Intersection) * 0.6f) + 1.2f)
+                                    {
+                                        Skill_Target = t;
+                                    }
                                 }
                             }
                         }
@@ -424,7 +426,7 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            Debug.Log("스킬 쿨타임중");
+            //Debug.Log("스킬 쿨타임중");
         }
     }
 
@@ -436,10 +438,6 @@ public class Unit : MonoBehaviour
             weight += PlusStats.GetDamage;
             Moral -= 1;
             GetDamages += Damage * weight;
-            if (PlayerManager.instance.QuestType == QuestType.Hit)
-            {
-                PlayerManager.instance.QuestValue -= Damage * weight;
-            }
             PlayerManager.instance.Deal(transform, Damage*weight);
         }
         else

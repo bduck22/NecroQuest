@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InfomationUI : MonoBehaviour
@@ -30,13 +31,21 @@ public class InfomationUI : MonoBehaviour
         damage = transform.GetChild(2).GetChild(1).GetChild(1).GetComponent<Text>();
         attackspeed = transform.GetChild(2).GetChild(1).GetChild(2).GetComponent<Text>();
         speed = transform.GetChild(2).GetChild(1).GetChild(3).GetComponent<Text>();
-        moralS = transform.GetChild(3).GetChild(0).GetComponent<Slider>();
-        moralT = transform.GetChild(3).GetChild(1).GetComponent<TMP_Text>();
-        healthS = transform.GetChild(4).GetChild(0).GetComponent<Slider>();
-        healthT = transform.GetChild(4).GetChild(1).GetComponent<TMP_Text>();
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            P = transform.GetChild(3).GetChild(0).GetComponent<Image>();
+            S = transform.GetChild(4).GetChild(0).GetComponent<Image>();
+        }
+        else
+        {
+            moralS = transform.GetChild(3).GetChild(0).GetComponent<Slider>();
+            moralT = transform.GetChild(3).GetChild(1).GetComponent<TMP_Text>();
+            healthS = transform.GetChild(4).GetChild(0).GetComponent<Slider>();
+            healthT = transform.GetChild(4).GetChild(1).GetComponent<TMP_Text>();
 
-        P = transform.GetChild(5).GetChild(0).GetComponent<Image>();
-        S = transform.GetChild(6).GetChild(0).GetComponent<Image>();
+            P = transform.GetChild(5).GetChild(0).GetComponent<Image>();
+            S = transform.GetChild(6).GetChild(0).GetComponent<Image>();
+        }
     }
     public void On(int n)
     {
@@ -65,14 +74,17 @@ public class InfomationUI : MonoBehaviour
     }
     void Update()
     {
-        hp.text = (unit.MaxHp + unit.PlusStats.Hp).ToString("#,##0.0");
-        speed.text = (unit.Speed + unit.PlusStats.Speed).ToString("#,##0.0");
-        damage.text = (unit.Damage + unit.PlusStats.Damage).ToString("#,##0.0");
-        attackspeed.text = (unit.AttackSpeed + unit.PlusStats.AttackSpeed).ToString("#,##0.0");
-        moralS.value = unit.Moral / 250f;
-        moralT.text = unit.Moral.ToString("#,##0.0") + " / " + 250f;
-        healthS.value = unit.Hp / (unit.MaxHp+unit.PlusStats.Hp)*20f;
-        healthT.text = unit.Hp.ToString("#,##0.0") + " / " + ((unit.MaxHp + unit.PlusStats.Hp) * 20f).ToString("#,##0.0");
+        if (SceneManager.GetActiveScene().buildIndex != 1)
+        {
+            hp.text = (unit.MaxHp + unit.PlusStats.Hp).ToString("#,##0.0");
+            speed.text = (unit.Speed + unit.PlusStats.Speed).ToString("#,##0.0");
+            damage.text = (unit.Damage + unit.PlusStats.Damage).ToString("#,##0.0");
+            attackspeed.text = (unit.AttackSpeed + unit.PlusStats.AttackSpeed).ToString("#,##0.0");
+            moralS.value = unit.Moral / 250f;
+            moralT.text = unit.Moral.ToString("#,##0.0") + " / " + 250f;
+            healthS.value = unit.Hp / (unit.MaxHp + unit.PlusStats.Hp) * 20f;
+            healthT.text = unit.Hp.ToString("#,##0.0") + " / " + ((unit.MaxHp + unit.PlusStats.Hp) * 20f).ToString("#,##0.0");
+        }
     }
     public void Set(int n)
     {

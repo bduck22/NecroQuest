@@ -12,7 +12,7 @@ public class Ｓｅｔｔｉｎｇ : MonoBehaviour
 {
     public SliderType Type;
     public AudioMixer audioMixer;
-    Slider slider;
+    public Slider slider;
     private void Awake()
     {
         slider = GetComponent<Slider>();

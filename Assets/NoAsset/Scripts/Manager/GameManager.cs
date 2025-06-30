@@ -226,15 +226,12 @@ public class GameManager : MonoBehaviour
         {
             one = false;
             float R = Random.Range(0.0f, 1.0f);
-            if(R < 0.9f)
+            WaveStartButton.gameObject.SetActive(true);
+            if (R < 0.9f)
             {
                 GuardianSelecter.gameObject.SetActive(true);
                 Time.timeScale = 0;
                 //GuardianSelecter.Load();
-            }
-            else
-            {
-                WaveStartButton.gameObject.SetActive(true);
             }
         }
         //GameStatus = GameStatus.WaveStart;

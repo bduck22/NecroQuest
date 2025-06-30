@@ -593,6 +593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   audioMixer: {fileID: 24100000, guid: a0bd72b5fe96a40429197f2e9cfc38f9, type: 2}
+  slider: {fileID: 193516819}
 --- !u!114 &193516819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2912,8 +2913,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1187721539}
   - {fileID: 2119919839}
+  - {fileID: 1187721539}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3072,6 +3073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   audioMixer: {fileID: 24100000, guid: a0bd72b5fe96a40429197f2e9cfc38f9, type: 2}
+  slider: {fileID: 975090849}
 --- !u!114 &975090849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3220,6 +3222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 2
   audioMixer: {fileID: 24100000, guid: a0bd72b5fe96a40429197f2e9cfc38f9, type: 2}
+  slider: {fileID: 1019222907}
 --- !u!114 &1019222907
 MonoBehaviour:
   m_ObjectHideFlags: 0

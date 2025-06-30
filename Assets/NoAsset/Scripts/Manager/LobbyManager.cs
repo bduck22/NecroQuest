@@ -127,32 +127,22 @@ public class LobbyManager : MonoBehaviour
     }
     IEnumerator Opening()
     {
-        if (File.Exists(Data.path))
+        if (!File.Exists(Data.path))
         {
-            Data.Load();
-            for (int i = 1; i <= 4; i++)
-            {
-                BuffTLoad(i);
-            }
-            for (int i = 0; i < 3; i++)
-            {
-                PreButton[i].color = Color.white;
-            }
-            PreButton[Data.LocalData.SelectPreSet].color = Color.green;
-            DiffiT.text = Data.LocalData.diffi.ToString("#,##0");
-        }
-        else
-        {
-            Data.LocalData.diffi = 0;
-            DiffiT.text = Data.LocalData.diffi.ToString("#,##0");
-            for (int i = 1; i <= 4; i++)
-            {
-                BuffTLoad(i);
-            }
             Starting.gameObject.SetActive(true);
             Time.timeScale = 0;
         }
         yield return new WaitForSeconds(0.5f);
+        DiffiT.text = Data.LocalData.diffi.ToString("#,##0");
+        for (int i = 1; i <= 4; i++)
+        {
+            BuffTLoad(i);
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            PreButton[i].color = Color.white;
+        }
+        PreButton[Data.LocalData.SelectPreSet].color = Color.green;
 
         Open.gameObject.SetActive(true);
         float value = 1;

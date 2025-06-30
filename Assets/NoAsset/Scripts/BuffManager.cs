@@ -131,6 +131,7 @@ public class BuffManager : MonoBehaviour
                 else
                 {
                     Mob.Target = BT.Target.GetComponent<Unit>();
+                    Mob.Lock = true;
                 }
                 BuffEffect = Instantiate(GameManager.instance.BuffEffects[0].gameObject, (!IsUnit? Mob.transform.GetChild(0) : Unit.transform.GetChild(5)));
                 break;
@@ -172,6 +173,7 @@ public class BuffManager : MonoBehaviour
                     else
                     {
                         Mob.Target = null;
+                        Mob.Lock = false;
                     }
                     break;
                 case Buff_Type.Spirit:

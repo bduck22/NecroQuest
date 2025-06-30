@@ -1,12 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor.XR;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
-using UnityEngine.InputSystem;
-using Unity.VisualScripting;
-using Unity.Burst.Intrinsics;
 
 public class NameDEscriptionBase
 {
@@ -197,7 +192,7 @@ public static class Data
     };
     public static readonly Dictionary<UnitClass, UnitData> UnitData = new Dictionary<UnitClass, UnitData>()
     {
-        {UnitClass.GuardN, new UnitData( 1, 1, 1, 1, 1, "수호기사", "근거리 캐릭터\n" +
+        {UnitClass.GuardN, new UnitData( 3.0f, 1.5f, 1.5f, 0.5f, 15f, "수호기사", "근거리 캐릭터\n" +
             "받는 피해량 감소\n" +
             "도발디버프", 
             "도발의 함성",
@@ -205,7 +200,7 @@ public static class Data
             "(도발 : 타겟팅을 이 유닛으로 바꿈)",
             "강인한 육체",
             "받는 피해량 -25%") },
-        {UnitClass.HolyM, new UnitData( 1, 1, 1, 1, 1, "신관", "원거리 캐릭터\n" +
+        {UnitClass.HolyM, new UnitData( 1.5f, 2f, 2f, 1f, 17f, "신관", "원거리 캐릭터\n" +
             "압도적인 회복량\n" +
             "\"공격불가\" \n추천하지 않음",
             "치유의 파동",
@@ -276,6 +271,17 @@ public static class Data
         Units = new List<int>();
         Stats = new UnitStats();
         LocalData = new LocalData();
+        Data.LocalData.Presets = new List<int[]>();
+        Data.LocalData.GetUnits = new Dictionary<UnitClass, LocalUnit>();
+        Data.LocalData.Blessing = new Dictionary<BlessingType, int>()
+            {   {BlessingType.Attack, 0 },
+                {BlessingType.Defence, 0 },
+                { BlessingType.Skill, 0 },
+                {BlessingType.Moral, 0 }
+            };
+        Data.LocalData.Master = 1;
+        Data.LocalData.SFX = 1;
+        Data.LocalData.BGM = 1;
 
         string loadJson = File.ReadAllText(path);
         LocalData = JsonUtility.FromJson<LocalData>(loadJson);

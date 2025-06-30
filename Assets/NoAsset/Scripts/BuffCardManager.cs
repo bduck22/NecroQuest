@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +6,7 @@ public class BuffCardManager : MonoBehaviour
 {
     public Transform[] Cards;
     public Guardian[] carddata;
-    int[] keys;
+    public int[] keys;
     public int Loadcount;
     Text LoadButton;
     private void Awake()
@@ -21,35 +20,42 @@ public class BuffCardManager : MonoBehaviour
         CardLoad();
     }
 
-    public List<int> gets = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+    public List<int> gets = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
     public void CardLoad()
     {
+        if(gets.Count == 0)
+        {
+            Time.timeScale = 1;
+            transform.parent.gameObject.SetActive(false);
+            return;
+        }
         carddata = new Guardian[Cards.Length];
         keys = new int[Cards.Length];
         Loadcount--;
         for (int i = 0; i < 3; i++)
         {
-            int R = Random.Range(0, gets.Count);
+
             if (gets.Count == 0)
             {
-                Cards[i].GetChild(0).gameObject.SetActive(false);
+                Cards[i].gameObject.SetActive(false);
             }
             else
             {
-                keys[i] = gets[R];
+                int R = Random.Range(0, gets.Count);
+                R = gets[R];
+                keys[i] = R;
                 carddata[i] = Data.GuardianData[keys[i]];
 
-                Cards[i].GetChild(0).gameObject.SetActive(true);
-                Cards[i].GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(((GuardianType)i).ToString());
+                Cards[i].gameObject.SetActive(true);
+                Cards[i].GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>((carddata[i].GuardianType).ToString());
                 Cards[i].GetChild(1).GetComponentInChildren<Text>().text = carddata[i].Name;
                 Cards[i].GetChild(2).GetComponent<Text>().text = carddata[i].Description;
 
-                gets.RemoveAt(R);
+                gets.Remove(R);
             }
-
         }
 
-        if(Loadcount > 0)
+        if (Loadcount > 0)
         {
             LoadButton.gameObject.SetActive(true);
             LoadButton.text = "새로고침 " + Loadcount;
@@ -57,8 +63,22 @@ public class BuffCardManager : MonoBehaviour
         else LoadButton.transform.parent.gameObject.SetActive(false);
 
     }
+    public void Init()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            gets.Add(keys[i]);
+        }
+    }
     public void CardSelect(int number)
     {
+        for (int i = 0; i < 3; i++)
+        {
+            if (i != number&&carddata[number].Name!="")
+            {
+                gets.Add(keys[i]);
+            }
+        }
         Time.timeScale = 1;
         PlayerManager.instance.guardians.Add(carddata[number]);
         PlayerManager.instance.GuardianLoad();
