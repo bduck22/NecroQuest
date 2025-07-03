@@ -410,7 +410,7 @@ MonoBehaviour:
   Hp: 0
   MaxHp: 5
   Damage: 5
-  Intersection: 5
+  Intersection: 1
   Moral: 125
   Buff: []
   PlusStats:
@@ -438,13 +438,13 @@ MonoBehaviour:
   Interaction: {fileID: 2423643114326120704}
   locked: 1
   Hlocked: 0
-  AttackWeight: 1
+  AttackWeight: 0.8
   rigidbody: {fileID: 0}
   SkillEffect: {fileID: 4056741552405515256, guid: 38d9e4f8fcd5b0148859da4fc994cbf3, type: 3}
   SkillCoolTime: 10
   SkillTime: 0
   skill: 0
-  SkillWeight: 2
+  SkillWeight: 1
   GetDamages: 0
   SetDamages: 0
 --- !u!50 &7770638605056923013

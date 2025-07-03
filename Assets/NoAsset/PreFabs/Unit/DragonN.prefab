@@ -205,7 +205,7 @@ MonoBehaviour:
   Hp: 0
   MaxHp: 5
   Damage: 5
-  Intersection: 5
+  Intersection: 2
   Moral: 125
   Buff: []
   PlusStats:
@@ -239,7 +239,7 @@ MonoBehaviour:
   SkillCoolTime: 2
   SkillTime: 0
   skill: 0
-  SkillWeight: 5
+  SkillWeight: 2.5
   GetDamages: 0
   SetDamages: 0
 --- !u!50 &953783681087180415

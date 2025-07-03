@@ -3503,8 +3503,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2078892367}
   - {fileID: 755995589}
+  - {fileID: 2078892367}
   - {fileID: 1184816719}
   - {fileID: 485007187}
   - {fileID: 290626790}
@@ -6131,7 +6131,7 @@ RectTransform:
   m_Father: {fileID: 2010476936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -177118,7 +177118,7 @@ MonoBehaviour:
   IsBoss: 0
   BossUI: {fileID: 1075101305}
   MobCount: 0
-  SpawnDelay: 3
+  SpawnDelay: 5
   waving: 0
 --- !u!82 &1224217178
 AudioSource:
@@ -180535,33 +180535,33 @@ MonoBehaviour:
   Waves:
   - MobInfo:
     - Type: 0
-      Count: 12
+      Count: 20
       middle: 0
       final: 0
     - Type: 1
-      Count: 4
+      Count: 5
       middle: 0
       final: 0
   - MobInfo:
     - Type: 0
-      Count: 14
+      Count: 20
       middle: 0
       final: 0
     - Type: 1
-      Count: 6
+      Count: 10
       middle: 0
       final: 0
     - Type: 2
-      Count: 3
+      Count: 5
       middle: 0
       final: 0
   - MobInfo:
     - Type: 0
-      Count: 18
+      Count: 25
       middle: 0
       final: 0
     - Type: 1
-      Count: 3
+      Count: 12
       middle: 0
       final: 0
     - Type: 2
@@ -180570,135 +180570,32 @@ MonoBehaviour:
       final: 0
   - MobInfo:
     - Type: 0
-      Count: 21
+      Count: 25
       middle: 0
       final: 0
     - Type: 1
-      Count: 7
-      middle: 0
-      final: 0
-    - Type: 2
-      Count: 7
-      middle: 0
-      final: 0
-    - Type: 4
-      Count: 3
-      middle: 0
-      final: 0
-  - MobInfo:
-    - Type: 0
-      Count: 23
-      middle: 0
-      final: 0
-    - Type: 1
-      Count: 5
-      middle: 0
-      final: 0
-    - Type: 4
-      Count: 5
-      middle: 0
-      final: 0
-  - MobInfo:
-    - Type: 0
-      Count: 26
-      middle: 0
-      final: 0
-    - Type: 1
-      Count: 6
-      middle: 0
-      final: 0
-    - Type: 3
-      Count: 3
-      middle: 0
-      final: 0
-  - MobInfo:
-    - Type: 0
-      Count: 30
-      middle: 0
-      final: 0
-    - Type: 2
-      Count: 4
-      middle: 0
-      final: 0
-    - Type: 4
-      Count: 8
-      middle: 0
-      final: 0
-  - MobInfo:
-    - Type: 0
-      Count: 32
-      middle: 0
-      final: 0
-    - Type: 1
-      Count: 12
-      middle: 0
-      final: 0
-    - Type: 2
-      Count: 5
-      middle: 0
-      final: 0
-    - Type: 3
-      Count: 4
-      middle: 0
-      final: 0
-  - MobInfo:
-    - Type: 0
-      Count: 35
-      middle: 0
-      final: 0
-    - Type: 1
-      Count: 14
-      middle: 0
-      final: 0
-    - Type: 4
-      Count: 9
-      middle: 0
-      final: 0
-  - MobInfo:
-    - Type: 0
-      Count: 38
-      middle: 0
-      final: 0
-    - Type: 1
-      Count: 6
-      middle: 0
-      final: 0
-    - Type: 2
       Count: 15
       middle: 0
       final: 0
-  - MobInfo:
-    - Type: 0
-      Count: 7
-      middle: 0
-      final: 0
-    - Type: 1
-      Count: 21
-      middle: 0
-      final: 0
     - Type: 2
-      Count: 3
-      middle: 0
-      final: 0
-    - Type: 0
-      Count: 0
-      middle: 1
-      final: 0
-  - MobInfo:
-    - Type: 0
-      Count: 43
-      middle: 0
-      final: 0
-    - Type: 1
-      Count: 13
-      middle: 0
-      final: 0
-    - Type: 3
-      Count: 4
+      Count: 10
       middle: 0
       final: 0
     - Type: 4
-      Count: 4
+      Count: 5
+      middle: 0
+      final: 0
+  - MobInfo:
+    - Type: 0
+      Count: 40
+      middle: 0
+      final: 0
+    - Type: 1
+      Count: 15
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 15
       middle: 0
       final: 0
   - MobInfo:
@@ -180707,11 +180604,24 @@ MonoBehaviour:
       middle: 0
       final: 0
     - Type: 1
-      Count: 17
+      Count: 15
       middle: 0
       final: 0
     - Type: 3
-      Count: 11
+      Count: 10
+      middle: 0
+      final: 0
+  - MobInfo:
+    - Type: 0
+      Count: 55
+      middle: 0
+      final: 0
+    - Type: 2
+      Count: 10
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 10
       middle: 0
       final: 0
   - MobInfo:
@@ -180720,181 +180630,295 @@ MonoBehaviour:
       middle: 0
       final: 0
     - Type: 1
-      Count: 11
-      middle: 0
-      final: 0
-    - Type: 2
-      Count: 3
-      middle: 0
-      final: 0
-    - Type: 2
-      Count: 3
-      middle: 0
-      final: 0
-    - Type: 2
-      Count: 7
+      Count: 15
       middle: 0
       final: 0
     - Type: 2
       Count: 5
       middle: 0
       final: 0
+    - Type: 3
+      Count: 10
+      middle: 0
+      final: 0
   - MobInfo:
     - Type: 0
+      Count: 60
+      middle: 0
+      final: 0
+    - Type: 1
+      Count: 20
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 10
+      middle: 0
+      final: 0
+  - MobInfo:
+    - Type: 0
+      Count: 35
+      middle: 0
+      final: 0
+    - Type: 0
+      Count: 35
+      middle: 0
+      final: 0
+    - Type: 1
+      Count: 10
+      middle: 0
+      final: 0
+    - Type: 2
+      Count: 10
+      middle: 0
+      final: 0
+  - MobInfo:
+    - Type: 0
+      Count: 40
+      middle: 0
+      final: 0
+    - Type: 1
+      Count: 30
+      middle: 0
+      final: 0
+    - Type: 2
       Count: 15
       middle: 0
       final: 0
     - Type: 0
-      Count: 13
+      Count: 0
+      middle: 1
+      final: 0
+  - MobInfo:
+    - Type: 0
+      Count: 45
       middle: 0
       final: 0
     - Type: 0
-      Count: 4
+      Count: 25
       middle: 0
       final: 0
     - Type: 1
-      Count: 4
+      Count: 20
       middle: 0
       final: 0
     - Type: 1
+      Count: 20
+      middle: 0
+      final: 0
+    - Type: 3
+      Count: 10
+      middle: 0
+      final: 0
+    - Type: 4
       Count: 5
-      middle: 0
-      final: 0
-    - Type: 3
-      Count: 3
-      middle: 0
-      final: 0
-    - Type: 3
-      Count: 1
-      middle: 0
-      final: 0
-    - Type: 3
-      Count: 1
       middle: 0
       final: 0
   - MobInfo:
     - Type: 0
-      Count: 12
+      Count: 25
       middle: 0
       final: 0
     - Type: 0
-      Count: 12
+      Count: 25
+      middle: 0
+      final: 0
+    - Type: 1
+      Count: 25
+      middle: 0
+      final: 0
+    - Type: 1
+      Count: 25
+      middle: 0
+      final: 0
+    - Type: 3
+      Count: 20
+      middle: 0
+      final: 0
+  - MobInfo:
+    - Type: 0
+      Count: 50
       middle: 0
       final: 0
     - Type: 0
-      Count: 12
+      Count: 15
+      middle: 0
+      final: 0
+    - Type: 1
+      Count: 25
+      middle: 0
+      final: 0
+    - Type: 1
+      Count: 35
+      middle: 0
+      final: 0
+    - Type: 2
+      Count: 10
+      middle: 0
+      final: 0
+    - Type: 2
+      Count: 5
+      middle: 0
+      final: 0
+    - Type: 2
+      Count: 5
+      middle: 0
+      final: 0
+  - MobInfo:
+    - Type: 0
+      Count: 25
       middle: 0
       final: 0
     - Type: 0
+      Count: 25
+      middle: 0
+      final: 0
+    - Type: 1
+      Count: 25
+      middle: 0
+      final: 0
+    - Type: 1
+      Count: 15
+      middle: 0
+      final: 0
+    - Type: 3
+      Count: 10
+      middle: 0
+      final: 0
+    - Type: 3
+      Count: 15
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 20
+      middle: 0
+      final: 0
+  - MobInfo:
+    - Type: 0
+      Count: 20
+      middle: 0
+      final: 0
+    - Type: 0
+      Count: 20
+      middle: 0
+      final: 0
+    - Type: 0
+      Count: 20
+      middle: 0
+      final: 0
+    - Type: 0
+      Count: 20
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 10
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 15
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 10
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 10
+      middle: 0
+      final: 0
+  - MobInfo:
+    - Type: 1
+      Count: 50
+      middle: 0
+      final: 0
+    - Type: 1
+      Count: 25
+      middle: 0
+      final: 0
+    - Type: 2
+      Count: 10
+      middle: 0
+      final: 0
+    - Type: 2
+      Count: 15
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 10
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 5
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 5
+      middle: 0
+      final: 0
+  - MobInfo:
+    - Type: 0
+      Count: 44
+      middle: 0
+      final: 0
+    - Type: 0
+      Count: 37
+      middle: 0
+      final: 0
+    - Type: 2
       Count: 16
       middle: 0
       final: 0
-    - Type: 4
-      Count: 2
+    - Type: 2
+      Count: 4
       middle: 0
       final: 0
-    - Type: 4
-      Count: 2
-      middle: 0
-      final: 0
-    - Type: 4
-      Count: 2
-      middle: 0
-      final: 0
-    - Type: 4
+    - Type: 2
       Count: 4
       middle: 0
       final: 0
   - MobInfo:
-    - Type: 1
-      Count: 15
-      middle: 0
-      final: 0
-    - Type: 2
-      Count: 3
-      middle: 0
-      final: 0
-    - Type: 2
-      Count: 3
+    - Type: 4
+      Count: 25
       middle: 0
       final: 0
     - Type: 4
-      Count: 4
+      Count: 20
       middle: 0
       final: 0
     - Type: 4
-      Count: 5
+      Count: 20
       middle: 0
       final: 0
     - Type: 4
-      Count: 4
+      Count: 20
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 20
+      middle: 0
+      final: 0
+    - Type: 4
+      Count: 35
       middle: 0
       final: 0
   - MobInfo:
     - Type: 0
-      Count: 24
-      middle: 0
-      final: 0
-    - Type: 1
-      Count: 17
-      middle: 0
-      final: 0
-    - Type: 2
-      Count: 5
-      middle: 0
-      final: 0
-    - Type: 2
-      Count: 4
-      middle: 0
-      final: 0
-    - Type: 2
-      Count: 4
-      middle: 0
-      final: 0
-  - MobInfo:
-    - Type: 0
-      Count: 5
+      Count: 50
       middle: 0
       final: 1
-    - Type: 0
-      Count: 12
-      middle: 0
-      final: 0
-    - Type: 0
-      Count: 7
+    - Type: 1
+      Count: 30
       middle: 0
       final: 0
     - Type: 1
-      Count: 7
+      Count: 20
       middle: 0
       final: 0
-  - MobInfo:
-    - Type: 0
-      Count: 5
-      middle: 0
-      final: 1
-    - Type: 0
-      Count: 12
+    - Type: 2
+      Count: 20
       middle: 0
       final: 0
-    - Type: 0
-      Count: 7
-      middle: 0
-      final: 0
-    - Type: 1
-      Count: 7
-      middle: 0
-      final: 0
-    - Type: 1
-      Count: 3
-      middle: 0
-      final: 0
-    - Type: 3
-      Count: 3
-      middle: 0
-      final: 0
-    - Type: 3
-      Count: 3
+    - Type: 2
+      Count: 10
       middle: 0
       final: 0
   GameStatus: 0
@@ -187549,7 +187573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2055814451
 RectTransform:
   m_ObjectHideFlags: 0

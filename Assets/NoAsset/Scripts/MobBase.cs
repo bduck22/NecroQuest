@@ -46,7 +46,7 @@ public class MobBase : MonoBehaviour
 
     Rigidbody2D rigidbody;
 
-    Vector3 targetP;
+    public Vector3 targetP;
 
     [SerializeField] bool attack;
 
@@ -59,6 +59,7 @@ public class MobBase : MonoBehaviour
     [SerializeField] private Transform AttackPostion;
 
     public bool spawnlock;
+
     public void MobInit()
     {
         Lock = false;
@@ -77,6 +78,8 @@ public class MobBase : MonoBehaviour
         Damage = stat.Damage;
         AttackSpeed = stat.AttackSpeed;
         Intersection = stat.Intersection;
+        MaxHp += GameManager.instance.Diffi * 1;
+        Damage += GameManager.instance.Diffi * 0.5f;
         if (spawnManager.Boss)
         {
             if (spawnManager.Boss.Type == MobType.Necro && Type != MobType.Necro)
@@ -86,7 +89,6 @@ public class MobBase : MonoBehaviour
             }
         }
         Hp = MaxHp * 20;
-        AttackWeight = 1;
         Target = null;
         AttackTime = 0;
         Buff.Clear();
@@ -299,13 +301,13 @@ public class MobBase : MonoBehaviour
                 }
                 if (AE.Unit.UnitClass == UnitClass.DragonN)
                 {
-                    AE.Unit.HpChange(-(AE.Damage * AE.Weight));
+                    AE.Unit.HpChange(-(AE.Damage * AE.Weight)*0.3f);
                 }
                 if (AE.Unit.UnitClass == UnitClass.GuardN)
                 {
                     if (AE.Skill)
                     {
-                        Buff.Add(new Buff(Buff_Type.Provo, AE.Unit.transform, 5));
+                        Buff.Add(new Buff(Buff_Type.Provo, AE.Unit.transform, 3));
                     }
                 }
                 HpCh(-(AE.Damage * AE.Weight));
@@ -365,7 +367,7 @@ public class MobBase : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, position.position) < 10)
         {
-            HpCh(10);
+            HpCh(50);
         }
     }
     public void HpCh(float damage)
@@ -442,6 +444,11 @@ public class MobBase : MonoBehaviour
         {
             if (b.Type == Buff_Type.Provo)
             {
+                targetP = Target.transform.position;
+                if (Ghosted)
+                {
+                    targetP = (targetP - transform.position).normalized;
+                }
                 return;
             }
         }

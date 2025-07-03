@@ -182,7 +182,10 @@ public class LobbyManager : MonoBehaviour
     {
         if (b)
         {
-            Data.LocalData.diffi++;
+            if (Data.LocalData.diffi < 10)
+            {
+                Data.LocalData.diffi++;
+            }
         }
         else
         {
@@ -210,12 +213,12 @@ public class LobbyManager : MonoBehaviour
         {
             if (l != -1)
             {
-                Data.Stats.Damage += (Data.LocalData.Blessing[BlessingType.Attack] * 0.5f);
+                Data.Stats.Damage += (Data.LocalData.Blessing[BlessingType.Attack] * 0.25f);
                 Data.Stats.AttackSpeed += (Data.LocalData.Blessing[BlessingType.Attack] * 0.1f);
-                Data.Stats.Hp += (Data.LocalData.Blessing[BlessingType.Defence] * 0.5f);
-                Data.Stats.GetDamage -= (Data.LocalData.Blessing[BlessingType.Defence] * 0.015f);
-                Data.Stats.SkillCool -= (Data.LocalData.Blessing[BlessingType.Skill] * 0.2f);
-                Data.Stats.SkillDamage += (Data.LocalData.Blessing[BlessingType.Skill] * 0.1f);
+                Data.Stats.Hp += (Data.LocalData.Blessing[BlessingType.Defence] * 0.25f);
+                Data.Stats.GetDamage -= (Data.LocalData.Blessing[BlessingType.Defence] * 0.003f);
+                Data.Stats.SkillCool -= (Data.LocalData.Blessing[BlessingType.Skill] * 0.05f);
+                Data.Stats.SkillDamage += (Data.LocalData.Blessing[BlessingType.Skill] * 0.04f);
                 Data.Stats.MoralUp += (Data.LocalData.Blessing[BlessingType.Moral] * 0.1f);
                 SceneManager.LoadScene(3);
                 return;
@@ -239,16 +242,16 @@ public class LobbyManager : MonoBehaviour
         switch (n - 1)
         {
             case 0:
-                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "공격력 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.5f).ToString("#,##0.0") +
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "공격력 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.3f).ToString("#,##0.0") +
                     "\n공격속도 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0.0");
                 break;
             case 1:
-                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "체력 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.5f).ToString("#,##0.0") +
-                    "\n받는피해량 -" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.015f).ToString("#,##0.#%");
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "체력 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.25f).ToString("#,##0.0") +
+                    "\n받는피해량 -" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.003f).ToString("#,##0.#%");
                 break;
             case 2:
                 Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "스킬 쿨타임 -" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0.0초") +
-                    "\n스킬피해량 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0%");
+                    "\n스킬피해량 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.04f).ToString("#,##0%");
                 break;
             case 3:
                 Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "획득 사기량 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0%");

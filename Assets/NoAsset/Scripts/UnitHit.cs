@@ -51,11 +51,11 @@ public class UnitHit : MonoBehaviour
             float Damage = effect.Damage * effect.Weight;
             if (effect.Mob.Type == MobType.Ghoul)
             {
-                effect.Mob.HpCh(Damage);
+                effect.Mob.HpCh(Damage*0.5f);
             }
             if (effect.Mob.Type == MobType.Necro)
             {
-                effect.Mob.HpCh(Damage);
+                effect.Mob.HpCh(Damage*0.5f);
             }
             Hit(Damage);
         }

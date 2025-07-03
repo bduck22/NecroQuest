@@ -814,10 +814,11 @@ MonoBehaviour:
   AttackSpeed: 0
   Intersection: 0
   SpawnSpeed: 0
-  AttackWeight: 0
+  AttackWeight: 1
   Type: 0
   MobTargetType: 0
   AttackType: 1
+  Lock: 0
   LodingTime: 0.1
   Target: {fileID: 0}
   AttackOb: {fileID: 0}

@@ -9954,7 +9954,7 @@ MonoBehaviour:
   AttackSpeed: 1
   Intersection: 7
   SpawnSpeed: 0
-  AttackWeight: 1
+  AttackWeight: 1.5
   Type: 4
   MobTargetType: 0
   AttackType: 1

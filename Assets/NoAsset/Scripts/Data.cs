@@ -62,7 +62,7 @@ public class Guardian : NameDEscriptionBase
         switch (guardianType)
         {
             case GuardianType.One:
-                //Stats.SkillCool -= 1;
+                Stats.SkillCool -= 3;
                 Stats.SetValue += 0.2f;
                 break;
             case GuardianType.Two:
@@ -72,7 +72,7 @@ public class Guardian : NameDEscriptionBase
                 break;
             case GuardianType.Three:
                 Stats.Speed += 1.2f;
-                //Stats.SkillDamage+;
+                Stats.SkillDamage+=0.25f;
                 break;
             case GuardianType.Four:
                 Stats.Hp += 2;
@@ -80,11 +80,11 @@ public class Guardian : NameDEscriptionBase
                 break;
             case GuardianType.Five:
                 Stats.AttackSpeed += 0.7f;
-                //Stats.SkillCool -;
+                Stats.SkillCool -=2;
                 break;
             case GuardianType.Six:
                 Stats.Speed += 1.3f;
-                //Stats.SkillDamage +;
+                Stats.SkillDamage +=0.1f;
                 Stats.GetHeal -= 0.15f;
                 break;
             case GuardianType.Seven:
@@ -102,8 +102,8 @@ public class Guardian : NameDEscriptionBase
                 Stats.AttackSpeed -= 0.6f;
                 break;
             case GuardianType.Ten:
-                //Stats.SkillCool-;
-                //Stats.SkillDamage+
+                Stats.SkillCool-=1.2f;
+                Stats.SkillDamage+=0.1f;
                 Stats.GetHeal += 0.1f;
                 break;
             case GuardianType.OneOne:
@@ -123,7 +123,7 @@ public class Guardian : NameDEscriptionBase
                 Stats.Hp += 1.8f;
                 Stats.Speed += 0.4f;
                 Stats.AttackSpeed += 1.6f;
-                //Stats.SkillDamage+
+                Stats.SkillDamage += 0.05f;
                 Stats.MoralUp -= 0.7f;
                 break;
             case GuardianType.OneFive:
@@ -164,107 +164,97 @@ public static class Data
 {
     public static readonly Dictionary<int, Guardian> GuardianData = new Dictionary<int, Guardian>()
     {
-        {0, new Guardian((GuardianType)0, "����ģȭ", "��ų ��Ÿ�� -��\n���ϴ� ���� �� ȸ���� +20%") },
-        {1, new Guardian((GuardianType)1, "������ ����", "���ݷ� +23\nȹ�� ��ⷮ+20%\n�̵��ӵ� -0.4") },
-        {2, new Guardian((GuardianType)2, "������ �帧", "�̵��ӵ� +1.2\n��ų ���ط� +%") },
-        {3, new Guardian((GuardianType)3, "��������", "�ִ�ü�� +2\n�޴� ȸ���� + 100%") },
-        {4, new Guardian((GuardianType)4, "�Ź�����", "���ݼӵ� +0.7\n��ų ��Ÿ�� -��") },
-        {5, new Guardian((GuardianType)5, "������ ������", "�̵��ӵ� +1.3\n��ų ���ط� +%\n�޴� ġ���� -15%") },
-        {6, new Guardian((GuardianType)6, "���Ǹ��� ����", "���� +12\n���ݼӵ� +1.6\n�޴� ȸ���� -40%\n�̵��ӵ� -1.2") },
-        {7, new Guardian((GuardianType)7, "����ȭ", "�޴� ���ط�-30%\n���ݼӵ� -0.6") },
-        {8, new Guardian((GuardianType)8, "��Ÿ� ����", "��Ÿ� +4\n���ݼӵ� -0.4") },
-        {9, new Guardian((GuardianType)9, "���� ����", "��ų ��Ÿ�� -��\n��ų ���ط� +%\n�޴� ȸ���� +10%") },
-        {10, new Guardian((GuardianType)10, "������ ����", "�޴� ȸ���� +15%\nȹ�� ��ⷮ +10%") },
-        {11, new Guardian((GuardianType)11, "�ż�", "�̵��ӵ� +3.0\n�޴� ���ط� +20%") },
-        {12, new Guardian((GuardianType)12, "����", "���ݼӵ� +1.8\n�޴� ȸ���� -20%\nȹ�� ��ⷮ -20%") },
-        {13, new Guardian((GuardianType)13, "�ڷ°���", "ü�� +3.5\n�̵��ӵ� +0.4\n���ݼӵ� +1.6\n��ų ���ط� +30%") },
-        {14, new Guardian((GuardianType)14, "������ ����", "ȹ�� ��ⷮ +20%\n�̵��ӵ� -0.3") }
+        {0, new Guardian((GuardianType)0, "마법친화", "스킬 쿨타임 -3초\n가하는 피해 및 회복량 +20%") },
+        {1, new Guardian((GuardianType)1, "그을린 의지", "공격력 +23\n획득 사기량+20%\n이동속도 -0.4") },
+        {2, new Guardian((GuardianType)2, "유성의 흐름", "이동속도 +1.2\n스킬 피해량 +25%") },
+        {3, new Guardian((GuardianType)3, "유혈흡수", "최대체력 +2\n가하는 피해 및 회복량 +25%") },
+        {4, new Guardian((GuardianType)4, "신묘한힘", "공격속도 +0.7\n스킬 쿨타임 -2초") },
+        {5, new Guardian((GuardianType)5, "잿빛의 잔재주", "이동속도 +1.3\n스킬 피해량 +10%\n받는 치유량 -15%") },
+        {6, new Guardian((GuardianType)6, "결의맺은 공성", "공격력 +12\n공격속도 +1.6\n받는 회복량 -40%\n이동속도 -1.2") },
+        {7, new Guardian((GuardianType)7, "경질화", "받는 피해량 -30%\n공격속도 -0.6") },
+        {8, new Guardian((GuardianType)8, "장거리 투사", "사거리 +4\n공격속도 -0.4") },
+        {9, new Guardian((GuardianType)9, "마력 순항", "스킬 쿨타임 -1.2초\n스킬 피해량 +10%\n받는 회복량 +10%") },
+        {10, new Guardian((GuardianType)10, "요정의 포옹", "받는 회복량 +15%\n획득 사기량 +10%") },
+        {11, new Guardian((GuardianType)11, "신속", "이동속도 +3.0\n받는 피해량 +20%") },
+        {12, new Guardian((GuardianType)12, "과로", "공격속도 +1.8\n받는 회복량 -20%\n획득 사기량 -20%") },
+        {13, new Guardian((GuardianType)13, "자력갱생", "체력 +3.5\n이동속도 +0.4\n공격속도 +1.6\n스킬 피해량 +5%") },
+        {14, new Guardian((GuardianType)14, "강건한 고양", "획득 사기량 +20%\n이동속도 -0.3") }
     };
     public static readonly Dictionary<MobType, MobStat> MobData = new Dictionary<MobType, MobStat>()
     {
-        {MobType.Zombie, new MobStat(2, 1.5f, 1, 0, 0) },
-        {MobType.Skull, new MobStat(1.5f, 1.5f, 1, 1, 7) },
-        {MobType.Ghost, new MobStat(1, 10f, 1, 0, 12) },
-        {MobType.Shade, new MobStat(2, 5, 15, 0.5f, 0) },
-        {MobType.Ghoul, new MobStat(2.5f, 2, 1, 1, -1.5f) },
-        {MobType.Dullahan, new MobStat(15, 5, 10, 0.5f, 0) },
-        {MobType.Necro, new MobStat(50, 2, 5, 1, 2.5f) }
+        {MobType.Zombie, new MobStat(1, 1.5f, 1, 0, 0) },
+        {MobType.Skull, new MobStat(1, 1, 1.5f, 1, 7) },
+        {MobType.Ghost, new MobStat(0.5f, 14, 1.5f, 0, 12) },
+        {MobType.Shade, new MobStat(1.75f, 3, 10, 0.5f, 0) },
+        {MobType.Ghoul, new MobStat(2, 1.5f, 2.5f, 1, -1.5f) },
+        {MobType.Dullahan, new MobStat(15, 7, 10, 0.5f, 0) },
+        {MobType.Necro, new MobStat(22, 5, 15, 1, 2.5f) }
     };
     public static readonly Dictionary<UnitClass, UnitData> UnitData = new Dictionary<UnitClass, UnitData>()
     {
-        {UnitClass.GuardN, new UnitData( 3.0f, 1.5f, 1.5f, 0.5f, 15f, "��ȣ���", "�ٰŸ� ĳ����\n" +
-            "�޴� ���ط� ����\n" +
-            "���ߵ����", 
-            "������ �Լ�",
-            "�������� ���� ��� ������ 100%�ǰ��ݷ¸�ŭ ���ظ� �ְ� 5�� ���� �����Ǵ� ���ߵ������ �Ǵ�.\n" +
-            "(���� : Ÿ������ �� �������� �ٲ�)",
-            "������ ��ü",
-            "�޴� ���ط� -25%") },
-        {UnitClass.HolyM, new UnitData( 1.5f, 2f, 2f, 1f, 17f, "�Ű�", "���Ÿ� ĳ����\n" +
-            "�е����� ȸ����\n" +
-            "\"���ݺҰ�\" \n��õ���� ����",
-            "ġ���� �ĵ�",
-            "�������� ���� ��� �Ʊ��� ü���� 150%�ǰ��ݷ¸�ŭ ȸ����Ų��.",
-            "�һ�",
-            "�Ű��� �⺻������ ���� �����ϴ� ��� ü���� ���� ���� �Ʊ��� ü���� 100%�ǰ��ݷ¸�ŭ ȸ����Ų��.") },
-        {UnitClass.SpiritM, new UnitData( 2.0f, 2f, 1f, 1f, 10f, "���ɻ�", "���Ÿ� ĳ����\n" +
-            "���뼺 ����\n" +
-            "���� �⺻ �ɷ�ġ",
-            "�����ǰ�ȣ",
-            "���� ü���� ���� ���� �Ʊ����� n�ʵ��� n�� �̵��ӵ� ������Ű�� ü���� n��ŭ ȸ����Ų��.",
-            "4������",
-            "�������� ���� �� ��� �Ʊ��� ���ɻ��� ���� ���� �ɷ�ġ�� 20%�� ȹ���Ѵ�.") },
-        {UnitClass.Berserker, new UnitData( 2.5f, 1.5f, 2f, 1f, 15f, "������", "�ٰŸ� ĳ����\n" +
-            "���� �⺻ �ɷ�ġ\n" +
-            "��õ���� ����",
-            "����",
-            "�����簡 �г��Ͽ� n�� ���� n�� �̵��ӵ��� �����ϰ�, �⺻������ ��ȭ�ȴ�.",
-            "�߾�",
-            "������� �ڽ��� ���� ü�¿� ����ؼ� ���ݷ°� ���ݼӵ��� �����Ѵ�.\n" +
-            "40�� 0.5�� ���ݷ� | 60�� 0.5�� ���ݼӵ�") },
-        {UnitClass.ArchM, new UnitData( 1.5f, 1.5f, 2f, 1.5f, 20f, "�븶����", "���Ÿ� ĳ����\n" +
-            "������ ���� ȭ��\n" +
-            "���� �ʴ� ������",
-            "���׿�",
-            "�븶���簡 ���׿��� ���� ���� ���� ���� 100%�ǰ��ݷ�+5%�Ǹ��¸�ŭ�� ���ظ� ������.",
-            "��������",
-            "�븶���簡 �⺻������ �� ������ ������ 1�� ���δ�.\n" +
-            "���� 1�� ���׿��� ������ 2%���") },
-        {UnitClass.Archer, new UnitData( 1f, 1.5f, 2.5f, 1.5f, 12f, "�ü�", "���Ÿ� ĳ����\n" +
-            "���� ���ݹ���\n" +
-            "��õ",
-            "������ ��",
-            "�ü��� ���� �������� �Ŵ��� ȭ���� ���� 100%�ǰ��ݷ¸�ŭ�� ���ظ� ������.",
-            "ũ��Ƽ�� ��",
-            "�ü��� �⺻������ 30%�� Ȯ���� ���ط��� 50%�����Ѵ�.") },
-        {UnitClass.DragonN, new UnitData( 2, 2, 1, 1, 10, "����", "�ٰŸ� ĳ����\n" +
-            "������ ������\n" +
-            "�� ��������",
-            "�巡�� ����",
-            "���簡 ��� �⸦ ��� ���� �������� �����Ѵ�. �������� ���� ������ 100%�ǰ��ݷ¸�ŭ ���ظ� ������.",
-            "�������",
-            "���簡 ���� ������ n%��ŭ ȸ���Ѵ�.") }
+        {UnitClass.GuardN, new UnitData( 3.0f, 1.5f, 1.5f, 0.5f, 15f,"수호기사", "근거리 캐릭터\n" +
+            "받는 피해량 감소\n" +
+            "도발디버프",
+            "도발의 함성",
+            "일정범위 내의 모든 적에게 (체력75%)의 피해(100%)를 주고 3초 동안 도발한다.\n" +
+            "(도발 : 타겟팅을 이 유닛으로 바꿈)",
+            "강인한 육체",
+            "받는 피해량 -15%") },
+        {UnitClass.HolyM, new UnitData( 1.5f, 2f, 2f, 1f, 17f,  "신관", "원거리 캐릭터\n" +
+            "압도적인 회복량\n" +
+            "\"공격불가\" \n추천하지 않음",
+            "치유의 파동",
+            "일정범위 내의 모든 아군의 체력을 (공격력20%+이동속도100%) 회복(200%)시킨다.",
+            "불살",
+            "신관의 기본공격은 적을 공격하는 대신 체력이 가장 낮은 아군의 체력을 100%의공격력만큼 회복(50%)시킨다.") },
+        {UnitClass.SpiritM, new UnitData( 2.0f, 2f, 1f, 1f, 10f, "정령사", "원거리 캐릭터\n" +
+            "범용성 높음\n" +
+            "낮은 기본 능력치",
+            "정령의가호",
+            "현재 체력이 가장 낮은 아군에게 3초동안 (대상의 현재 이동속도35%)의 이동속도를 증가시키고 체력을 (이동속도100%)만큼 회복(150%)시킨다.",
+            "4대정령",
+            "스테이지 시작 시 모든 아군이 정령사의 가장 높은 능력치의 25%를 획득한다.") },
+        {UnitClass.Berserker, new UnitData( 2.5f, 1.5f, 2f, 1f, 15f, "광전사", "근거리 캐릭터\n" +
+            "높은 기본 능력치\n" +
+            "추천하지 않음",
+            "광폭화",
+            "광전사가 분노하여 6초 동안 1.5의 이동속도가 증가하고, 기본공격이 강화된다.",
+            "발악",
+            "광전사는 자신의 잃은 체력에 비례해서 공격력과 공격속도가 증가한다.\n" +
+            "20당 0.5의 공격력 0.75 30당 0.25의 공격속도") },
+        {UnitClass.ArchM, new UnitData( 1.5f, 1.5f, 2f, 1.5f, 20f, "대마법사", "원거리 캐릭터\n" +
+            "강력한 순간 화력\n" +
+            "낮은 초당 데미지",
+            "메테오",
+            "대마법사가 메테오를 날려 일정 범위 내에 (공격력100%+마력5%) 피해(300%)를 입힌다.",
+            "마력집중",
+            "대마법사가 기본공격을 할 떄마다 마력이 1씩 쌓인다.\n" +
+            "마력 1당 메테오의 범위가 2%상승") },
+        {UnitClass.Archer, new UnitData( 1f, 1.5f, 2.5f, 1.5f, 12f, "궁수", "원거리 캐릭터\n" +
+            "넓은 공격범위\n" +
+            "추천",
+            "매지컬 샷",
+            "궁수가 현재 방향으로 거대한 화살을 날려 (공격력50%+이동속도75%) 피해(200%)를 입힌다.",
+            "크리티컬 샷",
+            "궁수의 기본공격은 20%의 확률로 기본공격 피해량이 50%증가한다.") },
+        {UnitClass.DragonN, new UnitData( 2, 2, 1, 1, 10, "용기사", "근거리 캐릭터\n" +
+            "끈질긴 생명력\n" +
+            "긴 선딜레이",
+            "드래곤 러쉬",
+            "용기사가 잠시 기를 모아 현재 방향으로 돌진한다. 일정범위 내의 적에게 (공격속도100%) 피해(250%)를 입힌다.",
+            "흡혈재생",
+            "용기사가 입힌 피해의 30%만큼 회복한다.") }
     };
     public static List<int> Units = new List<int>();
     public static UnitStats Stats;
 
     public static LocalData LocalData;
     public static string path = Path.Combine(Application.dataPath, "LocalData.json");
-    public static string characterpath = Path.Combine(Application.dataPath, "Characters.json");
-    public static string blessingpath = Path.Combine(Application.dataPath, "Blessings.json");
-    public static string presetpath = Path.Combine(Application.dataPath, "Presets.json");
 
     public static void Save()
     {
-        string json = JsonUtility.ToJson(LocalData, false);
+        string json = JsonUtility.ToJson(LocalData, false) + ";" + Json.DicToJson(LocalData.GetUnits, false) + ";" +Json.DicToJson(LocalData.Blessing, false) + ";" + Json.DoubleListToJson(LocalData.Presets, false);
         File.WriteAllText(path, json);
-        string json1 = Json.DicToJson(LocalData.GetUnits, false);
-        File.WriteAllText(characterpath, json1);
-        string json2 = Json.DicToJson(LocalData.Blessing, false);
-        File.WriteAllText(blessingpath, json2);
-        string json3 = Json.DoubleListToJson(LocalData.Presets, false);
-        File.WriteAllText(presetpath, json3);
-
     }
     public static void Load()
     {
@@ -284,16 +274,11 @@ public static class Data
         Data.LocalData.BGM = 1;
 
         string loadJson = File.ReadAllText(path);
-        LocalData = JsonUtility.FromJson<LocalData>(loadJson);
-
-        string loadJson1 = File.ReadAllText(characterpath);
-        LocalData.GetUnits = Json.JsonToDic<UnitClass, LocalUnit>(loadJson1);
-
-        string loadJson2 = File.ReadAllText(blessingpath);
-        LocalData.Blessing = Json.JsonToDic<BlessingType, int>(loadJson2);
-
-        string loadJson3 = File.ReadAllText(presetpath);
-        LocalData.Presets = Json.JsonToDoubleList<int>(loadJson3);
+        string[] Jsons = loadJson.Split(';');
+        LocalData = JsonUtility.FromJson<LocalData>(Jsons[0]);
+        LocalData.GetUnits = Json.JsonToDic<UnitClass, LocalUnit>(Jsons[1]);
+        LocalData.Blessing = Json.JsonToDic<BlessingType, int>(Jsons[2]);
+        LocalData.Presets = Json.JsonToDoubleList<int>(Jsons[3]);
 
         foreach (UnitClass u in LocalData.GetUnits.Keys)
         {
@@ -303,9 +288,6 @@ public static class Data
     public static void Delete()
     {
         File.Delete(path);
-        File.Delete(characterpath);
-        File.Delete(blessingpath);
-        File.Delete(presetpath);
     }
 }
 

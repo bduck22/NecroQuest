@@ -1,6 +1,7 @@
 using DTT.Utils.Extensions;
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class BuffManager : MonoBehaviour
 {
@@ -131,19 +132,18 @@ public class BuffManager : MonoBehaviour
                 else
                 {
                     Mob.Target = BT.Target.GetComponent<Unit>();
-                    Mob.Lock = true;
                 }
                 BuffEffect = Instantiate(GameManager.instance.BuffEffects[0].gameObject, (!IsUnit? Mob.transform.GetChild(0) : Unit.transform.GetChild(5)));
                 break;
             case Buff_Type.Spirit:
-                Unit.Speed += BT.Value;
+                Unit.PlusStats.Speed += BT.Value;
                 BuffEffect = Instantiate(GameManager.instance.BuffEffects[1].gameObject, (!IsUnit ? Mob.transform : Unit.transform.GetChild(3)));
                 BuffEffect.transform.localPosition = Vector3.zero;
                 break;
             case Buff_Type.Berserk:
                 BuffEffect = Instantiate(GameManager.instance.BuffEffects[2].gameObject, (!IsUnit ? Mob.transform : Unit.transform));
-                Unit.PlusStats.Speed += BT.Value;
-                Unit.PlusStats.AttackDamage += BT.Value2/100f;
+                Unit.PlusStats.Speed += 1.5f;
+                Unit.PlusStats.AttackDamage += BT.Value*0.05f;
                 Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
                 Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().size += new Vector2(1.5f,2.3f);
                 Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().offset += new Vector2(-0.75f, 1.15f);
@@ -151,8 +151,8 @@ public class BuffManager : MonoBehaviour
                 break;
             case Buff_Type.BerserkP:
                 float lostHP = ((Unit.PlusStats.Hp + Unit.MaxHp) * 20 - Unit.Hp);
-                Unit.Damage = BT.Value + lostHP / 20f;
-                Unit.AttackSpeed = BT.Value2 + lostHP / 30f;
+                Unit.Damage = BT.Value * 0.75f+ lostHP / 20f;
+                Unit.AttackSpeed = BT.Value2 *0.25f+ lostHP / 30f;
                 break;
         }
         if(BT.Time <= 0)
@@ -173,17 +173,16 @@ public class BuffManager : MonoBehaviour
                     else
                     {
                         Mob.Target = null;
-                        Mob.Lock = false;
                     }
                     break;
                 case Buff_Type.Spirit:
                     BuffEffect.GetComponent<Animator>().enabled = true;
-                    Unit.Speed -= BT.Value;
+                    Unit.PlusStats.Speed -= BT.Value;
                     break;
                 case Buff_Type.Berserk:
                     BuffEffect.GetComponent<ParticleSystem>().loop = false;
-                    Unit.PlusStats.Speed -= BT.Value;
-                    Unit.PlusStats.AttackDamage -= BT.Value2 / 100f;
+                    Unit.PlusStats.Speed -= 1.5f;
+                    Unit.PlusStats.AttackDamage -= BT.Value * 0.05f;
                     Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(false);
                     Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().size -= new Vector2(1.5f, 2.3f);
                     Unit.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<BoxCollider2D>().offset -= new Vector2(-0.75f, 1.15f);

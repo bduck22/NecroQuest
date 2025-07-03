@@ -19259,8 +19259,8 @@ MonoBehaviour:
   Buff: []
   AttackSpeed: 1
   Intersection: 5
-  SpawnSpeed: 3
-  AttackWeight: 1
+  SpawnSpeed: 2.5
+  AttackWeight: 1.7
   Type: 6
   MobTargetType: 0
   AttackType: 0

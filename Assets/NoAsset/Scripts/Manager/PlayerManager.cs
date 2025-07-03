@@ -159,7 +159,7 @@ public class PlayerManager : MonoBehaviour
     public void StageStart()
     {
         GameManager.instance.Diffi = Data.LocalData.diffi;
-        QuestType = (QuestType)Random.Range(0, 4);
+        QuestType = (QuestType)Random.Range(0, 3);
         QuestValue = Random.Range(1, 10);
         switch (QuestType)
         {
@@ -176,6 +176,7 @@ public class PlayerManager : MonoBehaviour
             case QuestType.Monster:
                 Qdesc = "마리의 몬스터 처치하기";
                 Qdesc2 = "마리의 몬스터 처치함";
+                QuestValue = (GameManager.instance.Diffi == 0 ? 1 : GameManager.instance.Diffi) * 50 * (1+ ((int)(GameManager.instance.Diffi / 5)*0.5f)) ;
                 //QuestValue = ;
                 break;
         }

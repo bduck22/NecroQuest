@@ -5411,10 +5411,11 @@ MonoBehaviour:
   AttackSpeed: 1
   Intersection: 7
   SpawnSpeed: 0
-  AttackWeight: 1
+  AttackWeight: 1.2
   Type: 2
   MobTargetType: 1
   AttackType: 1
+  Lock: 0
   LodingTime: 0.1
   Target: {fileID: 0}
   AttackOb: {fileID: 0}

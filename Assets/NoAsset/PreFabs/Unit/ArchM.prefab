@@ -653,7 +653,7 @@ MonoBehaviour:
   SkillCoolTime: 2
   SkillTime: 0
   skill: 0
-  SkillWeight: 5
+  SkillWeight: 3
   GetDamages: 0
   SetDamages: 0
 --- !u!50 &6076946308087718478

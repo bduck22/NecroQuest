@@ -16,7 +16,7 @@ public class MainScene : MonoBehaviour
         else
         {
             Data.LocalData = new LocalData();
-            Data.LocalData.Gold = 2000000;
+            Data.LocalData.Gold = 5000;
             Data.LocalData.diffi = 0;
             Data.LocalData.SelectPreSet = 0;
             Data.Stats = new UnitStats();

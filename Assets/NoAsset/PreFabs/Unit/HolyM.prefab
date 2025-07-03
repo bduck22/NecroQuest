@@ -360,7 +360,7 @@ MonoBehaviour:
   Hp: 0
   MaxHp: 5
   Damage: 5
-  Intersection: 5
+  Intersection: 3.5
   Moral: 125
   Buff: []
   PlusStats:
