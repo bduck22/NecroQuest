@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +38,7 @@ public class BuffCardManager : MonoBehaviour
 
             if (gets.Count == 0)
             {
+                keys[i] = -1;
                 Cards[i].gameObject.SetActive(false);
             }
             else
@@ -67,14 +69,17 @@ public class BuffCardManager : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            gets.Add(keys[i]);
+            if (keys[i] != -1)
+            {
+                gets.Add(keys[i]);
+            }
         }
     }
     public void CardSelect(int number)
     {
         for (int i = 0; i < 3; i++)
         {
-            if (i != number&&carddata[number].Name!="")
+            if (i != number && keys[i] !=-1)
             {
                 gets.Add(keys[i]);
             }

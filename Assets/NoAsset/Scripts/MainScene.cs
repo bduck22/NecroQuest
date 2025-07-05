@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class MainScene : MonoBehaviour
 {
     public Transform Fade;
+    [SerializeField] AudioMixer AudioMixer;
     void Start()
     {
         if (File.Exists(Data.path))
         {
             Data.Load();
+            AudioMixer.SetFloat("Master", Mathf.Log10(Data.LocalData.Master) * 20);
+            AudioMixer.SetFloat("SFX", Mathf.Log10(Data.LocalData.SFX) * 20);
+            AudioMixer.SetFloat("BGM", Mathf.Log10(Data.LocalData.BGM) * 20);
         }
         else
         {
@@ -41,7 +46,7 @@ public class MainScene : MonoBehaviour
 
     void Update()
     {
-        
+
     }
     public void GameStart()
     {

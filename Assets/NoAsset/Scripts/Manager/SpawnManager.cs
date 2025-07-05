@@ -34,7 +34,7 @@ public class SpawnManager : MonoBehaviour
         else if (IsBoss)
         {
             BossUI.value = Boss.Hp / (Boss.MaxHp * 20f);
-            if (Boss.Hp <= 0)
+            if (Boss.Hp <= 0||!Boss.gameObject.activeSelf)
             {
                 BossUI.transform.parent.gameObject.SetActive(false);
                 IsBoss = false;

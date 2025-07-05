@@ -162,11 +162,11 @@ public class MobBase : MonoBehaviour
                     if (goaled)
                     {
                         goaled = true;
-                        transform.position += targetP * Speed * Time.deltaTime;
+                        transform.position += targetP * Speed * 1.5f *Time.deltaTime;
                     }
                     else
                     {
-                        transform.position += (Target.transform.position - transform.position).normalized * Speed * Time.deltaTime;
+                        transform.position += (Target.transform.position - transform.position).normalized * Speed * 1.5f * Time.deltaTime;
                     }
                     if (Type == MobType.Ghost && Vector2.Distance(transform.position, Target.transform.position) > Intersection && goaled)
                     {
@@ -174,7 +174,7 @@ public class MobBase : MonoBehaviour
                         TargetLoad();
                     }
                 }
-                else rigidbody.linearVelocity = (targetP - transform.position).normalized * Speed;
+                else rigidbody.linearVelocity = (targetP - transform.position).normalized * 1.5f * Speed;
             }
             else if (AttackType == Attack_Type.longRange )
             {
@@ -186,11 +186,11 @@ public class MobBase : MonoBehaviour
                     }
                     if (Ghosted)
                     {
-                        transform.position += (Target.transform.position - transform.position).normalized * Speed * Time.deltaTime;
+                        transform.position += (Target.transform.position - transform.position).normalized * Speed * 1.5f * Time.deltaTime;
                     }
                     else
                     {
-                        rigidbody.linearVelocity = (targetP - transform.position).normalized * Speed;
+                        rigidbody.linearVelocity = (targetP - transform.position).normalized * 1.5f * Speed;
                     }
                     attack = false;
                 }

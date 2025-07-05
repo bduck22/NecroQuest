@@ -158,7 +158,6 @@ public class PlayerManager : MonoBehaviour
     }
     public void StageStart()
     {
-        Debug.Log(Data.LocalData.diffi);
         GameManager.instance.Diffi = Data.LocalData.diffi;
         QuestType = (QuestType)Random.Range(0, 3);
         QuestValue = Random.Range(1, 10);
