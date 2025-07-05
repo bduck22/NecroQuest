@@ -78,7 +78,7 @@ public class MobBase : MonoBehaviour
         Damage = stat.Damage;
         AttackSpeed = stat.AttackSpeed;
         Intersection = stat.Intersection;
-        MaxHp += GameManager.instance.Diffi * 1;
+        MaxHp += GameManager.instance.Diffi * 0.5f;
         Damage += GameManager.instance.Diffi * 0.5f;
         if (spawnManager.Boss)
         {

@@ -1,26 +1,29 @@
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class CameraDark : MonoBehaviour
 {
-    PostProcessVolume volume;
+    Volume volume;
+    //PostProcessVolume volume;
     Vignette vignette;
+    //Volume
     void Start()
     {
-        volume = GetComponent<PostProcessVolume>();
-        volume.profile.TryGetSettings(out vignette);
+        volume = GetComponent<Volume>();
+        volume.profile.TryGet<Vignette>(out vignette);
     }
 
     bool o=true;
     void Update()
     {
-        if(vignette.intensity <= 0.5f&&o)
+        if(vignette.intensity.value <= 0.5f&&o)
         {
-            vignette.intensity.value += 0.5f * Time.deltaTime;
+            vignette.intensity.value += 0.05f * Time.deltaTime;
         }
-        else if(vignette.intensity >=0.25f)
+        else if(vignette.intensity.value >= 0.25f)
         {
-            vignette.intensity.value -= 0.5f * Time.deltaTime;
+            vignette.intensity.value -= 0.05f * Time.deltaTime;
             o = false;
         }
         else

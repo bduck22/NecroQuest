@@ -158,6 +158,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void StageStart()
     {
+        Debug.Log(Data.LocalData.diffi);
         GameManager.instance.Diffi = Data.LocalData.diffi;
         QuestType = (QuestType)Random.Range(0, 3);
         QuestValue = Random.Range(1, 10);
@@ -166,7 +167,7 @@ public class PlayerManager : MonoBehaviour
             case QuestType.Attack:
                 Qdesc = "의 피해 입히기";
                 Qdesc2 = "의 피해 입힘";
-                QuestValue = GameManager.instance.Diffi = (Data.LocalData.diffi == 0 ? 200 : Data.LocalData.diffi * 500);
+                QuestValue = (GameManager.instance.Diffi == 0 ? 200 : GameManager.instance.Diffi * 500);
                 break;
             case QuestType.Wave:
                 Qdesc = "웨이브 클리어하기";

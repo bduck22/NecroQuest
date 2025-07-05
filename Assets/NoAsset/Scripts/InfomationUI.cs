@@ -62,7 +62,7 @@ public class InfomationUI : MonoBehaviour
         unit = new Unit();
         unit.Damage = Data.UnitData[uClass].Damage + Data.LocalData.GetUnits[uClass].Damage;
         unit.UnitClass = uClass;
-        unit.Speed = Data.UnitData[uClass].Speed+Data.LocalData.GetUnits[uClass].Speed;
+        unit.Speed = Data.UnitData[uClass].Speed + Data.LocalData.GetUnits[uClass].Speed;
         unit.MaxHp = Data.UnitData[uClass].Hp + Data.LocalData.GetUnits[uClass].Hp;
         unit.AttackSpeed = Data.UnitData[uClass].AttackSpeed + Data.LocalData.GetUnits[uClass].AttackSpeed;
 
@@ -74,12 +74,13 @@ public class InfomationUI : MonoBehaviour
     }
     void Update()
     {
+
+        hp.text = (unit.MaxHp + unit.PlusStats.Hp).ToString("#,##0.0");
+        speed.text = (unit.Speed + unit.PlusStats.Speed).ToString("#,##0.0");
+        damage.text = (unit.Damage + unit.PlusStats.Damage).ToString("#,##0.0");
+        attackspeed.text = (unit.AttackSpeed + unit.PlusStats.AttackSpeed).ToString("#,##0.0");
         if (SceneManager.GetActiveScene().buildIndex != 1)
         {
-            hp.text = (unit.MaxHp + unit.PlusStats.Hp).ToString("#,##0.0");
-            speed.text = (unit.Speed + unit.PlusStats.Speed).ToString("#,##0.0");
-            damage.text = (unit.Damage + unit.PlusStats.Damage).ToString("#,##0.0");
-            attackspeed.text = (unit.AttackSpeed + unit.PlusStats.AttackSpeed).ToString("#,##0.0");
             moralS.value = unit.Moral / 250f;
             moralT.text = unit.Moral.ToString("#,##0.0") + " / " + 250f;
             healthS.value = unit.Hp / (unit.MaxHp + unit.PlusStats.Hp) * 20f;
@@ -88,7 +89,8 @@ public class InfomationUI : MonoBehaviour
     }
     public void Set(int n)
     {
-        if(uClass != (UnitClass)Data.Units[n]){
+        if (uClass != (UnitClass)Data.Units[n])
+        {
             uClass = (UnitClass)Data.Units[n];
             gameObject.SetActive(true);
         }
