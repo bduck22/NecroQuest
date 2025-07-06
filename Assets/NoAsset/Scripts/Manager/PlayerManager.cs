@@ -239,8 +239,11 @@ public class PlayerManager : MonoBehaviour
         {
             if (unit != null)
             {
-                unit.PlusStats.PlusStat(guardians[guardians.Count - 1].Stats);
-                unit.UnitInit();
+                if (unit.gameObject.activeSelf)
+                {
+                    unit.PlusStats.PlusStat(guardians[guardians.Count - 1].Stats);
+                    unit.UnitInit();
+                }
             }
         }
     }
@@ -250,7 +253,10 @@ public class PlayerManager : MonoBehaviour
         {
             if (unit != null)
             {
-                unit.UnitInit();
+                if (unit.gameObject.activeSelf)
+                {
+                    unit.UnitInit();
+                }
             }
         }
     }

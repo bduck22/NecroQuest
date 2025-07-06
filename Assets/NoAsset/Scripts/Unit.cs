@@ -203,7 +203,7 @@ public class Unit : MonoBehaviour
             AttackTime = 1;
         }
 
-        if (SkillTime < (SkillCoolTime+ PlusStats.SkillCool))
+        if (SkillTime < ((SkillCoolTime+ PlusStats.SkillCool)<5f?5: (SkillCoolTime + PlusStats.SkillCool)))
         {
             if (!locked|| !Hlocked)
             {
@@ -213,7 +213,7 @@ public class Unit : MonoBehaviour
         else if (!skill|| !Hlocked)
         {
             skill = true;
-            SkillTime = (SkillCoolTime+PlusStats.SkillCool);
+            SkillTime = ((SkillCoolTime + PlusStats.SkillCool) < 5f ? 5 : (SkillCoolTime + PlusStats.SkillCool));
         }
 
         if (TargetUnit && AttackTime == 1 && !locked&& !Hlocked)
@@ -325,7 +325,7 @@ public class Unit : MonoBehaviour
             switch (UnitClass)
             {
                 case UnitClass.GuardN:
-                    Value += MaxHp * 0.75f;
+                    Value = 10 + MaxHp * 0.75f;
                     IsDamaged = true;
                     locked = true;
                     AttackAnimation.SetTrigger("Skill");
@@ -335,7 +335,7 @@ public class Unit : MonoBehaviour
                     IsDamaged= true;
                     Hlocked = true;
                     AttackAnimation.SetTrigger("Skill");
-                    Value = AttackSpeed + PlusStats.AttackSpeed;
+                    Value = 30 + AttackSpeed + PlusStats.AttackSpeed;
                     Effect = Instantiate(SkillEffect.gameObject, transform.position, AttackAnimation.transform.rotation);
                     break;
                 case UnitClass.Berserker:
@@ -347,7 +347,7 @@ public class Unit : MonoBehaviour
                     IsDamaged = true;
                     locked = true;
                     AttackAnimation.SetTrigger("Skill");
-                    Value = (Damage+PlusStats.Damage)/2 + (Speed+PlusStats.Speed)*0.75f;
+                    Value = 20 + (Damage+PlusStats.Damage)/2 + (Speed+PlusStats.Speed)*0.75f;
                     Effect = Instantiate(SkillEffect.gameObject, AttackAnimation.transform.position, AttackAnimation.transform.rotation);
                     break;
                 case UnitClass.ArchM:
@@ -369,7 +369,7 @@ public class Unit : MonoBehaviour
                     Effect.transform.position = new Vector3(Effect.transform.position.x, Effect.transform.position.y, 0);
                     Effect.transform.localScale = new Vector3((Buff[0].Value * 0.02f) + 1f, (Buff[0].Value * 0.02f) + 1f, 1);
                     Effect = Effect.transform.GetChild(0).gameObject;
-                    Value = (Damage + PlusStats.Damage) + Buff[0].Value * 0.05f;
+                    Value = 10 + (Damage + PlusStats.Damage) + Buff[0].Value * 0.05f;
                     break;
                 case UnitClass.SpiritM:
                     locked = true;
@@ -403,12 +403,12 @@ public class Unit : MonoBehaviour
                         Skill_Target = this;
                     }
                     AttackAnimation.SetTrigger("Skill");
-                    Skill_Target.HpChange(skillweight * -Value);
+                    Skill_Target.HpChange(20 + skillweight * -Value);
                     Skill_Target.Buff.Add(new Buff(Buff_Type.Spirit, (Skill_Target.Speed + Skill_Target.PlusStats.Speed)*0.35f, 3, false));
                     break;
                 case UnitClass.HolyM:
                     locked = true;
-                    Value = (Damage + PlusStats.Damage) * 0.2f + (Speed + PlusStats.Speed);
+                    Value = 30 + (Damage + PlusStats.Damage) * 0.25f + (Speed + PlusStats.Speed);
                     AttackAnimation.SetTrigger("Skill");
                     Effect = Instantiate(SkillEffect.gameObject, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
                     Effect.transform.position = new Vector3(Effect.transform.position.x, Effect.transform.position.y, 0);

@@ -228,7 +228,7 @@ public class LobbyManager : MonoBehaviour
     }
     public void BuffLevelUp(int Type)
     {
-        if (!UseMoney((Data.LocalData.Blessing[(BlessingType)(Type)] + 1) * 1000))
+        if (!UseMoney((Data.LocalData.Blessing[(BlessingType)(Type)] + 1) * 500))
         {
             return;
         }
@@ -257,7 +257,7 @@ public class LobbyManager : MonoBehaviour
                 Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "획득 사기량 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0%");
                 break;
         }
-        Blessings.GetChild(n).GetChild(4).GetComponentInChildren<TMP_Text>().text = "레벨업(" + ((Data.LocalData.Blessing[(BlessingType)(n - 1)] + 1) * 1000).ToString("#,##0$)");
+        Blessings.GetChild(n).GetChild(4).GetComponentInChildren<TMP_Text>().text = "레벨업(" + ((Data.LocalData.Blessing[(BlessingType)(n - 1)] + 1) * 500).ToString("#,##0$)");
         BlessingLv.GetChild(n - 1).GetChild(1).GetComponent<Text>().text = "Lv." + Data.LocalData.Blessing[(BlessingType)(n - 1)].ToString("#,##0");
     }
     public void MainScreen()

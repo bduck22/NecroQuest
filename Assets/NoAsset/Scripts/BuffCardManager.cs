@@ -8,7 +8,7 @@ public class BuffCardManager : MonoBehaviour
     public Transform[] Cards;
     public Guardian[] carddata;
     public int[] keys;
-    public int Loadcount;
+    public int Loadcount=3;
     Text LoadButton;
     private void Awake()
     {
@@ -17,7 +17,7 @@ public class BuffCardManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        Loadcount = 3;
+        Loadcount++;
         CardLoad();
     }
 
@@ -30,7 +30,11 @@ public class BuffCardManager : MonoBehaviour
             transform.parent.gameObject.SetActive(false);
             return;
         }
-        carddata = new Guardian[Cards.Length];
+        else
+        {
+            Time.timeScale = 0;
+        }
+            carddata = new Guardian[Cards.Length];
         keys = new int[Cards.Length];
         Loadcount--;
         for (int i = 0; i < 3; i++)

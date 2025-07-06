@@ -88,7 +88,7 @@ public class UnitUpgrade : MonoBehaviour
         }
         else
         {
-            Price = (data.level + 1) * 1000;
+            Price = (data.level + 1) * 500;
             Level.text = "Lv." + Data.LocalData.GetUnits[uClass].level;
             LevelUp.text = "+1 ·¹º§(" + Price.ToString("#,##0") + "$)";
         }

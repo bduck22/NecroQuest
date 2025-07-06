@@ -230,7 +230,6 @@ public class GameManager : MonoBehaviour
             if (R < 0.9f)
             {
                 GuardianSelecter.gameObject.SetActive(true);
-                Time.timeScale = 0;
                 //GuardianSelecter.Load();
             }
         }
