@@ -91,34 +91,36 @@ public class Unit : MonoBehaviour
     public float GetDamages;
     public float SetDamages;
 
-    private void Start()
+    private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
-        //Spawn();
     }
     public void UnitInit()
     {
-        Hp = (MaxHp+ PlusStats.Hp) * 20;
         AttackTime = 1;
         SkillTime = SkillCoolTime+PlusStats.SkillCool;
         Interaction.radius = Intersection + 2f+PlusStats.Intersection;
+        if(Interaction.radius < 2)
+        {
+            Interaction.radius = 2;
+        }
         TargetUnit = null;
         Invin = false;
         Move = false;
         if(GameManager.instance.GameStatus == GameStatus.Waving)locked = false;
+        HpChange(-(MaxHp + PlusStats.Hp) * 2);
     }
     public void Spawn()
     {
         Buff.Clear();
-        PlusStats = new UnitStats();
+        PlusStats = Data.Stats;
         Damage = Data.UnitData[UnitClass].Damage+ Data.LocalData.GetUnits[UnitClass].Damage;
         AttackSpeed = Data.UnitData[UnitClass].AttackSpeed+ Data.LocalData.GetUnits[UnitClass].AttackSpeed;
         MaxHp = Data.UnitData[UnitClass].Hp+ Data.LocalData.GetUnits[UnitClass].Hp;
         Speed = Data.UnitData[UnitClass].Speed+ Data.LocalData.GetUnits[UnitClass].Speed;
         SkillCoolTime = Data.UnitData[UnitClass].Cooltime;
         Level = Data.LocalData.GetUnits[UnitClass].level;
-        UnitInit();
         switch (UnitClass)
         {
             case UnitClass.GuardN:
@@ -132,6 +134,8 @@ public class Unit : MonoBehaviour
                 break;
         }
         gameObject.SetActive(true);
+        Hp = (MaxHp + PlusStats.Hp) * 20;
+        UnitInit();
     }
     public void HpUp(float value)
     {
@@ -142,6 +146,10 @@ public class Unit : MonoBehaviour
     {
         PlusStats.Intersection += value;
         Interaction.radius = Intersection + 2f + PlusStats.Intersection;
+        if (Interaction.radius < 2)
+        {
+            Interaction.radius = 2;
+        }
     }
     public void AllStatUp(float value)
     {
@@ -195,7 +203,11 @@ public class Unit : MonoBehaviour
         {
             if (!locked||!Hlocked)
             {
-                AttackTime += (AttackSpeed+PlusStats.AttackSpeed) * Time.deltaTime;
+                if ((AttackSpeed + PlusStats.AttackSpeed) <= 0)
+                {
+                    AttackTime += 0.1f * Time.deltaTime;
+                }
+                else AttackTime += (AttackSpeed+PlusStats.AttackSpeed) * Time.deltaTime;
             }
         }
         else
@@ -403,7 +415,7 @@ public class Unit : MonoBehaviour
                         Skill_Target = this;
                     }
                     AttackAnimation.SetTrigger("Skill");
-                    Skill_Target.HpChange(20 + skillweight * -Value);
+                    Skill_Target.HpChange(-(20 + skillweight * Value));
                     Skill_Target.Buff.Add(new Buff(Buff_Type.Spirit, (Skill_Target.Speed + Skill_Target.PlusStats.Speed)*0.35f, 3, false));
                     break;
                 case UnitClass.HolyM:

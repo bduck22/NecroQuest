@@ -78,8 +78,8 @@ public class MobBase : MonoBehaviour
         Damage = stat.Damage;
         AttackSpeed = stat.AttackSpeed;
         Intersection = stat.Intersection;
-        MaxHp += GameManager.instance.Diffi * 0.5f;
-        Damage += GameManager.instance.Diffi * 0.5f;
+        MaxHp += GameManager.instance.Diffi * 0.75f;
+        Damage += GameManager.instance.Diffi * 0.75f;
         if (spawnManager.Boss)
         {
             if (spawnManager.Boss.Type == MobType.Necro && Type != MobType.Necro)
@@ -427,7 +427,26 @@ public class MobBase : MonoBehaviour
                         }
                     }
                     PlayerManager.instance.UnitsMoral(5);
-                    PlayerManager.instance.CreateGold(100, transform.position);
+                    int Price=0;
+                    switch (Type)
+                    {
+                        case MobType.Zombie:
+                        case MobType.Skull:
+                        case MobType.Ghost:
+                            Price = 100;
+                            break;
+                        case MobType.Ghoul:
+                        case MobType.Shade:
+                            Price = 200;
+                            break;
+                        case MobType.Dullahan:
+                            Price = 5000;
+                            break;
+                        case MobType.Necro:
+                            Price = 10000;
+                            break;
+                    }
+                    PlayerManager.instance.CreateGold(Price, transform.position);
                     if (Type == MobType.Ghost)
                     {
                         transform.GetComponentInChildren<TrailRenderer>().enabled = false;

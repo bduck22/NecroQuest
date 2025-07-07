@@ -227,7 +227,7 @@ public class GameManager : MonoBehaviour
             one = false;
             float R = Random.Range(0.0f, 1.0f);
             WaveStartButton.gameObject.SetActive(true);
-            if (R < 0.9f)
+            if (R < (0.45f + Data.LocalData.Blessing[BlessingType.Moral]*0.01f))
             {
                 GuardianSelecter.gameObject.SetActive(true);
                 //GuardianSelecter.Load();

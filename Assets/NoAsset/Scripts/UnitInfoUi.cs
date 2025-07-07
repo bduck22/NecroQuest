@@ -30,6 +30,7 @@ public class UnitInfoUi : MonoBehaviour
                 Unit unit = PlayerManager.instance.Units[i];
 
                 Transform Cha = transform.GetChild(i);
+                Cha.GetChild(0).GetChild(0).GetComponent<Image>().color = Color.white;
                 Cha.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(unit.UnitClass.ToString() + "S");
                 Cha.GetChild(1).GetChild(1).GetComponent<Image>().sprite = Resources.Load<Sprite>(unit.UnitClass.ToString() + "Head");
             }

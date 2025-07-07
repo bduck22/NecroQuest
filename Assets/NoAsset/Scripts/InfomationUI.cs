@@ -83,7 +83,7 @@ public class InfomationUI : MonoBehaviour
         {
             moralS.value = unit.Moral / 250f;
             moralT.text = unit.Moral.ToString("#,##0.0") + " / " + 250f;
-            healthS.value = unit.Hp / (unit.MaxHp + unit.PlusStats.Hp) * 20f;
+            healthS.value = unit.Hp / ((unit.MaxHp + unit.PlusStats.Hp) * 20f);
             healthT.text = unit.Hp.ToString("#,##0.0") + " / " + ((unit.MaxHp + unit.PlusStats.Hp) * 20f).ToString("#,##0.0");
         }
     }

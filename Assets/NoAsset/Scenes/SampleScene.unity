@@ -7708,7 +7708,7 @@ MonoBehaviour:
   Cards: []
   carddata: []
   keys: 
-  Loadcount: 100
+  Loadcount: 3
   gets: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000
 --- !u!1 &457347479
 GameObject:
@@ -8665,6 +8665,7 @@ GameObject:
   - component: {fileID: 517419019}
   - component: {fileID: 517419021}
   - component: {fileID: 517419020}
+  - component: {fileID: 517419022}
   m_Layer: 5
   m_Name: CoolTime
   m_TagString: Untagged
@@ -8704,7 +8705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8733,6 +8734,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 517419018}
   m_CullTransparentMesh: 1
+--- !u!114 &517419022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517419018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 3, y: 3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -10349,6 +10365,7 @@ GameObject:
   - component: {fileID: 607923425}
   - component: {fileID: 607923427}
   - component: {fileID: 607923426}
+  - component: {fileID: 607923428}
   m_Layer: 5
   m_Name: CoolTime
   m_TagString: Untagged
@@ -10388,7 +10405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10417,6 +10434,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 607923424}
   m_CullTransparentMesh: 1
+--- !u!114 &607923428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607923424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 3, y: 3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &610870542
 GameObject:
   m_ObjectHideFlags: 0
@@ -169484,6 +169516,7 @@ GameObject:
   - component: {fileID: 697147628}
   - component: {fileID: 697147630}
   - component: {fileID: 697147629}
+  - component: {fileID: 697147631}
   m_Layer: 5
   m_Name: CoolTime
   m_TagString: Untagged
@@ -169523,7 +169556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -169552,6 +169585,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 697147627}
   m_CullTransparentMesh: 1
+--- !u!114 &697147631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697147627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &703326021
 GameObject:
   m_ObjectHideFlags: 0
@@ -170711,6 +170759,7 @@ GameObject:
   - component: {fileID: 777656448}
   - component: {fileID: 777656450}
   - component: {fileID: 777656449}
+  - component: {fileID: 777656451}
   m_Layer: 5
   m_Name: CoolTime
   m_TagString: Untagged
@@ -170750,7 +170799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -170779,6 +170828,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777656447}
   m_CullTransparentMesh: 1
+--- !u!114 &777656451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777656447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 3, y: 3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &778542553
 GameObject:
   m_ObjectHideFlags: 0
@@ -175881,15 +175945,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fade86760fbd2984387aa5c267fcab42, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 619c9d0e36de86e469e6fdcab131c37f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -180538,7 +180602,7 @@ MonoBehaviour:
     - Type: 0
       Count: 20
       middle: 0
-      final: 1
+      final: 0
     - Type: 1
       Count: 5
       middle: 0
@@ -185103,8 +185167,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 47, y: -71}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 87.00122, y: -71}
+  m_SizeDelta: {x: 268.0023, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1859876570
 MonoBehaviour:
@@ -185136,10 +185200,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uACF5\uACA9\uB824\u3155\n\uACF5\uC18D\n\uCCB4\uB825\n\uBC1B\uB290\u3134\uD53C\uD574\uB7C9\n\uC2A4\uD0AC\uCFE8\uD0C0\uC784\n\uC2A4\uD0AC\uD53C\uD574\uB7C9\n\uC0AC\uAE30\uC99D\uAC00\uB7C9"
+  m_Text: "\uACF5\uACA9\uB824\u3155\n\uACF5\uC18D\n\uCCB4\uB825\n\uBC1B\uB290\u3134\uD53C\uD574\uB7C9\n\uC2A4\uD0AC\uCFE8\uD0C0\uC784\n\uAC00\uD558\uB294
+    \uD53C\uD574\uB7C9 \uBC0F \uD68C\uBCF5\uB7C9 + 10%\n\uC0AC\uAE30\uC99D\uAC00\uB7C9"
 --- !u!222 &1859876571
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -41,10 +41,10 @@ public class LobbyManager : MonoBehaviour
     string path;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            Data.LocalData.Gold += 10000;
-        }
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    Data.LocalData.Gold += 10000;
+        //}
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Setting.gameObject.SetActive(!Setting.gameObject.activeSelf);
@@ -217,8 +217,8 @@ public class LobbyManager : MonoBehaviour
                 Data.Stats.AttackSpeed += (Data.LocalData.Blessing[BlessingType.Attack] * 0.1f);
                 Data.Stats.Hp += (Data.LocalData.Blessing[BlessingType.Defence] * 0.25f);
                 Data.Stats.GetDamage -= (Data.LocalData.Blessing[BlessingType.Defence] * 0.003f);
-                Data.Stats.SkillCool -= (Data.LocalData.Blessing[BlessingType.Skill] * 0.05f);
-                Data.Stats.SkillDamage += (Data.LocalData.Blessing[BlessingType.Skill] * 0.04f);
+                Data.Stats.SkillCool -= (Data.LocalData.Blessing[BlessingType.Skill] * 0.1f);
+                Data.Stats.SetValue += (Data.LocalData.Blessing[BlessingType.Skill] * 0.01f);
                 Data.Stats.MoralUp += (Data.LocalData.Blessing[BlessingType.Moral] * 0.1f);
                 SceneManager.LoadScene(3);
                 return;
@@ -251,10 +251,11 @@ public class LobbyManager : MonoBehaviour
                 break;
             case 2:
                 Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "½ºÅ³ ÄðÅ¸ÀÓ -" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0.0ÃÊ") +
-                    "\n½ºÅ³ÇÇÇØ·® +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.04f).ToString("#,##0%");
+                    "\n°¡ÇÏ´Â ÇÇÇØ·® ¹× È¸º¹·® +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.01f).ToString("#,##0%");
                 break;
             case 3:
-                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "È¹µæ »ç±â·® +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0%");
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "È¹µæ »ç±â·® +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0%") +
+                    "\n°¡È£ È¹µæ È®·ü + " + (Data.LocalData.Blessing[(BlessingType)(n - 1)]*0.01f).ToString("#,##0%") + "\n(±âº» È®·ü : 45%)";
                 break;
         }
         Blessings.GetChild(n).GetChild(4).GetComponentInChildren<TMP_Text>().text = "·¹º§¾÷(" + ((Data.LocalData.Blessing[(BlessingType)(n - 1)] + 1) * 500).ToString("#,##0$)");

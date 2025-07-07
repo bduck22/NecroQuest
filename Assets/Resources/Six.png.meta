@@ -3,8 +3,8 @@ guid: 8363b95471d09334090824e445e7dd0b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1456422079140348055
-    second: 321_0
+      213: 7792153380951505386
+    second: Six_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 321_0
+      name: Six_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 96fbdc1e5dfb9cbe0800000000000000
-      internalID: -1456422079140348055
+      spriteID: ae939f2273a432c60800000000000000
+      internalID: 7792153380951505386
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      321_0: -1456422079140348055
+      Six_0: 7792153380951505386
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

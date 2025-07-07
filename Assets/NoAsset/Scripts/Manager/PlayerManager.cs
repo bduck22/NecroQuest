@@ -108,6 +108,7 @@ public class PlayerManager : MonoBehaviour
     public bool Alive=false;
     private void Update()
     {
+        QuestT.text = OQuestValue.ToString("#,##0") + Qdesc + "\n(" + (OQuestValue - QuestValue).ToString("#,##0") + Qdesc2 + ")";
         if (GameManager.instance.GameStatus != GameStatus.Waving)
         {
             if (QuestValue <= 0)
@@ -120,7 +121,6 @@ public class PlayerManager : MonoBehaviour
         {
             if(QuestClear.gameObject.activeSelf) QuestClear.gameObject.SetActive(false);
         }
-        QuestT.text = OQuestValue.ToString("#,##0") + Qdesc+"\n(" + (OQuestValue - QuestValue).ToString("#,##0") + Qdesc2+")";
 
         for (int i = 0; i < Units.Length; i++)
         {
@@ -212,7 +212,6 @@ public class PlayerManager : MonoBehaviour
                         }
                     }
                 }
-                unit.PlusStats.PlusStat(Data.Stats);
             }
         }
         UUi.LoadFirst();

@@ -62,73 +62,79 @@ public class Guardian : NameDEscriptionBase
         switch (guardianType)
         {
             case GuardianType.One:
-                Stats.SkillCool -= 3;
-                Stats.SetValue += 0.2f;
+                Stats.SkillDamage += 0.2f;
+                Stats.AttackSpeed -= 0.5f;
+                Stats.SkillCool -= 1;
                 break;
             case GuardianType.Two:
-                Stats.Damage+=23;
-                Stats.MoralUp += 0.2f;
-                Stats.Speed -= 0.4f;
+                Stats.InvinTime += 0.05f;
+                Stats.SetValue -= 0.075f;
+                Stats.Intersection += 1.5f;
                 break;
             case GuardianType.Three:
-                Stats.Speed += 1.2f;
-                Stats.SkillDamage+=0.25f;
+                Stats.Speed -= 1.5f;
+                Stats.Damage += 1;
+                Stats.Intersection += 3;
                 break;
             case GuardianType.Four:
-                Stats.Hp += 2;
-                Stats.SetValue += 0.25f;
+                Stats.AttackSpeed += 1;
+                Stats.GetDamage += 0.1f;
+                Stats.SkillCool -= 0.5f;
                 break;
             case GuardianType.Five:
-                Stats.AttackSpeed += 0.7f;
-                Stats.SkillCool -=2;
+                Stats.Damage += 2;
+                Stats.AttackDamage += 0.15f;
+                Stats.AttackSpeed -= 0.75f;
                 break;
             case GuardianType.Six:
-                Stats.Speed += 1.3f;
-                Stats.SkillDamage +=0.1f;
-                Stats.GetHeal -= 0.15f;
+                Stats.Hp += 2;
+                Stats.MoralUp += 0.2f;
+                Stats.GetHeal -= 0.1f;
                 break;
             case GuardianType.Seven:
-                Stats.Damage += 12;
-                Stats.AttackSpeed += 1.6f;
-                Stats.GetHeal -= 0.4f;
-                Stats.Speed -= 1.2f;
+                Stats.SetValue += 0.2f;
+                Stats.MoralUp += 0.1f;
+                Stats.Damage -= 1.5f;
                 break;
             case GuardianType.Eight:
-                Stats.GetDamage -= 0.3f;
-                Stats.AttackSpeed -= 0.6f;
+                Stats.GetDamage -= 0.05f;
+                Stats.GetHeal += 0.15f;
+                Stats.Speed -= 1;
                 break;
             case GuardianType.Nine:
-                Stats.Intersection += 4;
-                Stats.AttackSpeed -= 0.6f;
+                Stats.GetDamage += 0.1f;
+                Stats.SkillDamage += 0.25f;
+                Stats.AttackDamage += 0.15f;
                 break;
             case GuardianType.Ten:
-                Stats.SkillCool-=1.2f;
-                Stats.SkillDamage+=0.1f;
-                Stats.GetHeal += 0.1f;
+                Stats.SkillDamage += 1f;
+                Stats.SkillCool += 2f;
+                Stats.AttackDamage -= 0.15f;
                 break;
             case GuardianType.OneOne:
-                Stats.GetHeal += 0.15f;
-                Stats.MoralUp += 0.1f;
+                Stats.GetHeal += 0.1f;
+                Stats.SetValue += 0.05f;
+                Stats.SkillCool += 1;
                 break;
             case GuardianType.OneTwo:
                 Stats.Speed += 3;
-                Stats.GetDamage += 0.2f;
+                Stats.Intersection += 1.5f;
+                Stats.InvinTime -= 0.05f;
                 break;
             case GuardianType.OneThree:
-                Stats.AttackSpeed += 1.8f;
-                Stats.GetHeal -= 0.2f;
-                Stats.MoralUp -= 0.2f;
+                Stats.MoralUp += 0.2f;
+                Stats.AttackDamage += 0.2f;
+                Stats.Hp -= 2;
                 break;
             case GuardianType.OneFour:
-                Stats.Hp += 1.8f;
-                Stats.Speed += 0.4f;
-                Stats.AttackSpeed += 1.6f;
-                Stats.SkillDamage += 0.05f;
-                Stats.MoralUp -= 0.7f;
+                Stats.SetValue += 0.075f;
+                Stats.InvinTime += 0.025f;
+                Stats.Intersection -= 2.5f;
                 break;
             case GuardianType.OneFive:
-                Stats.MoralUp += 0.2f;
-                Stats.Speed -= 0.3f;
+                Stats.Damage += 1.5f;
+                Stats.Hp += 2;
+                Stats.MoralUp -= 0.5f;
                 break;
         }
     }
@@ -164,21 +170,21 @@ public static class Data
 {
     public static readonly Dictionary<int, Guardian> GuardianData = new Dictionary<int, Guardian>()
     {
-        {0, new Guardian((GuardianType)0, "마법친화", "스킬 쿨타임 -3초\n가하는 피해 및 회복량 +20%") },
-        {1, new Guardian((GuardianType)1, "그을린 의지", "공격력 +23\n획득 사기량+20%\n이동속도 -0.4") },
-        {2, new Guardian((GuardianType)2, "유성의 흐름", "이동속도 +1.2\n스킬 피해량 +25%") },
-        {3, new Guardian((GuardianType)3, "유혈흡수", "최대체력 +2\n가하는 피해 및 회복량 +25%") },
-        {4, new Guardian((GuardianType)4, "신묘한힘", "공격속도 +0.7\n스킬 쿨타임 -2초") },
-        {5, new Guardian((GuardianType)5, "잿빛의 잔재주", "이동속도 +1.3\n스킬 피해량 +10%\n받는 치유량 -15%") },
-        {6, new Guardian((GuardianType)6, "결의맺은 공성", "공격력 +12\n공격속도 +1.6\n받는 회복량 -40%\n이동속도 -1.2") },
-        {7, new Guardian((GuardianType)7, "경질화", "받는 피해량 -30%\n공격속도 -0.6") },
-        {8, new Guardian((GuardianType)8, "장거리 투사", "사거리 +4\n공격속도 -0.4") },
-        {9, new Guardian((GuardianType)9, "마력 순항", "스킬 쿨타임 -1.2초\n스킬 피해량 +10%\n받는 회복량 +10%") },
-        {10, new Guardian((GuardianType)10, "요정의 포옹", "받는 회복량 +15%\n획득 사기량 +10%") },
-        {11, new Guardian((GuardianType)11, "신속", "이동속도 +3.0\n받는 피해량 +20%") },
-        {12, new Guardian((GuardianType)12, "과로", "공격속도 +1.8\n받는 회복량 -20%\n획득 사기량 -20%") },
-        {13, new Guardian((GuardianType)13, "자력갱생", "체력 +3.5\n이동속도 +0.4\n공격속도 +1.6\n스킬 피해량 +5%") },
-        {14, new Guardian((GuardianType)14, "강건한 고양", "획득 사기량 +20%\n이동속도 -0.3") }
+        {0, new Guardian((GuardianType)0, "마력", "스킬 피해량 +20%\n공격 속도 - 0.5\n 스킬 쿨타임 - 1초") },
+        {1, new Guardian((GuardianType)1, "불신", "무적시간 + 0.05초\n가하는 피해량 및 회복량 - 7.5%\n사거리 + 1.5") },
+        {2, new Guardian((GuardianType)2, "공성", "이동속도 -1.5\n공격력 + 1\n사거리 + 3") },
+        {3, new Guardian((GuardianType)3, "쾌속", "공격속도 + 1\n받는 피해량 + 10%\n스킬 쿨타임 - 0.5초") },
+        {4, new Guardian((GuardianType)4, "괴력", "공격력 + 2\n기본공격 피해량 + 15%\n 공격속도 - 0.75") },
+        {5, new Guardian((GuardianType)5, "경질", "최대체력 + 2\n사기 획득량 + 20%\n받는 치유량 - 10%") },
+        {6, new Guardian((GuardianType)6, "숙련", "가하는 피해량 및 회복량 + 20%\n사기 획득량 + 10%\n공격력 - 1.5") },
+        {7, new Guardian((GuardianType)7, "불굴", "받는 피해량 - 5%\n받는 치유량 + 15%\n이동속도 -1") },
+        {8, new Guardian((GuardianType)8, "파괴", "받는 피해량 + 10%\n스킬 피해량 + 25%\n기본공격 피해량 + 15%") },
+        {9, new Guardian((GuardianType)9, "집중", "스킬 피해량 + 100%\n스킬 쿨타임 + 2초\n기본공격 피해량 - 15%") },
+        {10, new Guardian((GuardianType)10, "요정", "받는 치유량 + 10%\n가하는 피해량 및 가하는 회복량 + 5%\n스킬 쿨타임 + 1초") },
+        {11, new Guardian((GuardianType)11, "신속", "이동속도 + 3\n사거리 + 1.5\n무적시간 - 0.05초") },
+        {12, new Guardian((GuardianType)12, "격노", "사기 획득량 + 20%\n기본공격 피해량 + 20%\n최대체력 - 2") },
+        {13, new Guardian((GuardianType)13, "위압", "가하는 피해량 및 가하는 회복량 + 7.5%\n무적시간 + 0.025초\n사거리 - 2.5") },
+        {14, new Guardian((GuardianType)14, "육체", "공격력 +1.5\n최대체력 + 2\n사기 획득량 - 50%") }
     };
     public static readonly Dictionary<MobType, MobStat> MobData = new Dictionary<MobType, MobStat>()
     {
@@ -187,8 +193,8 @@ public static class Data
         {MobType.Ghost, new MobStat(0.5f, 14, 1.5f, 0, 12) },
         {MobType.Shade, new MobStat(1.75f, 3, 10, 0.5f, 0) },
         {MobType.Ghoul, new MobStat(2, 1.5f, 2.5f, 1, -1.5f) },
-        {MobType.Dullahan, new MobStat(15, 7, 10, 0.5f, 0) },
-        {MobType.Necro, new MobStat(22, 5, 15, 1, 2.5f) }
+        {MobType.Dullahan, new MobStat(20, 7, 13, 0.5f, 0) },
+        {MobType.Necro, new MobStat(25, 5, 17, 1, 2.5f) }
     };
     public static readonly Dictionary<UnitClass, UnitData> UnitData = new Dictionary<UnitClass, UnitData>()
     {
@@ -196,7 +202,7 @@ public static class Data
             "받는 피해량 감소\n" +
             "도발디버프",
             "도발의 함성",
-            "일정범위 내의 모든 적에게\n10 + (체력75%)의 피해(100%)\n를 주고 3초 동안 도발한다.\n" +
+            "일정범위 내의 모든 적에게\n10 + (최대체력75%)의 피해(100%)\n를 주고 3초 동안 도발한다.\n" +
             "(도발 :\n타겟팅을 이 유닛으로 바꿈)\n"+
             "쿨타임 : 15초",
             "강인한 육체",
@@ -225,7 +231,7 @@ public static class Data
             "쿨타임 : 15초",
             "발악",
             "광전사는 자신의 잃은 체력에 비례해서 공격력과 공격속도가 증가한다.\n" +
-            "20당 0.5의 공격력 0.75\n30당 0.25의 공격속도") },
+            "20당 0.75의 공격력\n30당 0.25의 공격속도") },
         {UnitClass.ArchM, new UnitData( 1.5f, 1.5f, 2f, 1.5f, 20f, "대마법사", "원거리 캐릭터\n" +
             "강력한 순간 화력\n" +
             "낮은 초당 데미지",

@@ -3,8 +3,8 @@ guid: c5ddd7781b760a64f828d00e4f66c802
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3971433995958755631
-    second: 481_0
+      213: 1566570246301157487
+    second: Five_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 481_0
+      name: Five_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f2128028d2e5d1730800000000000000
-      internalID: 3971433995958755631
+      spriteID: f680a76c6539db510800000000000000
+      internalID: 1566570246301157487
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      481_0: 3971433995958755631
+      Five_0: 1566570246301157487
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
