@@ -250,7 +250,7 @@ public class Unit : MonoBehaviour
                 rigidbody.linearVelocity = ((Vector3)TargetWid - transform.position).normalized * 1.5f * (Speed+ PlusStats.Speed);
                 //transform.position = Vector2.MoveTowards(transform.position, TargetWid, Speed * Time.deltaTime);
             }
-            if (Vector2.Distance(transform.position, TargetWid) <0.2f)
+            if ((TargetWid-(Vector2)transform.position).sqrMagnitude <0.2f)
             {
                 Move = false;
             }

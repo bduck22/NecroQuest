@@ -25,7 +25,7 @@ public class MobBase : MonoBehaviour
     [Header("etc")]
     public bool Lock;
 
-    public float LodingTime;
+    private float LodingTime;
 
     public Unit Target;
 
@@ -101,6 +101,7 @@ public class MobBase : MonoBehaviour
 
     void Awake()
     {
+        LodingTime = Random.Range(0.1f, 0.3f);
         ani = GetComponentInChildren<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
         if (!Ghosted)
@@ -168,7 +169,7 @@ public class MobBase : MonoBehaviour
                     {
                         transform.position += (Target.transform.position - transform.position).normalized * Speed * 1.5f * Time.deltaTime;
                     }
-                    if (Type == MobType.Ghost && Vector2.Distance(transform.position, Target.transform.position) > Intersection && goaled)
+                    if (Type == MobType.Ghost && ((Vector2)(Target.transform.position-transform.position)).sqrMagnitude > Intersection && goaled)
                     {
                         goaled = false;
                         TargetLoad();
@@ -178,7 +179,7 @@ public class MobBase : MonoBehaviour
             }
             else if (AttackType == Attack_Type.longRange )
             {
-                if (Vector2.Distance(transform.position, Target.transform.position) > Intersection + 2)
+                if (((Vector2)(Target.transform.position - transform.position)).sqrMagnitude > Intersection + 2)
                 {
                     if (Type == MobType.Dullahan)
                     {
@@ -365,7 +366,7 @@ public class MobBase : MonoBehaviour
     }
     public void DullahanHeal(Transform position)
     {
-        if (Vector2.Distance(transform.position, position.position) < 10)
+        if (((Vector2)(position.position-transform.position)).sqrMagnitude < 10)
         {
             HpCh(50);
         }
@@ -492,14 +493,14 @@ public class MobBase : MonoBehaviour
                             break;
                         case UnitTargetType.Far:
 
-                            if (Vector2.Distance(transform.position, Target.transform.position) < Vector2.Distance(transform.position, u.transform.position))
+                            if (((Vector2)(Target.transform.position-transform.position)).sqrMagnitude < ((Vector2)(u.transform.position - transform.position)).sqrMagnitude)
                             {
                                 Target = u;
                             }
                             break;
                         case UnitTargetType.Close:
 
-                            if (Vector2.Distance(transform.position, Target.transform.position) > Vector2.Distance(transform.position, u.transform.position))
+                            if (((Vector2)(Target.transform.position - transform.position)).sqrMagnitude > ((Vector2)(u.transform.position - transform.position)).sqrMagnitude)
                             {
                                 Target = u;
                             }

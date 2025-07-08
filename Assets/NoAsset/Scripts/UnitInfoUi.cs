@@ -5,10 +5,14 @@ using UnityEngine.UI;
 
 public class UnitInfoUi : MonoBehaviour
 {
-    [SerializeField] private float LoadTime;
+    private float LoadTime;
 
     float time;
 
+    private void Start()
+    {
+        LoadTime = Random.Range(0.1f, 0.3f);
+    }
     void Update()
     {
         if (time < LoadTime)
@@ -74,8 +78,8 @@ public class UnitInfoUi : MonoBehaviour
                     {
                         Cha.GetChild(j).gameObject.SetActive(true);
                     }
-                    Cha.GetChild(0).GetComponentInChildren<Text>().text = (unit.SkillCoolTime + unit.PlusStats.SkillCool - unit.SkillTime).ToString("#,###");
-                    Cha.GetChild(0).GetChild(1).GetComponent<Image>().fillAmount = 1 - unit.SkillTime / (unit.SkillCoolTime + unit.PlusStats.SkillCool);
+                    Cha.GetChild(0).GetComponentInChildren<Text>().text = (((unit.SkillCoolTime + unit.PlusStats.SkillCool) < 5 ? 5 : (unit.SkillCoolTime + unit.PlusStats.SkillCool)) - unit.SkillTime).ToString("#,###");
+                    Cha.GetChild(0).GetChild(1).GetComponent<Image>().fillAmount = 1 - unit.SkillTime / ((unit.SkillCoolTime + unit.PlusStats.SkillCool)<5?5: (unit.SkillCoolTime + unit.PlusStats.SkillCool));
                     if (PlayerManager.instance.SeletedUnits.Contains(i))
                     {
                         Cha.GetChild(1).GetComponent<Image>().color = Color.red;

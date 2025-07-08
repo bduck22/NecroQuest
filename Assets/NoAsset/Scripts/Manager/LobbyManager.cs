@@ -271,4 +271,8 @@ public class LobbyManager : MonoBehaviour
         Data.Save();
         Application.Quit();
     }
+    public void Credit()
+    {
+        SceneManager.LoadScene(4);
+    }
 }

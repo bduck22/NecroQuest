@@ -75,7 +75,8 @@ public class SpiritMove : MonoBehaviour
 
             ////transform.position = Direction;
             //transform.Translate(SpeedPerSecond/180f * Direction*Time.deltaTime);
-            //Mathf.Sin((Mathf.PI / Vector2.Distance(OriginPos, Target)) * ((angle * Mathf.Dg2Rad) - OriginPos.x)) 0 ~ 30 ~ 150 30 - (0 + 0) 31 - (1 + 0.2)
+            //Mathf.Sin((Mathf.PI / Vector2.
+            //(OriginPos, Target)) * ((angle * Mathf.Dg2Rad) - OriginPos.x)) 0 ~ 30 ~ 150 30 - (0 + 0) 31 - (1 + 0.2)
     }
     public Vector3 BezierTest(Vector3 P_1, Vector3 P_2, Vector3 P_3, float value)
     {

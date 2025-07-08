@@ -20,7 +20,7 @@ public class UnitAttack : MonoBehaviour
                     }
                     else
                     {
-                        if(Vector2.Distance(transform.position, Unit.TargetUnit.position) > Vector2.Distance(transform.position, collision.transform.position))
+                        if(((Vector2)(Unit.TargetUnit.position-transform.position)).sqrMagnitude > ((Vector2)(collision.transform.position-transform.position)).sqrMagnitude)
                         {
                             Unit.TargetUnit = collision.transform;
                         }
@@ -36,7 +36,7 @@ public class UnitAttack : MonoBehaviour
                     }
                     else
                     {
-                        if (Vector2.Distance(transform.position, Unit.TargetUnit.position) < Vector2.Distance(transform.position, collision.transform.position))
+                        if (((Vector2)(Unit.TargetUnit.position - transform.position)).sqrMagnitude < ((Vector2)(collision.transform.position - transform.position)).sqrMagnitude)
                         {
                             Unit.TargetUnit = collision.transform;
                         }
@@ -46,7 +46,7 @@ public class UnitAttack : MonoBehaviour
             case UnitTargetType.LowHp: //가장 체력이 낮은 아군
                 if (collision.CompareTag("HitBox"))
                 {
-                    if(collision.transform.parent.GetComponent<Unit>().Hp < (collision.transform.parent.GetComponent<Unit>().MaxHp+ collision.transform.parent.GetComponent<Unit>().PlusStats.Hp) * 20)
+                    if(collision.gameObject.activeSelf)
                     {
                         if (!Unit.TargetUnit)
                         {

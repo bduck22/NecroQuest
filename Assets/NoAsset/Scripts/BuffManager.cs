@@ -8,10 +8,11 @@ public class BuffManager : MonoBehaviour
     Unit Unit;
     MobBase Mob;
     public bool IsUnit;
-    public float LodingTime;
+    private float LodingTime;
     private float time;
     void Start()
     {
+        LodingTime = Random.Range(0.1f, 0.3f);
         if (IsUnit)
         {
             Unit = GetComponent<Unit>();
