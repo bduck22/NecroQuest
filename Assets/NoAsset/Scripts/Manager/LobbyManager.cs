@@ -41,7 +41,7 @@ public class LobbyManager : MonoBehaviour
     string path;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKey(KeyCode.M))
         {
             Data.LocalData.Gold += 10000;
         }

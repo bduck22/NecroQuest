@@ -78,8 +78,17 @@ public class MobBase : MonoBehaviour
         Damage = stat.Damage;
         AttackSpeed = stat.AttackSpeed;
         Intersection = stat.Intersection;
-        MaxHp += GameManager.instance.Diffi * 0.75f;
+        MaxHp += GameManager.instance.Diffi * 1.5f;
         Damage += GameManager.instance.Diffi * 0.75f;
+        if (Type == MobType.Dullahan)
+        {
+            MaxHp *= 2;
+            Damage *= 1.25f;
+        }
+        if(Type == MobType.Necro)
+        {
+            MaxHp *= 1.5f;
+        }
         if (spawnManager.Boss)
         {
             if (spawnManager.Boss.Type == MobType.Necro && Type != MobType.Necro)
@@ -123,7 +132,7 @@ public class MobBase : MonoBehaviour
             if (Target.transform.position.x < transform.position.x)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
-                if (Arm && Type == MobType.Zombie)
+                if (Arm)
                 {
                     switch (Type)
                     {
@@ -169,7 +178,7 @@ public class MobBase : MonoBehaviour
                     {
                         transform.position += (Target.transform.position - transform.position).normalized * Speed * 1.5f * Time.deltaTime;
                     }
-                    if (Type == MobType.Ghost && ((Vector2)(Target.transform.position-transform.position)).sqrMagnitude > Intersection && goaled)
+                    if (Type == MobType.Ghost && Vector2.Distance(transform.position, Target.transform.position) > Intersection && goaled)
                     {
                         goaled = false;
                         TargetLoad();
@@ -179,7 +188,7 @@ public class MobBase : MonoBehaviour
             }
             else if (AttackType == Attack_Type.longRange )
             {
-                if (((Vector2)(Target.transform.position - transform.position)).sqrMagnitude > Intersection + 2)
+                if ((Vector2.Distance(transform.position, Target.transform.position) > Intersection + 2))
                 {
                     if (Type == MobType.Dullahan)
                     {
@@ -237,7 +246,7 @@ public class MobBase : MonoBehaviour
                         break;
                     case MobType.Necro:
                         AE = AttackPostion.GetComponent<AttackEffect>();
-                        AE.Damage = MaxHp * 20/30;
+                        AE.Damage = MaxHp * 20/60;
                         break;
                     case MobType.Dullahan:
                         AE = AttackPostion.GetComponent<AttackEffect>();
@@ -256,10 +265,10 @@ public class MobBase : MonoBehaviour
             switch (Type)
             {
                 case MobType.Dullahan:
-                    spawnManager.Spawn(2, 5);
+                    StartCoroutine(spawnManager.Spawn(2, 5));
                     break;
                 case MobType.Necro:
-                    spawnManager.Spawn(Random.Range(0, 5), 3);
+                    StartCoroutine(spawnManager.Spawn(Random.Range(0, 5), 3));
                     break;
             }
         }
@@ -407,7 +416,7 @@ public class MobBase : MonoBehaviour
                             }
                         }
                     }
-                    MaxHp += C / 5f;
+                    MaxHp += C / 2.5f;
                     PlayerManager.instance.Heal(transform, MaxHp * 20);
                     Hp = MaxHp * 20;
                     ani.SetTrigger("P2");

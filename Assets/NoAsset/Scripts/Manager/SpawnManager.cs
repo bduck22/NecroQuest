@@ -70,7 +70,7 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(SpawnDelay);
             int Wid = Random.Range(2, spawnPoints.childCount - 2);
-            Spawn(info.Type, info.Count * (1+Data.LocalData.diffi*0.1f));
+            StartCoroutine(Spawn(info.Type, info.Count * (1+Data.LocalData.diffi*0.1f)));
             if (info.middle || info.final)
             {
                 MobCount++;
@@ -92,7 +92,7 @@ public class SpawnManager : MonoBehaviour
         }
         waving = false;
     }
-    public void Spawn(int type, float count)
+    public IEnumerator Spawn(int type, float count)
     {
         int Wid = Random.Range(2, spawnPoints.childCount - 2);
         for (int i = 0; i < count; i++)
@@ -124,6 +124,7 @@ public class SpawnManager : MonoBehaviour
                 Mobs.Add(mob.GetComponent<MobBase>());
             }
             mob.transform.position = spawnPoints.GetChild(Wid + Random.Range(-2, 3)).position;
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

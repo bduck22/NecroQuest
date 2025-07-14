@@ -19260,16 +19260,16 @@ MonoBehaviour:
   AttackSpeed: 1
   Intersection: 5
   SpawnSpeed: 2.5
-  AttackWeight: 1.7
+  AttackWeight: 1.5
   Type: 6
   MobTargetType: 0
   AttackType: 0
   Lock: 0
-  LodingTime: 0.1
   Target: {fileID: 0}
   AttackOb: {fileID: 0}
   HitImage:
   - {fileID: 7169929292894181275}
+  targetP: {x: 0, y: 0, z: 0}
   attack: 0
   spawnManager: {fileID: 0}
   Ghosted: 1
@@ -19354,7 +19354,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsUnit: 0
-  LodingTime: 0.1
 --- !u!95 &2842473115164095249
 Animator:
   serializedVersion: 7

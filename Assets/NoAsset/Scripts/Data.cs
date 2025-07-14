@@ -78,7 +78,7 @@ public class Guardian : NameDEscriptionBase
                 break;
             case GuardianType.Four:
                 Stats.AttackSpeed += 1;
-                Stats.GetDamage += 0.1f;
+                Stats.GetDamage += 0.05f;
                 Stats.SkillCool -= 0.5f;
                 break;
             case GuardianType.Five:
@@ -97,12 +97,12 @@ public class Guardian : NameDEscriptionBase
                 Stats.Damage -= 1.5f;
                 break;
             case GuardianType.Eight:
-                Stats.GetDamage -= 0.05f;
+                Stats.GetDamage -= 0.025f;
                 Stats.GetHeal += 0.15f;
                 Stats.Speed -= 1;
                 break;
             case GuardianType.Nine:
-                Stats.GetDamage += 0.1f;
+                Stats.GetDamage += 0.05f;
                 Stats.SkillDamage += 0.25f;
                 Stats.AttackDamage += 0.15f;
                 break;
@@ -173,12 +173,12 @@ public static class Data
         {0, new Guardian((GuardianType)0, "마력", "스킬 피해량 +20%\n공격 속도 - 0.5\n 스킬 쿨타임 - 1초") },
         {1, new Guardian((GuardianType)1, "불신", "무적시간 + 0.05초\n가하는 피해량 및 회복량 - 7.5%\n사거리 + 1.5") },
         {2, new Guardian((GuardianType)2, "공성", "이동속도 -1.5\n공격력 + 1\n사거리 + 3") },
-        {3, new Guardian((GuardianType)3, "쾌속", "공격속도 + 1\n받는 피해량 + 10%\n스킬 쿨타임 - 0.5초") },
+        {3, new Guardian((GuardianType)3, "쾌속", "공격속도 + 1\n받는 피해량 + 2.5%\n스킬 쿨타임 - 0.5초") },
         {4, new Guardian((GuardianType)4, "괴력", "공격력 + 2\n기본공격 피해량 + 15%\n 공격속도 - 0.75") },
         {5, new Guardian((GuardianType)5, "경질", "최대체력 + 2\n사기 획득량 + 20%\n받는 치유량 - 10%") },
         {6, new Guardian((GuardianType)6, "숙련", "가하는 피해량 및 회복량 + 20%\n사기 획득량 + 10%\n공격력 - 1.5") },
         {7, new Guardian((GuardianType)7, "불굴", "받는 피해량 - 5%\n받는 치유량 + 15%\n이동속도 -1") },
-        {8, new Guardian((GuardianType)8, "파괴", "받는 피해량 + 10%\n스킬 피해량 + 25%\n기본공격 피해량 + 15%") },
+        {8, new Guardian((GuardianType)8, "파괴", "받는 피해량 + 5%\n스킬 피해량 + 25%\n기본공격 피해량 + 15%") },
         {9, new Guardian((GuardianType)9, "집중", "스킬 피해량 + 100%\n스킬 쿨타임 + 2초\n기본공격 피해량 - 15%") },
         {10, new Guardian((GuardianType)10, "요정", "받는 치유량 + 10%\n가하는 피해량 및 가하는 회복량 + 5%\n스킬 쿨타임 + 1초") },
         {11, new Guardian((GuardianType)11, "신속", "이동속도 + 3\n사거리 + 1.5\n무적시간 - 0.05초") },
@@ -192,7 +192,7 @@ public static class Data
         {MobType.Skull, new MobStat(1, 1, 1.5f, 1, 7) },
         {MobType.Ghost, new MobStat(0.5f, 14, 1.5f, 0, 12) },
         {MobType.Shade, new MobStat(1.75f, 3, 10, 0.5f, 0) },
-        {MobType.Ghoul, new MobStat(2, 1.5f, 2.5f, 1, -1.5f) },
+        {MobType.Ghoul, new MobStat(5, 1.5f, 4, 1, -1.5f) },
         {MobType.Dullahan, new MobStat(20, 7, 13, 0.5f, 0) },
         {MobType.Necro, new MobStat(25, 5, 17, 1, 2.5f) }
     };
