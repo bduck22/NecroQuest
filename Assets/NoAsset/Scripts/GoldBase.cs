@@ -19,9 +19,13 @@ public class GoldBase : MonoBehaviour
     {
         if ((collision.CompareTag("HitBox")&&gameObject.activeSelf)|| collision.gameObject.layer == 8||collision.gameObject.layer==6)
         {
-            gameObject.SetActive(false);
-            GameManager.instance.gold += Value;
-            GoldNumber.Spawn((Vector2)transform.position + new Vector2(0, 1.2f), Value);
+            Get();
         }
+    }
+    public void Get()
+    {
+        gameObject.SetActive(false);
+        GameManager.instance.gold += Value;
+        GoldNumber.Spawn((Vector2)transform.position + new Vector2(0, 1.2f), Value);
     }
 }

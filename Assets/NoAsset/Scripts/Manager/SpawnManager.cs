@@ -20,6 +20,7 @@ public class SpawnManager : MonoBehaviour
 
     public float SpawnDelay;
     public bool waving = false;
+    //public List<>
     void Start()
     {
         spawnPoints = transform.GetChild(0);
@@ -34,7 +35,7 @@ public class SpawnManager : MonoBehaviour
         else if (IsBoss)
         {
             BossUI.value = Boss.Hp / (Boss.MaxHp * 20f);
-            if (Boss.Hp <= 0||!Boss.gameObject.activeSelf)
+            if (Boss.Hp <= 0 || !Boss.gameObject.activeSelf)
             {
                 BossUI.transform.parent.gameObject.SetActive(false);
                 IsBoss = false;
@@ -70,7 +71,7 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(SpawnDelay);
             int Wid = Random.Range(2, spawnPoints.childCount - 2);
-            StartCoroutine(Spawn(info.Type, info.Count * (1+Data.LocalData.diffi*0.1f)));
+            StartCoroutine(Spawn(info.Type, info.Count * (1 + Data.LocalData.diffi * 0.1f)));
             if (info.middle || info.final)
             {
                 MobCount++;

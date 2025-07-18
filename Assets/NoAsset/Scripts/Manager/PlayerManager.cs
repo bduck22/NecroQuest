@@ -108,6 +108,16 @@ public class PlayerManager : MonoBehaviour
     public bool Alive=false;
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            foreach(GoldBase g in Goldpool)
+            {
+                if (g.gameObject.activeSelf)
+                {
+                    g.Get();
+                }
+            }
+        }
         QuestT.text = OQuestValue.ToString("#,##0") + Qdesc + "\n(" + (OQuestValue - QuestValue).ToString("#,##0") + Qdesc2 + ")";
         if (GameManager.instance.GameStatus != GameStatus.Waving)
         {

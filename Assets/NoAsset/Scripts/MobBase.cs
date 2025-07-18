@@ -110,7 +110,6 @@ public class MobBase : MonoBehaviour
 
     void Awake()
     {
-        LodingTime = Random.Range(0.1f, 0.3f);
         ani = GetComponentInChildren<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
         if (!Ghosted)

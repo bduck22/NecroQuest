@@ -247,7 +247,7 @@ public class Unit : MonoBehaviour
                     }
                     else transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
-                rigidbody.linearVelocity = ((Vector3)TargetWid - transform.position).normalized * 1.5f * (Speed+ PlusStats.Speed);
+                rigidbody.linearVelocity = ((Vector3)TargetWid - transform.position).normalized * 1.5f * ((Speed+ PlusStats.Speed)<0.5f?0.5f: (Speed + PlusStats.Speed));
                 //transform.position = Vector2.MoveTowards(transform.position, TargetWid, Speed * Time.deltaTime);
             }
             if ((TargetWid-(Vector2)transform.position).sqrMagnitude <0.2f)

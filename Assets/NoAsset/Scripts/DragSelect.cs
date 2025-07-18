@@ -5,14 +5,6 @@ public class DragSelect : MonoBehaviour
     public bool Close;
     [SerializeField] Material NotSelect;
     [SerializeField] Material Select;
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("HitBox"))
