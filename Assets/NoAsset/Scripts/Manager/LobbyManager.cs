@@ -242,19 +242,19 @@ public class LobbyManager : MonoBehaviour
         switch (n - 1)
         {
             case 0:
-                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "공격력 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.3f).ToString("#,##0.0") +
-                    "\n공격속도 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0.0");
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "공격력 + " + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.3f).ToString("#,##0.0") +
+                    "\n공격속도 + " + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0.0");
                 break;
             case 1:
-                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "체력 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.25f).ToString("#,##0.0") +
-                    "\n받는피해량 -" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.003f).ToString("#,##0.#%");
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "체력 + " + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.25f).ToString("#,##0.0") +
+                    "\n받는피해량 - " + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.003f).ToString("#,##0.#%");
                 break;
             case 2:
-                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "스킬 쿨타임 -" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0.0초") +
-                    "\n가하는 피해량 및 회복량 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.01f).ToString("#,##0%");
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "스킬 쿨타임 - " + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0.0초") +
+                    "\n가하는 전체 위력 + " + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.01f).ToString("#,##0%");
                 break;
             case 3:
-                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "획득 사기량 +" + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0%") +
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "획득 사기량 + " + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0%") +
                     "\n가호 획득 확률 + " + (Data.LocalData.Blessing[(BlessingType)(n - 1)]*0.01f).ToString("#,##0%") + "\n(기본 확률 : 45%)";
                 break;
         }

@@ -170,20 +170,20 @@ public static class Data
 {
     public static readonly Dictionary<int, Guardian> GuardianData = new Dictionary<int, Guardian>()
     {
-        {0, new Guardian((GuardianType)0, "마력", "스킬 피해량 +20%\n공격 속도 - 0.5\n 스킬 쿨타임 - 1초") },
-        {1, new Guardian((GuardianType)1, "불신", "무적시간 + 0.05초\n가하는 피해량 및 회복량 - 7.5%\n사거리 + 1.5") },
+        {0, new Guardian((GuardianType)0, "마력", "스킬 위력 + 20%\n공격 속도 - 0.5\n 스킬 쿨타임 - 1초") },
+        {1, new Guardian((GuardianType)1, "불신", "무적시간 + 0.05초\n가하는 전체 위력 - 7.5%\n사거리 + 1.5") },
         {2, new Guardian((GuardianType)2, "공성", "이동속도 -1.5\n공격력 + 1\n사거리 + 3") },
         {3, new Guardian((GuardianType)3, "쾌속", "공격속도 + 1\n받는 피해량 + 2.5%\n스킬 쿨타임 - 0.5초") },
-        {4, new Guardian((GuardianType)4, "괴력", "공격력 + 2\n기본공격 피해량 + 15%\n 공격속도 - 0.75") },
+        {4, new Guardian((GuardianType)4, "괴력", "공격력 + 2\n기본공격 위력 + 15%\n 공격속도 - 0.75") },
         {5, new Guardian((GuardianType)5, "경질", "최대체력 + 2\n사기 획득량 + 20%\n받는 치유량 - 10%") },
-        {6, new Guardian((GuardianType)6, "숙련", "가하는 피해량 및 회복량 + 20%\n사기 획득량 + 10%\n공격력 - 1.5") },
+        {6, new Guardian((GuardianType)6, "숙련", "가하는 전체 위력 + 20%\n사기 획득량 + 10%\n공격력 - 1.5") },
         {7, new Guardian((GuardianType)7, "불굴", "받는 피해량 - 5%\n받는 치유량 + 15%\n이동속도 -1") },
-        {8, new Guardian((GuardianType)8, "파괴", "받는 피해량 + 5%\n스킬 피해량 + 25%\n기본공격 피해량 + 15%") },
-        {9, new Guardian((GuardianType)9, "집중", "스킬 피해량 + 100%\n스킬 쿨타임 + 2초\n기본공격 피해량 - 15%") },
-        {10, new Guardian((GuardianType)10, "요정", "받는 치유량 + 10%\n가하는 피해량 및 가하는 회복량 + 5%\n스킬 쿨타임 + 1초") },
+        {8, new Guardian((GuardianType)8, "파괴", "받는 피해량 + 5%\n스킬 위력 + 25%\n기본공격 위력 + 15%") },
+        {9, new Guardian((GuardianType)9, "집중", "스킬 위력 + 100%\n스킬 쿨타임 + 2초\n기본공격 위력 - 15%") },
+        {10, new Guardian((GuardianType)10, "요정", "받는 치유량 + 10%\n가하는 전체 위력 + 5%\n스킬 쿨타임 + 1초") },
         {11, new Guardian((GuardianType)11, "신속", "이동속도 + 3\n사거리 + 1.5\n무적시간 - 0.05초") },
-        {12, new Guardian((GuardianType)12, "격노", "사기 획득량 + 20%\n기본공격 피해량 + 20%\n최대체력 - 2") },
-        {13, new Guardian((GuardianType)13, "위압", "가하는 피해량 및 가하는 회복량 + 7.5%\n무적시간 + 0.025초\n사거리 - 2.5") },
+        {12, new Guardian((GuardianType)12, "격노", "사기 획득량 + 20%\n기본공격 위력 + 20%\n최대체력 - 2") },
+        {13, new Guardian((GuardianType)13, "위압", "가하는 전체 위력 + 7.5%\n무적시간 + 0.025초\n사거리 - 2.5") },
         {14, new Guardian((GuardianType)14, "육체", "공격력 +1.5\n최대체력 + 2\n사기 획득량 - 50%") }
     };
     public static readonly Dictionary<MobType, MobStat> MobData = new Dictionary<MobType, MobStat>()

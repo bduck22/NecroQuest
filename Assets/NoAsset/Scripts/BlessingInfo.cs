@@ -1,20 +1,31 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BlessingInfo : MonoBehaviour
 {
     Text text;
+    private void OnEnable()
+    {
+        UnitStats stat = PlayerManager.instance.PStat;
+
+        text = GetComponent<Text>();
+        text.text = "공격력 + " + (stat.Damage).ToString("#,##0.0") +
+                    "\n공격속도 + " + (stat.AttackSpeed).ToString("#,##0.0") +
+                    "\n체력 + " + (stat.Hp).ToString("#,##0.0") +
+                    "\n이동속도 + " + (stat.Speed).ToString("#,##0.0") +
+                    "\n받는피해량 - " + (stat.GetDamage).ToString("#,##0.#%") +
+                    "\n가하는 전체 위력 + " + (stat.SetValue).ToString("#,##0.#%") +
+                    "\n받는 치유량 + " + (stat.GetHeal).ToString("#,##0.#%") +
+                    "\n사거리 + " + (stat.Intersection).ToString("#,##0.#") +
+                    "\n기본공격 위력 + " + (stat.AttackDamage).ToString("#,##0.#%") +
+                    "\n스킬 위력 + " + (stat.SkillDamage).ToString("#,##0.#%") +
+                    "\n스킬 쿨타임 - " + (stat.SkillCool).ToString("#,##0.0초") +
+                    "\n무적 시간 + " + (stat.InvinTime).ToString("#,##0.0##초") +
+                    "\n획득 사기량 + " + (stat.MoralUp).ToString("#,##0.#%");
+    }
     void Start()
     {
-        text = GetComponent<Text>();
-        text.text = "공격력 +" + (Data.LocalData.Blessing[BlessingType.Attack] * 0.25f).ToString("#,##0.0") +
-                    "\n공격속도 +" + (Data.LocalData.Blessing[BlessingType.Attack] * 0.1f).ToString("#,##0.0") +
-                    "\n체력 +" + (Data.LocalData.Blessing[BlessingType.Defence] * 0.25f).ToString("#,##0.0") +
-                    "\n받는피해량 -" + (Data.LocalData.Blessing[BlessingType.Defence] * 0.003f).ToString("#,##0.#%") +
-                    "\n스킬 쿨타임 -" + (Data.LocalData.Blessing[BlessingType.Skill] * 0.1f).ToString("#,##0.0초") +
-                    "\n가하는 피해량 및 회복량 +" + (Data.LocalData.Blessing[BlessingType.Skill] * 0.01f).ToString("#,##0%") +
-                    "\n획득 사기량 +" + (Data.LocalData.Blessing[BlessingType.Moral] * 0.1f).ToString("#,##0%");
+
     }
     public void onoff()
     {

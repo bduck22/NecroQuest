@@ -68,6 +68,8 @@ public class PlayerManager : MonoBehaviour
     public TMP_Text QuestT;
 
     public int killcount;
+
+    public UnitStats PStat;
     public void CreateGold(int value, Vector2 position)
     {
         GoldBase gold = null;
@@ -168,6 +170,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void StageStart()
     {
+        PStat = Data.Stats;
         GameManager.instance.Diffi = Data.LocalData.diffi;
         QuestType = (QuestType)Random.Range(0, 3);
         QuestValue = Random.Range(1, 10);
@@ -197,7 +200,6 @@ public class PlayerManager : MonoBehaviour
             {
                 Unit Unit = Instantiate(UnitPrefabs[Data.LocalData.Presets[Data.LocalData.SelectPreSet][i]].gameObject, UnitSpawnPoints.GetChild(i).transform.position, Quaternion.identity).GetComponent<Unit>();
                 Units[i] = Unit;
-                Unit.Spawn();
             }
         }
         foreach (Unit unit in Units)
@@ -222,6 +224,7 @@ public class PlayerManager : MonoBehaviour
                         }
                     }
                 }
+                unit.Spawn();
             }
         }
         UUi.LoadFirst();
@@ -250,6 +253,7 @@ public class PlayerManager : MonoBehaviour
             {
                 if (unit.gameObject.activeSelf)
                 {
+                    PStat.PlusStat(guardians[guardians.Count - 1].Stats);
                     unit.PlusStats.PlusStat(guardians[guardians.Count - 1].Stats);
                     unit.UnitInit();
                 }
@@ -283,7 +287,7 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (Unit unit in Units)
         {
-            if (unit != null)
+            if (unit != null&&unit.gameObject.activeSelf)
             {
                 if (unit.locked || unit.Hlocked) return false;
             }
