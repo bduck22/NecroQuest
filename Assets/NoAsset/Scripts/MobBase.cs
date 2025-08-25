@@ -139,7 +139,7 @@ public class MobBase : MonoBehaviour
                             Arm.localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
                             break;
                         case MobType.Ghoul:
-                            Arm.GetChild(0).localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z + 30);
+                            Arm.GetChild(0).localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z + 40);
                             Arm.GetChild(1).localRotation = Quaternion.Euler(0, 0, Quaternion.FromToRotation(Vector2.down, Target.transform.position - transform.position).eulerAngles.z);
                             break;
                     }
@@ -307,6 +307,10 @@ public class MobBase : MonoBehaviour
                 if (PlayerManager.instance.QuestType == QuestType.Attack)
                 {
                     PlayerManager.instance.QuestValue-= AE.Damage * AE.Weight;
+                    if(Hp- AE.Damage * AE.Weight <=0)
+                    {
+                        PlayerManager.instance.QuestValue += -(Hp - AE.Damage * AE.Weight);
+                    }
                 }
                 if (AE.Unit.UnitClass == UnitClass.DragonN)
                 {
@@ -455,7 +459,11 @@ public class MobBase : MonoBehaviour
                             Price = 10000;
                             break;
                     }
-                    PlayerManager.instance.CreateGold(Price, transform.position);
+                    Price *= (GameManager.instance.Diffi + 1);
+                    //
+                    //PlayerManager.instance.CreateGold(Price, transform.position);
+                    GameManager.instance.gold += Price;
+                    PlayerManager.instance.GoldNumber.Spawn((Vector2)transform.position + new Vector2(0, 1.2f), Price);
                     if (Type == MobType.Ghost)
                     {
                         transform.GetComponentInChildren<TrailRenderer>().enabled = false;

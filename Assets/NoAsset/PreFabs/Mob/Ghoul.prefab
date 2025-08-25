@@ -621,7 +621,6 @@ MonoBehaviour:
   MobTargetType: 2
   AttackType: 0
   Lock: 0
-  LodingTime: 0.1
   Target: {fileID: 0}
   AttackOb: {fileID: 6614026691645075885, guid: f6afadb7647796e4a83c34a983a486c1, type: 3}
   HitImage:
@@ -630,6 +629,7 @@ MonoBehaviour:
   - {fileID: 327323038061611086}
   - {fileID: 7808464877740267768}
   - {fileID: 7236047097969660848}
+  targetP: {x: 0, y: 0, z: 0}
   attack: 0
   spawnManager: {fileID: 0}
   Ghosted: 0
@@ -714,7 +714,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsUnit: 0
-  LodingTime: 0.1
 --- !u!1 &3481948828257456302
 GameObject:
   m_ObjectHideFlags: 0

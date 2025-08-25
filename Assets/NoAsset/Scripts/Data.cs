@@ -192,7 +192,7 @@ public static class Data
         {MobType.Skull, new MobStat(1, 1, 1.5f, 1, 7) },
         {MobType.Ghost, new MobStat(0.5f, 14, 1.5f, 0, 12) },
         {MobType.Shade, new MobStat(1.75f, 3, 10, 0.5f, 0) },
-        {MobType.Ghoul, new MobStat(5, 1.5f, 4, 1, -1.5f) },
+        {MobType.Ghoul, new MobStat(5, 2, 5, 1.2f, -1.5f) },
         {MobType.Dullahan, new MobStat(20, 7, 13, 0.5f, 0) },
         {MobType.Necro, new MobStat(25, 5, 17, 1, 2.5f) }
     };

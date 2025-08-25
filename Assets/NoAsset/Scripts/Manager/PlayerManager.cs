@@ -43,9 +43,9 @@ public class PlayerManager : MonoBehaviour
 
     public float MoralDownPer;
 
-    public List<GoldBase> Goldpool;
+    //public List<GoldBase> Goldpool;
 
-    public Transform GoldOb;
+    //public Transform GoldOb;
 
     public List<Guardian> guardians;
 
@@ -70,26 +70,26 @@ public class PlayerManager : MonoBehaviour
     public int killcount;
 
     public UnitStats PStat;
-    public void CreateGold(int value, Vector2 position)
-    {
-        GoldBase gold = null;
-        foreach (GoldBase g in Goldpool)
-        {
-            if (!g.gameObject.activeSelf && !gold)
-            {
-                g.transform.position = position;
-                g.gameObject.SetActive(true);
-                gold = g;
-                break;
-            }
-        }
-        if (!gold)
-        {
-            gold = Instantiate(GoldOb, position, Quaternion.identity).GetComponent<GoldBase>();
-            Goldpool.Add(gold);
-        }
-        gold.Value = value;
-    }
+    //public void CreateGold(int value, Vector2 position)
+    //{
+    //    GoldBase gold = null;
+    //    foreach (GoldBase g in Goldpool)
+    //    {
+    //        if (!g.gameObject.activeSelf && !gold)
+    //        {
+    //            g.transform.position = position;
+    //            g.gameObject.SetActive(true);
+    //            gold = g;
+    //            break;
+    //        }
+    //    }
+    //    if (!gold)
+    //    {
+    //        gold = Instantiate(GoldOb, position, Quaternion.identity).GetComponent<GoldBase>();
+    //        Goldpool.Add(gold);
+    //    }
+    //    gold.Value = value;
+    //}
 
     public void UnitsMoral(float Moral)
     {
@@ -107,19 +107,21 @@ public class PlayerManager : MonoBehaviour
     string Qdesc = string.Empty;
     string Qdesc2 = string.Empty;
 
+    public DamageNumber GoldNumber;
+
     public bool Alive=false;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            foreach(GoldBase g in Goldpool)
-            {
-                if (g.gameObject.activeSelf)
-                {
-                    g.Get();
-                }
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    foreach(GoldBase g in Goldpool)
+        //    {
+        //        if (g.gameObject.activeSelf)
+        //        {
+        //            g.Get();
+        //        }
+        //    }
+        //}
         QuestT.text = OQuestValue.ToString("#,##0") + Qdesc + "\n(" + (OQuestValue - QuestValue).ToString("#,##0") + Qdesc2 + ")";
         if (GameManager.instance.GameStatus != GameStatus.Waving)
         {
@@ -179,7 +181,7 @@ public class PlayerManager : MonoBehaviour
             case QuestType.Attack:
                 Qdesc = "의 피해 입히기";
                 Qdesc2 = "의 피해 입힘";
-                QuestValue = (GameManager.instance.Diffi == 0 ? 200 : GameManager.instance.Diffi * 500);
+                QuestValue = (GameManager.instance.Diffi == 0 ? 500 : 1250 * Mathf.Pow(2,GameManager.instance.Diffi));
                 break;
             case QuestType.Wave:
                 Qdesc = "웨이브 클리어하기";

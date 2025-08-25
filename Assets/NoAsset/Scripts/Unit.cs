@@ -312,7 +312,10 @@ public class Unit : MonoBehaviour
                 }
                 break;
             case UnitClass.HolyM:
-                TargetUnit.GetComponent<Unit>().HpChange(-Damage-PlusStats.Damage);
+                if(TargetUnit.GetComponent<Unit>().Hp < TargetUnit.GetComponent<Unit>().MaxHp)
+                {
+                    TargetUnit.GetComponent<Unit>().HpChange(-Damage - PlusStats.Damage);
+                }
                 break;
         }
         if (UnitClass != UnitClass.HolyM)

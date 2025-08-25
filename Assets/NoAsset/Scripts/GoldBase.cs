@@ -5,7 +5,7 @@ using static UnityEngine.Rendering.DebugUI;
 public class GoldBase : MonoBehaviour
 {
     public int Value;
-    public DamageNumber GoldNumber;
+    
     void Start()
     {
         
@@ -26,6 +26,6 @@ public class GoldBase : MonoBehaviour
     {
         gameObject.SetActive(false);
         GameManager.instance.gold += Value;
-        GoldNumber.Spawn((Vector2)transform.position + new Vector2(0, 1.2f), Value);
+        //GoldNumber.Spawn((Vector2)transform.position + new Vector2(0, 1.2f), Value);
     }
 }

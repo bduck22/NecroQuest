@@ -97,4 +97,13 @@ public class UnitInfoUi : MonoBehaviour
             }
         }
     }
+
+    public void Skills(int n)
+    {
+        Unit U = PlayerManager.instance.Units[n];
+        if (U != null&& U.gameObject.activeSelf)
+        {
+            PlayerManager.instance.SkillUse(n);
+        }
+    }
 }
