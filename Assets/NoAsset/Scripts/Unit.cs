@@ -99,7 +99,7 @@ public class Unit : MonoBehaviour
     public void UnitInit()
     {
         AttackTime = 1;
-        SkillTime = SkillCoolTime+PlusStats.SkillCool;
+        SkillTime = (SkillCoolTime+PlusStats.SkillCool<5?5: SkillCoolTime + PlusStats.SkillCool);
         Interaction.radius = Intersection + 2f+PlusStats.Intersection;
         if(Interaction.radius < 2)
         {
@@ -134,8 +134,19 @@ public class Unit : MonoBehaviour
                 break;
         }
         gameObject.SetActive(true);
+
+
         Hp = (MaxHp + PlusStats.Hp) * 20;
-        UnitInit();
+        AttackTime = 1;
+        SkillTime = SkillCoolTime + PlusStats.SkillCool;
+        Interaction.radius = Intersection + 2f + PlusStats.Intersection;
+        if (Interaction.radius < 2)
+        {
+            Interaction.radius = 2;
+        }
+        TargetUnit = null;
+        Invin = false;
+        Move = false;
     }
     public void HpUp(float value)
     {
@@ -262,6 +273,14 @@ public class Unit : MonoBehaviour
     }
     void Attack()
     {
+        if (UnitClass == UnitClass.HolyM)
+        {
+            if (TargetUnit.GetComponent<Unit>().Hp >= ((TargetUnit.GetComponent<Unit>().MaxHp + TargetUnit.GetComponent<Unit>().PlusStats.Hp) * 20))
+            {
+                return;
+            }
+        }
+
         float attackweight = AttackWeight+PlusStats.SetValue + PlusStats.AttackDamage;
         AttackAnimation.SetFloat("AttackSpeed", (AttackSpeed+ PlusStats.AttackSpeed));
         if (TargetUnit.transform.position.x >= transform.position.x)
@@ -312,10 +331,8 @@ public class Unit : MonoBehaviour
                 }
                 break;
             case UnitClass.HolyM:
-                if(TargetUnit.GetComponent<Unit>().Hp < TargetUnit.GetComponent<Unit>().MaxHp)
-                {
+
                     TargetUnit.GetComponent<Unit>().HpChange(-Damage - PlusStats.Damage);
-                }
                 break;
         }
         if (UnitClass != UnitClass.HolyM)

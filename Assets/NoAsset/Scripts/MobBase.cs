@@ -434,7 +434,7 @@ public class MobBase : MonoBehaviour
                     spawnManager.MobCount--;
                     if (spawnManager.Boss)
                     {
-                        if (spawnManager.Boss.Type == MobType.Dullahan)
+                        if (spawnManager.Boss.Type == MobType.Dullahan&&Type!=MobType.Dullahan)
                         {
                             spawnManager.Boss.DullahanHeal(transform);
                         }

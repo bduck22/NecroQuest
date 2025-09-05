@@ -198,7 +198,7 @@ public static class Data
     };
     public static readonly Dictionary<UnitClass, UnitData> UnitData = new Dictionary<UnitClass, UnitData>()
     {
-        {UnitClass.GuardN, new UnitData( 3.0f, 1.5f, 1.5f, 0.5f, 15f,"수호기사", "근거리 캐릭터\n" +
+        {UnitClass.GuardN, new UnitData( 4.0f, 1.5f, 2f, 1f, 15f,"수호기사", "근거리 캐릭터\n" +
             "받는 피해량 감소\n" +
             "도발디버프",
             "도발의 함성",
@@ -207,7 +207,7 @@ public static class Data
             "쿨타임 : 15초",
             "강인한 육체",
             "받는 피해량 -15%") },
-        {UnitClass.HolyM, new UnitData( 1.5f, 2f, 2f, 1f, 17f,  "신관", "원거리 캐릭터\n" +
+        {UnitClass.HolyM, new UnitData( 2.5f, 2f, 1.5f, 0.5f, 17f,  "신관", "원거리 캐릭터\n" +
             "압도적인 회복량\n" +
             "\"공격불가\" \n추천하지 않음",
             "치유의 파동",
@@ -215,15 +215,15 @@ public static class Data
             "쿨타임 : 17초",
             "불살",
             "신관의 기본공격은 적을 공격하는 대신\n체력이 가장 낮은 아군의\n체력을 (100%의공격력)만큼\n회복(50%)시킨다.") },
-        {UnitClass.SpiritM, new UnitData( 2.0f, 2f, 1f, 1f, 10f, "정령사", "원거리 캐릭터\n" +
+        {UnitClass.SpiritM, new UnitData( 2f, 3f, 1.5f, 1f, 10f, "정령사", "원거리 캐릭터\n" +
             "범용성 높음\n" +
-            "낮은 기본 능력치",
+            "초반 활용성 높음",
             "정령의가호",
             "현재 체력이 가장 낮은 아군에게 3초동안\n(대상의 현재 이동속도35%)만큼\n이동속도를 증가시키고 체력을 20 + (이동속도100%)만큼 회복(150%)시킨다.\n"+
             "쿨타임 : 10초",
             "4대정령",
             "스테이지 시작 시 모든 아군이 정령사의 가장 높은 능력치의 25%를 획득한다.") },
-        {UnitClass.Berserker, new UnitData( 2.5f, 1.5f, 2f, 1f, 15f, "광전사", "근거리 캐릭터\n" +
+        {UnitClass.Berserker, new UnitData( 4.5f, 2f, 3.5f, 2f, 15f, "광전사", "근거리 캐릭터\n" +
             "높은 기본 능력치\n" +
             "추천하지 않음",
             "광폭화",
@@ -232,7 +232,7 @@ public static class Data
             "발악",
             "광전사는 자신의 잃은 체력에 비례해서 공격력과 공격속도가 증가한다.\n" +
             "20당 0.75의 공격력\n30당 0.25의 공격속도") },
-        {UnitClass.ArchM, new UnitData( 1.5f, 1.5f, 2f, 1.5f, 20f, "대마법사", "원거리 캐릭터\n" +
+        {UnitClass.ArchM, new UnitData( 3f, 2.5f, 2.5f, 1f, 20f, "대마법사", "원거리 캐릭터\n" +
             "강력한 순간 화력\n" +
             "낮은 초당 데미지",
             "메테오",
@@ -241,7 +241,7 @@ public static class Data
             "마력집중",
             "대마법사가 기본공격을 할 떄마다 마력이 1씩 쌓인다.\n" +
             "마력 1당 메테오의 범위가 2%상승") },
-        {UnitClass.Archer, new UnitData( 1f, 1.5f, 2.5f, 1.5f, 12f, "궁수", "원거리 캐릭터\n" +
+        {UnitClass.Archer, new UnitData( 1.5f, 1.5f, 2f, 1f, 12f, "궁수", "원거리 캐릭터\n" +
             "넓은 공격범위\n" +
             "추천",
             "매지컬 샷",
@@ -249,7 +249,7 @@ public static class Data
             "쿨타임 : 12초",
             "크리티컬 샷",
             "궁수의 기본공격은 20%의 확률로 기본공격 피해량이 50%증가한다.") },
-        {UnitClass.DragonN, new UnitData( 2, 2, 1, 1, 10, "용기사", "근거리 캐릭터\n" +
+        {UnitClass.DragonN, new UnitData( 3.5f, 2f, 3f, 1.5f, 10, "용기사", "근거리 캐릭터\n" +
             "끈질긴 생명력\n" +
             "긴 선딜레이",
             "드래곤 러쉬",

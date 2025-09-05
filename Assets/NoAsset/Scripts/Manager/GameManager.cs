@@ -184,6 +184,20 @@ public class GameManager : MonoBehaviour
                 Result();
                 break;
         }
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            GuideBook.gameObject.SetActive(!GuideBook.gameObject.activeSelf);
+            Stop(!GuideBook.gameObject.activeSelf);
+        }
+    }
+    public Transform GuideBook;
+    public void Stop(bool isb)
+    {
+        Time.timeScale = (isb?1:0);
+        if (isb)
+        {
+            PlayerManager.instance.UnitManager.Setting.gameObject.SetActive(false);
+        }
     }
     void StageStart()
     {

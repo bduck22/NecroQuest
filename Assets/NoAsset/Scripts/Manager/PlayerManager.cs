@@ -181,7 +181,7 @@ public class PlayerManager : MonoBehaviour
             case QuestType.Attack:
                 Qdesc = "의 피해 입히기";
                 Qdesc2 = "의 피해 입힘";
-                QuestValue = (GameManager.instance.Diffi == 0 ? 500 : 1250 * Mathf.Pow(2,GameManager.instance.Diffi));
+                QuestValue = (GameManager.instance.Diffi == 0 ? 500 : 1250 * Mathf.Pow(2,GameManager.instance.Diffi)-500 * Mathf.Pow(2, GameManager.instance.Diffi));
                 break;
             case QuestType.Wave:
                 Qdesc = "웨이브 클리어하기";
@@ -202,6 +202,10 @@ public class PlayerManager : MonoBehaviour
             {
                 Unit Unit = Instantiate(UnitPrefabs[Data.LocalData.Presets[Data.LocalData.SelectPreSet][i]].gameObject, UnitSpawnPoints.GetChild(i).transform.position, Quaternion.identity).GetComponent<Unit>();
                 Units[i] = Unit;
+                if (Unit != null)
+                {
+                    Unit.Spawn();
+                }
             }
         }
         foreach (Unit unit in Units)
@@ -226,7 +230,13 @@ public class PlayerManager : MonoBehaviour
                         }
                     }
                 }
-                unit.Spawn();
+            }
+        }
+        foreach(Unit unit in Units)
+        {
+            if(unit != null)
+            {
+                unit.Hp = (unit.MaxHp + unit.PlusStats.Hp) * 20;
             }
         }
         UUi.LoadFirst();

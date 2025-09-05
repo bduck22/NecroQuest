@@ -49,7 +49,13 @@ public class LobbyManager : MonoBehaviour
         {
             Setting.gameObject.SetActive(!Setting.gameObject.activeSelf);
         }
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            GuideBook.gameObject.SetActive(!GuideBook.gameObject.activeSelf);
+        }
     }
+    public Transform GuideBook;
+
     bool iswanning = false;
 
 
@@ -228,7 +234,7 @@ public class LobbyManager : MonoBehaviour
     }
     public void BuffLevelUp(int Type)
     {
-        if (!UseMoney((Data.LocalData.Blessing[(BlessingType)(Type)] + 1) * 500))
+        if (!UseMoney((Data.LocalData.Blessing[(BlessingType)(Type)] + 1) * 1000))
         {
             return;
         }
@@ -258,7 +264,7 @@ public class LobbyManager : MonoBehaviour
                     "\n°¡È£ È¹µæ È®·ü + " + (Data.LocalData.Blessing[(BlessingType)(n - 1)]*0.01f).ToString("#,##0%") + "\n(±âº» È®·ü : 45%)";
                 break;
         }
-        Blessings.GetChild(n).GetChild(4).GetComponentInChildren<TMP_Text>().text = "·¹º§¾÷(" + ((Data.LocalData.Blessing[(BlessingType)(n - 1)] + 1) * 500).ToString("#,##0$)");
+        Blessings.GetChild(n).GetChild(4).GetComponentInChildren<TMP_Text>().text = "·¹º§¾÷(" + ((Data.LocalData.Blessing[(BlessingType)(n - 1)] + 1) * 1000).ToString("#,##0$)");
         BlessingLv.GetChild(n - 1).GetChild(1).GetComponent<Text>().text = "Lv." + Data.LocalData.Blessing[(BlessingType)(n - 1)].ToString("#,##0");
     }
     public void MainScreen()

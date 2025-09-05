@@ -274,7 +274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +10
+  m_text: +2200
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf4f37abd4e7e724da3b2662b9787068, type: 2}
   m_sharedMaterial: {fileID: 3373603598322536305, guid: cf4f37abd4e7e724da3b2662b9787068, type: 2}
@@ -416,7 +416,7 @@ MonoBehaviour:
   fovCamera: {fileID: 0}
   cameraOverride: {fileID: 0}
   enableNumber: 1
-  number: 10
+  number: 2200
   numberSettings:
     bold: 0
     italic: 0
@@ -647,7 +647,7 @@ MonoBehaviour:
   enableScaleByNumber: 1
   scaleByNumberSettings:
     fromNumber: 0
-    toNumber: 1000
+    toNumber: 10000
     fromScale: 1
     toScale: 8
   enableScaleOverTime: 0

@@ -46,6 +46,7 @@ public class UnitManager : MonoBehaviour
             }
             else
             {
+                GameManager.instance.GuideBook.gameObject.SetActive(false);
                 Time.timeScale = 1;
             }
         }

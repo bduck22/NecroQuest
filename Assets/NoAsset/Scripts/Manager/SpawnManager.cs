@@ -20,6 +20,8 @@ public class SpawnManager : MonoBehaviour
 
     public float SpawnDelay;
     public bool waving = false;
+
+    public Transform nextWButton;
     //public List<>
     void Start()
     {
@@ -48,6 +50,8 @@ public class SpawnManager : MonoBehaviour
             {
                 if (PlayerManager.instance.Checklock())
                 {
+                    nextWButton.gameObject.SetActive(false);
+                    nextW = false;
                     GameManager.instance.GameStatus = GameStatus.WaveEnd;
                 }
             }
@@ -59,7 +63,41 @@ public class SpawnManager : MonoBehaviour
                 mob.gameObject.SetActive(false);
             }
         }
+        if(GameManager.instance.GameStatus == GameStatus.Waving)
+        {
+            if (!waving && MobCount <= GameManager.instance.Wave+3 && !IsBoss)
+            {
+                nextWButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                nextWButton.gameObject.SetActive(false);
+            }
+
+        }
+        if (nextW)
+        {
+            if (PlayerManager.instance.Checklock())
+            {
+                nextW = false;
+                nextWButton.gameObject.SetActive(false);
+                foreach (MobBase mob in Mobs)
+                {
+                    if (mob.gameObject.activeSelf)
+                    {
+                        MobCount--;
+                        mob.gameObject.SetActive(false);
+                    }
+                }
+                GameManager.instance.GameStatus = GameStatus.WaveEnd;
+            }
+        }
     }
+    public void OnNW()
+    {
+        nextW = true;
+    }
+    public bool nextW;
     public void WaveStart()
     {
         StartCoroutine(Spawn());
