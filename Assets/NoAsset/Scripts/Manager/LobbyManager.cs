@@ -41,10 +41,10 @@ public class LobbyManager : MonoBehaviour
     string path;
     void Update()
     {
-        if (Input.GetKey(KeyCode.M))
-        {
-            Data.LocalData.Gold += 10000;
-        }
+        //if (Input.GetKey(KeyCode.M))
+        //{
+        //    Data.LocalData.Gold += 10000;
+        //}
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Setting.gameObject.SetActive(!Setting.gameObject.activeSelf);
@@ -215,13 +215,14 @@ public class LobbyManager : MonoBehaviour
     }
     public void startGame()
     {
+        Data.Stats = new UnitStats();
         foreach (int l in Data.LocalData.Presets[Data.LocalData.SelectPreSet])
         {
             if (l != -1)
             {
-                Data.Stats.Damage += (Data.LocalData.Blessing[BlessingType.Attack] * 0.25f);
+                Data.Stats.Damage += (Data.LocalData.Blessing[BlessingType.Attack] * 0.3f);
                 Data.Stats.AttackSpeed += (Data.LocalData.Blessing[BlessingType.Attack] * 0.1f);
-                Data.Stats.Hp += (Data.LocalData.Blessing[BlessingType.Defence] * 0.25f);
+                Data.Stats.Hp += (Data.LocalData.Blessing[BlessingType.Defence] * 0.2f);
                 Data.Stats.GetDamage -= (Data.LocalData.Blessing[BlessingType.Defence] * 0.003f);
                 Data.Stats.SkillCool -= (Data.LocalData.Blessing[BlessingType.Skill] * 0.1f);
                 Data.Stats.SetValue += (Data.LocalData.Blessing[BlessingType.Skill] * 0.01f);
@@ -252,7 +253,7 @@ public class LobbyManager : MonoBehaviour
                     "\n공격속도 + " + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.1f).ToString("#,##0.0");
                 break;
             case 1:
-                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "체력 + " + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.25f).ToString("#,##0.0") +
+                Blessings.GetChild(n).GetChild(3).GetComponent<TMP_Text>().text = "체력 + " + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.2f).ToString("#,##0.0") +
                     "\n받는피해량 - " + (Data.LocalData.Blessing[(BlessingType)(n - 1)] * 0.003f).ToString("#,##0.#%");
                 break;
             case 2:
