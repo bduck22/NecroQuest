@@ -174,7 +174,7 @@ public class PlayerManager : MonoBehaviour
     {
         PStat = Data.Stats;
         GameManager.instance.Diffi = Data.LocalData.diffi;
-        QuestType = (QuestType)Random.Range(0, 3);
+        QuestType = (QuestType)Random.Range(0,3);
         QuestValue = Random.Range(1, 10);
         switch (QuestType)
         {

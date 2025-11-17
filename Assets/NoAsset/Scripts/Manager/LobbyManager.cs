@@ -41,10 +41,10 @@ public class LobbyManager : MonoBehaviour
     string path;
     void Update()
     {
-        //if (Input.GetKey(KeyCode.M))
-        //{
-        //    Data.LocalData.Gold += 10000;
-        //}
+        if (Input.GetKey(KeyCode.M))
+        {
+            Data.LocalData.Gold += 10000;
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Setting.gameObject.SetActive(!Setting.gameObject.activeSelf);

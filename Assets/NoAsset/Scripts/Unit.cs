@@ -109,12 +109,18 @@ public class Unit : MonoBehaviour
         Invin = false;
         Move = false;
         if(GameManager.instance.GameStatus == GameStatus.Waving)locked = false;
-        HpChange(-(MaxHp + PlusStats.Hp) * 2);
+        if(GameManager.instance.Wave == 0)
+        {
+            PlusStats.Hp += 1;
+            PlusStats.Hp -= 1;
+        }
+        else HpChange(-(MaxHp + PlusStats.Hp) * 2);
     }
     public void Spawn()
     {
         Buff.Clear();
-        PlusStats = Data.Stats;
+        PlusStats = new UnitStats();
+        PlusStats.PlusStat(Data.Stats);
         Damage = Data.UnitData[UnitClass].Damage+ Data.LocalData.GetUnits[UnitClass].Damage;
         AttackSpeed = Data.UnitData[UnitClass].AttackSpeed+ Data.LocalData.GetUnits[UnitClass].AttackSpeed;
         MaxHp = Data.UnitData[UnitClass].Hp+ Data.LocalData.GetUnits[UnitClass].Hp;
@@ -191,15 +197,18 @@ public class Unit : MonoBehaviour
             }
             Data.LocalData.GetUnits.Remove(UnitClass);
             Data.Units.Remove((int)UnitClass);
-            int l = 0;
-            foreach(int i in Data.LocalData.Presets[Data.LocalData.SelectPreSet])
+            for (int o = 0; o < 3; o++)
             {
-                if(i== (int)UnitClass)
+                int l = 0;
+                foreach (int i in Data.LocalData.Presets[o])
                 {
-                    Data.LocalData.Presets[Data.LocalData.SelectPreSet][l] = -1;
-                    break;
+                    if (i == (int)UnitClass)
+                    {
+                        Data.LocalData.Presets[o][l] = -1;
+                        break;
+                    }
+                    l++;
                 }
-                l++;
             }
             if(Data.LocalData.StartingUnit == UnitClass)
             {
@@ -275,7 +284,10 @@ public class Unit : MonoBehaviour
     {
         if (UnitClass == UnitClass.HolyM)
         {
-            if (TargetUnit.GetComponent<Unit>().Hp >= ((TargetUnit.GetComponent<Unit>().MaxHp + TargetUnit.GetComponent<Unit>().PlusStats.Hp) * 20))
+            Debug.Log(TargetUnit.GetComponent<Unit>().Hp);
+            Debug.Log(((TargetUnit.GetComponent<Unit>().MaxHp + TargetUnit.GetComponent<Unit>().PlusStats.Hp) * 20));
+
+            if (TargetUnit.GetComponent<Unit>().Hp >= ((TargetUnit.GetComponent<Unit>().MaxHp + TargetUnit.GetComponent<Unit>().PlusStats.Hp) * 20))    
             {
                 return;
             }

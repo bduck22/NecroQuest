@@ -299,17 +299,24 @@ public class MobBase : MonoBehaviour
     {
         if (!Lock)
         {
-            if (collision.CompareTag("Attack"))
+            if (collision.CompareTag("Attack")&&Hp > 0)
             {
                 //collision.enabled = false;
                 AttackEffect AE = collision.GetComponent<AttackEffect>();
-                AE.Unit.SetDamages += AE.Damage * AE.Weight;
+                if (Hp - AE.Damage * AE.Weight <= 0)
+                {
+                    AE.Unit.SetDamages += Hp;
+                }
+                else AE.Unit.SetDamages += AE.Damage * AE.Weight;
                 if (PlayerManager.instance.QuestType == QuestType.Attack)
                 {
-                    PlayerManager.instance.QuestValue-= AE.Damage * AE.Weight;
                     if(Hp- AE.Damage * AE.Weight <=0)
                     {
-                        PlayerManager.instance.QuestValue += -(Hp - AE.Damage * AE.Weight);
+                        PlayerManager.instance.QuestValue -= Hp;
+                    }
+                    else
+                    {
+                        PlayerManager.instance.QuestValue -= AE.Damage * AE.Weight;
                     }
                 }
                 if (AE.Unit.UnitClass == UnitClass.DragonN)
